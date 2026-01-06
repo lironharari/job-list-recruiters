@@ -1,17 +1,39 @@
+
 import axios from 'axios';
 import type { Job } from '../types';
 
-//const API_URL = 'http://localhost:5000/api/jobs';
 const API_URL = import.meta.env.VITE_API_URL;
 
-/*
-export const fetchJobs = () => axios.get<Job[]>(API_URL).then(res => res.data);
-export const createJob = (job: Job) => axios.post<Job>(API_URL, job).then(res => res.data);
-export const updateJob = (id: string, job: Partial<Job>) => axios.put<Job>(`${API_URL}/${id}`, job).then(res => res.data);
-export const deleteJob = (id: string) => axios.delete(`${API_URL}/${id}`).then(res => res.data);
-*/
+const api = axios.create({
+  baseURL: API_URL,
+});
 
-export const fetchJobs = () => axios.get<Job[]>(`${API_URL}/api/jobs`).then(res => res.data);
-export const createJob = (job: Job) => axios.post<Job>(`${API_URL}/api/jobs`, job).then(res => res.data);
-export const updateJob = (id: string, job: Partial<Job>) => axios.put<Job>(`${API_URL}/api/jobs/${id}`, job).then(res => res.data);
-export const deleteJob = (id: string) => axios.delete(`${API_URL}/api/jobs/${id}`).then(res => res.data);
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+export const fetchJobs = async () => {
+  const res = await api.get<Job[]>('/api/jobs');
+  return res.data;
+};
+
+export const createJob = async (job: Job) => {
+  const res = await api.post<Job>('/api/jobs', job);
+  return res.data;
+};
+
+export const updateJob = async (id: string, job: Partial<Job>) => {
+  const res = await api.put<Job>(`/api/jobs/${id}`, job);
+  return res.data;
+};
+
+export const deleteJob = async (id: string) => {
+  const res = await api.delete(`/api/jobs/${id}`);
+  return res.data;
+};

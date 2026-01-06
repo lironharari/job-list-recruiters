@@ -1,21 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import App from './App';
 import JobListPage from './pages/JobListPage';
 import CreateJobPage from './pages/CreateJobPage';
 import EditJobPage from './pages/EditJobPage';
+import Login from './components/Login';
+import Register from './components/Register';
+import PrivateRoute from './components/PrivateRoute';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<JobListPage />} />
-          <Route path="create" element={<CreateJobPage />} />
-          <Route path="edit/:id" element={<EditJobPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<App />}>
+            <Route index element={<JobListPage />} />
+            <Route path="create" element={<PrivateRoute><CreateJobPage /></PrivateRoute>} />
+            <Route path="edit/:id" element={<PrivateRoute><EditJobPage /></PrivateRoute>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
