@@ -66,11 +66,11 @@ describe('Job Authorization', () => {
     expect(res.body.title).toBe('Developer');
   });
 
-  it('should block recruiter from deleting job', async () => {
+  it('should allow recruiter to delete job', async () => {
     const job = await Job.create({
-      title: 'Admin Only Job',
+      title: 'Recruiter Job',
       company: 'Test',
-      description: 'Admin delete',
+      description: 'Delete allowed',
       location: 'Test Location'
     });
 
@@ -78,7 +78,8 @@ describe('Job Authorization', () => {
       .delete(`/api/jobs/${job._id}`)
       .set('Authorization', `Bearer ${recruiterToken}`);
 
-    expect(res.status).toBe(403);
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Job deleted');
   });
 
   it('should allow admin to delete job', async () => {
