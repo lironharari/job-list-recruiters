@@ -6,12 +6,14 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -19,8 +21,8 @@ export default function Register() {
         email,
         password,
       });
-      // On success, redirect to login page
-      navigate('/login');
+      setSuccess('Registration successful! Use these credentials to login.');
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -62,6 +64,7 @@ export default function Register() {
         </button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
       <p>Already have an account? <Link to="/login">Login here</Link></p>
     </div>
   );

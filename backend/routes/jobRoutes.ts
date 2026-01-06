@@ -149,11 +149,11 @@ router.put(
   }
 );
 
-// Delete a job by ID (Admin only)
+// Delete a job by ID (Recruiter / Admin)
 router.delete(
   '/:id',
   authenticate,
-  authorize('admin'),
+  authorize('recruiter', 'admin'),
   async (req, res) => {
     try {
       const deletedJob = await Job.findByIdAndDelete(req.params.id);

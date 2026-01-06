@@ -8,14 +8,22 @@ router.post('/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password required' });
+    }
+
     const existing = await User.findOne({ email });
     if (existing) return res.status(400).json({ message: 'User exists' });
 
+    const hashedPassword = await hashPassword(password);
+    console.log('Password hashed successfully for:', email);
+    
     const user = await User.create({
       email,
-      password: await hashPassword(password)
+      password: hashedPassword
     });
 
+    console.log('User created:', email);
     res.status(201).json({ message: 'User created' });
   } catch (error) {
     console.error('Register error:', error);
@@ -27,11 +35,25 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password required' });
+    }
 
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log('User not found:', email);
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    console.log('User found:', email, 'Stored password hash exists:', !!user.password);
+    
     const valid = await comparePassword(password, user.password);
-    if (!valid) return res.status(401).json({ message: 'Invalid credentials' });
+    console.log('Password comparison result:', valid);
+    
+    if (!valid) {
+      console.log('Invalid password for:', email);
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
     const token = generateToken(user);
     res.json({ token });
