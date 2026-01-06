@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ export default function Register() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto' }}>
+    <div style={{ maxWidth: 400, margin: '0 auto', padding: 20 }}>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -40,6 +40,7 @@ export default function Register() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             autoComplete="email"
+            style={{ width: '100%', marginBottom: '10px' }}
           />
         </label>
         <br />
@@ -52,14 +53,16 @@ export default function Register() {
             onChange={e => setPassword(e.target.value)}
             autoComplete="new-password"
             minLength={6}
+            style={{ width: '100%', marginBottom: '10px' }}
           />
         </label>
         <br />
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} style={{ width: '100%' }}>
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <p>Already have an account? <Link to="/login">Login here</Link></p>
     </div>
   );
 }
