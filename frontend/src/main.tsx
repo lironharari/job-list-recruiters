@@ -1,11 +1,13 @@
 import React from 'react';
+import './index.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import App from './App';
-import JobListPage from './pages/JobListPage';
-import CreateJobPage from './pages/CreateJobPage';
-import EditJobPage from './pages/EditJobPage';
+import Home from './pages/Home';
+import JobList from './pages/JobList';
+import CreateJob from './pages/CreateJob';
+import EditJob from './pages/EditJob';
 import Login from './components/Login';
 import Register from './components/Register';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,12 +17,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/" element={<App />}>
-            <Route index element={<JobListPage />} />
-            <Route path="create" element={<PrivateRoute><CreateJobPage /></PrivateRoute>} />
-            <Route path="edit/:id" element={<PrivateRoute><EditJobPage /></PrivateRoute>} />
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="jobs" element={<JobList />} />
+            <Route path="create" element={<PrivateRoute><CreateJob /></PrivateRoute>} />
+            <Route path="edit/:id" element={<PrivateRoute><EditJob /></PrivateRoute>} />
           </Route>
         </Routes>
       </BrowserRouter>

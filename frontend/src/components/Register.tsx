@@ -31,7 +31,7 @@ export default function Register() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto', padding: 20 }}>
+    <div className="form-container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -42,7 +42,7 @@ export default function Register() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             autoComplete="email"
-            style={{ width: '100%', marginBottom: '10px' }}
+            className="input"
           />
         </label>
         <br />
@@ -55,16 +55,16 @@ export default function Register() {
             onChange={e => setPassword(e.target.value)}
             autoComplete="new-password"
             minLength={6}
-            style={{ width: '100%', marginBottom: '10px' }}
+            className="input"
           />
         </label>
         <br />
-        <button type="submit" disabled={loading} style={{ width: '100%' }}>
+        <button type="submit" disabled={loading} className="full-width btn">
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
+      {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
       <p>Already have an account? <Link to="/login">Login here</Link></p>
     </div>
   );

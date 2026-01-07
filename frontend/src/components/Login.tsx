@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto', padding: 20 }}>
+    <div className="form-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -35,7 +35,7 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ width: '100%', marginBottom: '10px', padding: '8px', boxSizing: 'border-box' }}
+          className="input"
         />
         <input
           type="password"
@@ -43,12 +43,12 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{ width: '100%', marginBottom: '10px', padding: '8px', boxSizing: 'border-box' }}
+          className="input"
         />
-        <button type="submit" style={{ width: '100%', padding: '8px', cursor: 'pointer' }}>
+        <button type="submit" className="full-width btn">
           Login
         </button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
       </form>
       <p>Don't have an account? <Link to="/register">Register here</Link></p>
     </div>

@@ -4,7 +4,7 @@ import { updateJob, fetchJobs } from '../api/api';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function EditJobPage() {
+export default function EditJob() {
   const { id } = useParams<{ id: string }>();
   const [job, setJob] = useState<Job | null>(null);
   const navigate = useNavigate();
@@ -29,14 +29,15 @@ export default function EditJobPage() {
     e.preventDefault();
     if (!id || !job) return;
     await updateJob(id, job);
-    navigate('/');
+    navigate('/jobs');
   };
 
   if (!job) return <p>Loading job...</p>;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="form-container">
       <h2>Edit Job</h2>
+      <form onSubmit={handleSubmit}>
       <div>
         <label>Title</label><br />
         <input name="title" value={job.title} onChange={handleChange} required />
@@ -57,7 +58,11 @@ export default function EditJobPage() {
         <label>Salary</label><br />
         <input name="salary" type="number" value={job.salary ?? ''} onChange={handleChange} />
       </div>
-      <button type="submit">Update</button>
-    </form>
+        <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>          
+          <button type="button" onClick={() => navigate('/jobs')} style={{ background: '#eee', color: '#333' }}>Cancel</button>
+          <button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
   );
 }

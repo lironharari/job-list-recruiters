@@ -3,7 +3,7 @@ import type { Job } from '../types';
 import { createJob } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateJobPage() {
+export default function CreateJob() {
   const [job, setJob] = useState<Job>({
     title: '',
     description: '',
@@ -22,12 +22,13 @@ export default function CreateJobPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await createJob(job);
-    navigate('/');
+    navigate('/jobs');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="form-container">
       <h2>Create New Job</h2>
+      <form onSubmit={handleSubmit}>
       <div>
         <label>Title</label><br />
         <input name="title" value={job.title} onChange={handleChange} required />
@@ -48,7 +49,8 @@ export default function CreateJobPage() {
         <label>Salary</label><br />
         <input name="salary" type="number" value={job.salary ?? ''} onChange={handleChange} />
       </div>
-      <button type="submit">Create</button>
-    </form>
+        <button type="submit">Create</button>
+      </form>
+    </div>
   );
 }

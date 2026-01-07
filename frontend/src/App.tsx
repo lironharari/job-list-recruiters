@@ -11,26 +11,38 @@ export default function App() {
     navigate('/');
   };
 
+  
+
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 20 }}>
-      <h1>Job List for Recruiters</h1>
-      <nav>
-        <Link to="/">Home</Link> |{' '}
-        {isAuthenticated ? (
-          <>
-            <Link to="/create">Create Job</Link> |{' '}
-            <button onClick={handleLogout} style={{ cursor: 'pointer' }}>
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link> | <Link to="/register">Register</Link>
-          </>
-        )}
-      </nav>
-      <hr />
-      <Outlet />
-    </div>
+    <>
+      <header className="app-header">
+        <div className="container">
+          <h1>drushim</h1>
+          <nav>
+            <Link to="/">Home</Link>
+            {'  |  '}
+            {isAuthenticated ? (
+              <>
+                <Link to="/create">Create a job</Link>
+                {'  |  '}
+                <button onClick={handleLogout} className="btn-link">
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Login</Link>
+                {'  |  '}
+                <Link to="/register">Register</Link>
+              </>
+            )}
+          </nav>
+        </div>
+      </header>
+
+      <main className="app-main">
+        <Outlet />
+      </main>
+    </>
   );
 }

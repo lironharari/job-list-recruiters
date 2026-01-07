@@ -1,3 +1,106 @@
+.city-distance-wrapper {
+  display: flex;
+  align-items: center;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  position: relative;
+}
+.city-distance-city--expanded .city-distance-input {
+  width: 100% !important;
+}
+.city-distance-city--expanded .city-distance-input {
+  width: 100% !important;
+}
+.distance-wrapper--hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+/* Tailwind base (inserted at top) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Move legacy custom rules below if needed (kept for now) */
+
+/* City/Distance input and wrapper for Search */
+.city-distance {
+  display: flex;
+  align-items: center;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  position: relative;
+}
+.city-distance-city {
+  flex: 1 1 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.city-distance-input {
+  width: 100%;
+  transition: width 0.2s cubic-bezier(.4,0,.2,1);
+}
+.city-distance-input--shrunk {
+  width: 60%;
+}
+.distance-wrapper {
+  width: 40%;
+  min-width: 0;
+  margin-left: 8px;
+  transition: width 0.18s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  align-items: center;
+}
+.distance-wrapper--visible {
+  display: flex;
+  width: 40%;
+}
+.distance-wrapper--hidden {
+  display: none;
+  width: 0;
+}
+/* City/Distance wrapper for Search */
+.city-distance-wrapper {
+  display: flex;
+  align-items: center;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  position: relative;
+}
+.city-distance-city {
+  flex: 1 1 100%;
+  transition: width 0.2s cubic-bezier(.4,0,.2,1);
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.city-distance-city--shrunk {
+  width: 60%;
+  max-width: 60%;
+}
+.city-distance-distance {
+  flex: 1 1 40%;
+  min-width: 0;
+  max-width: 40%;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  transition: max-width 0.2s cubic-bezier(.4,0,.2,1);
+}
+.city-distance-distance label {
+  margin-right: 4px;
+}
+/* Distance select wrapper for Search component */
+.distance-wrapper {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,8 +127,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +166,332 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  .app-header {
+    background: #ffffff;
+    color: #213547;
+    border-bottom: 1px solid #e6e6e6;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .app-header a {
+    color: #646cff;
+  }
 }
+
+@media (prefers-color-scheme: dark) {
+  .app-header a {
+    color: #9fb9ff;
+  }
+  a {
+    color: #9fb9ff;
+  }
+  .page-container,
+  .form-container,
+  .app-main {
+    color: #ffffff;
+  }
+  .input {
+    background: #121212;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+}
+
+/* App-specific styles moved from inline */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+.app-header .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.app-header a,
+.app-header nav,
+.app-header h1,
+.app-header .btn-link {
+  color: #ffffff !important;
+}
+.app-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 100px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  align-items: center;
+}
+.job-list li.job-item {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0 8px;
+}
+.delete-button {
+  color: red;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.form-container {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  height: 40px;
+  display: block;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+.full-width {
+  width: 100%;
+}
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}
+.btn-link {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.home-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-container {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.search-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(30, 41, 59, 0.10), 0 1.5px 4px rgba(30,41,59,0.06);
+  padding: 16px 20px;
+  gap: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  .search-row {
+    background: #18181b;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25), 0 1.5px 4px rgba(0,0,0,0.10);
+  }
+}
+.search-field label {
+  font-size: 0.95em;
+  color: #64748b;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.input {
+  height: 44px;
+  font-size: 1.08rem;
+  padding: 0 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #222;
+  box-sizing: border-box;
+  transition: border 0.18s, box-shadow 0.18s;
+  margin-bottom: 0;
+}
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+  background: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .input {
+    background: #23232a;
+    color: #fff;
+    border: 1.5px solid #23232a;
+  }
+  .input:focus {
+    background: #18181b;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px #2563eb44;
+  }
+}
+.btn {
+  height: 44px;
+  min-width: 100px;
+  padding: 0 28px;
+  font-size: 1.08rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #2563eb 60%, #1e40af 100%);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(30,41,59,0.08);
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:hover, .btn:focus {
+  background: linear-gradient(90deg, #1e40af 60%, #2563eb 100%);
+  box-shadow: 0 2px 8px rgba(30,41,59,0.13);
+  transform: translateY(-1px) scale(1.03);
+}
+.search-action {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
+}
+.search-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+}
+.suggestions {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.10);
+  max-height: 220px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+@media (prefers-color-scheme: dark) {
+  .suggestions {
+    background: #23232a;
+    border: 1px solid #23232a;
+  }
+}
+.suggestions li {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #222;
+  background: none;
+  border: none;
+  transition: background 0.13s;
+  text-align: left;
+}
+.suggestions li:hover {
+  background: #f1f5f9;
+}
+@media (prefers-color-scheme: dark) {
+  .suggestions li {
+    color: #fff;
+  }
+  .suggestions li:hover {
+    background: #18181b;
+  }
+}
+
+/* make city suggestions constrain to the city input wrapper (not full .search-field) */
+.city-distance .suggestions {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+/* force uniform control heights and keep single-line layout */
+search-field .input,
+.distance-select,
+search-action .btn,
+search-action button {
+  height: 40px;
+  line-height: 40px;
+}
+search-action {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  margin-left: 8px;
+  flex: 0 0 auto;
+  padding: 0;
+}
+search-action .btn,
+search-action button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  height: 40px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+@media (prefers-color-scheme: dark) {
+  .suggestions {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #fff;
+  }
+  .suggestions li:hover { background: rgba(255,255,255,0.03); }
+}
+
+
