@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 
 export default function App() {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout, role } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -17,13 +17,17 @@ export default function App() {
     <>
       <header className="app-header">
         <div className="container">
-          <h1>drushim</h1>
-          <nav>
-            <Link to="/">Home</Link>
-            {'  |  '}
+          <h1><Link to="/" className="logo-link">drushim</Link></h1>
+          <nav>            
             {isAuthenticated ? (
               <>
                 <Link to="/create">Create a job</Link>
+                {role === 'recruiter' || role === 'admin' ? (
+                  <>
+                    {'  |  '}
+                    <Link to="/applications">Applications</Link>
+                  </>
+                ) : null}
                 {'  |  '}
                 <button onClick={handleLogout} className="btn-link">
                   Logout

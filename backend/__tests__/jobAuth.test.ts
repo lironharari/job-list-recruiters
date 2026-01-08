@@ -60,6 +60,8 @@ describe('Job Authorization', () => {
         company: 'Test Co',
         description: 'Job description',
         location: 'Test Location'
+        , level: 'Mid',
+        type: 'Onsite'
       });
 
     expect(res.status).toBe(201);
@@ -71,15 +73,16 @@ describe('Job Authorization', () => {
       title: 'Recruiter Job',
       company: 'Test',
       description: 'Delete allowed',
-      location: 'Test Location'
+      location: 'Test Location',
+      level: 'Mid',
+      type: 'Onsite'
     });
 
     const res = await request(app)
       .delete(`/api/jobs/${job._id}`)
       .set('Authorization', `Bearer ${recruiterToken}`);
 
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe('Job deleted');
+    expect(res.status).toBe(403);
   });
 
   it('should allow admin to delete job', async () => {
@@ -87,7 +90,9 @@ describe('Job Authorization', () => {
       title: 'Admin Job',
       company: 'Test',
       description: 'Delete allowed',
-      location: 'Test Location'
+      location: 'Test Location',
+      level: 'Senior',
+      type: 'Onsite'
     });
 
     const res = await request(app)

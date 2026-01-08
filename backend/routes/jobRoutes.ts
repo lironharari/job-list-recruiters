@@ -73,12 +73,44 @@ const router = express.Router();
  * PUBLIC ROUTES
  */
 
-// Get all jobs
-router.get('/', async (_req, res) => {
+// Get jobs with optional pagination and filters
+router.get('/', async (req, res) => {
   try {
-    const jobs = await Job.find();
-    res.json(jobs);
-  } catch {
+    const page = Math.max(1, parseInt((req.query.page as string) || '1', 10));
+    const limit = Math.max(1, parseInt((req.query.limit as string) || '10', 10));
+    const title = (req.query.title as string) || '';
+    const location = (req.query.location as string) || '';
+    const level = (req.query.level as string) || '';
+    const type = (req.query.type as string) || '';
+
+    const filter: any = {};
+    if (title) {
+      const re = new RegExp(title, 'i');
+      filter.$or = [
+        { title: re },
+        { description: re },
+        { company: re }
+      ];
+    }
+    if (location) {
+      filter.location = new RegExp(location, 'i');
+    }
+    if (level) {
+      filter.level = new RegExp(level, 'i');
+    }
+    if (type) {
+      filter.type = new RegExp(type, 'i');
+    }
+
+    const total = await Job.countDocuments(filter);
+    const jobs = await Job.find(filter)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    res.json({ jobs, total });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -107,14 +139,16 @@ router.post(
   authorize('recruiter', 'admin'),
   async (req, res) => {
     try {
-      const { title, description, company, location, salary } = req.body;
+      const { title, description, company, location, salary, level, type } = req.body;
 
       const newJob = new Job({
         title,
         description,
         company,
         location,
-        salary
+        salary,
+        level,
+        type
       });
 
       const savedJob = await newJob.save();
@@ -153,7 +187,7 @@ router.put(
 router.delete(
   '/:id',
   authenticate,
-  authorize('recruiter', 'admin'),
+  authorize('admin'),
   async (req, res) => {
     try {
       const deletedJob = await Job.findByIdAndDelete(req.params.id);

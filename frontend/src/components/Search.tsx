@@ -61,6 +61,12 @@ const LocationIcon = () => (
   </svg>
 );
 
+const ArrowIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{color:'#64748b'}}>
+    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
+  </svg>
+);
+
 export default function Search(props: Props) {
   const { title: controlledTitle, setTitle: controlledSetTitle, location: controlledLocation, setLocation: controlledSetLocation, initialTitle, initialLocation } = props;
 
@@ -74,6 +80,7 @@ export default function Search(props: Props) {
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement | null>(null);
+  const locRef = useRef<HTMLInputElement | null>(null);
   const titleWrapperRef = useRef<HTMLDivElement | null>(null);
   const locWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -126,6 +133,17 @@ export default function Search(props: Props) {
             className="input"
             style={{paddingLeft: '40px'}}
           />
+          {title.trim() !== '' && (
+            <button
+              type="button"
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => { setTitle(''); titleRef.current?.focus(); }}
+              aria-label="Clear title"
+              style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',background:'transparent',border:'none',padding:6,cursor:'pointer',color:'#64748b'}}
+            >
+              <ArrowIcon />
+            </button>
+          )}
           {showTitleSuggestions && titleSuggestions.length > 0 && (
             <ul className="suggestions">
               {titleSuggestions.map((s, i) => (
@@ -155,6 +173,7 @@ export default function Search(props: Props) {
           >
             <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}><LocationIcon /></span>
             <input
+              ref={locRef}
               value={location}
               onChange={e => { setLocation(e.target.value); setShowLocationSuggestions(true); }}
               onFocus={() => setShowLocationSuggestions(true)}
@@ -163,6 +182,17 @@ export default function Search(props: Props) {
               className="input city-distance-input"
               style={{ width: '100%', paddingLeft: '40px' }}
             />
+            {location.trim() !== '' && (
+              <button
+                type="button"
+                onMouseDown={e => e.preventDefault()}
+                onClick={() => { setLocation(''); locRef.current?.focus(); }}
+                aria-label="Clear location"
+                style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',background:'transparent',border:'none',padding:6,cursor:'pointer',color:'#64748b'}}
+              >
+                <ArrowIcon />
+              </button>
+            )}
             {showLocationSuggestions && locationSuggestions.length > 0 && (
               <ul className="suggestions">
                 {locationSuggestions.map((s, i) => (
@@ -180,6 +210,7 @@ export default function Search(props: Props) {
               </ul>
             )}
           </div>
+          
         </div>
 
         <div className="search-action">

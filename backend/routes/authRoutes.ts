@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password required' });
@@ -17,13 +17,17 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
     console.log('Password hashed successfully for:', email);
-    
+
+    const allowedRoles = ['recruiter', 'admin'];
+    const assignedRole = allowedRoles.includes(role) ? role : 'recruiter';
+
     const user = await User.create({
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role: assignedRole,
     });
 
-    console.log('User created:', email);
+    console.log('User created:', email, 'role:', assignedRole);
     res.status(201).json({ message: 'User created' });
   } catch (error) {
     console.error('Register error:', error);

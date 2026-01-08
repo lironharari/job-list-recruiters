@@ -8,6 +8,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState<'recruiter' | 'admin'>('recruiter');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,6 +21,7 @@ export default function Register() {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         email,
         password,
+        role,
       });
       setSuccess('Registration successful! Use these credentials to login.');
       setTimeout(() => navigate('/login'), 2000);
@@ -57,6 +59,14 @@ export default function Register() {
             minLength={6}
             className="input"
           />
+        </label>
+        <br />
+        <label>
+          Role:
+          <select value={role} onChange={e => setRole(e.target.value as any)} className="input">
+            <option value="recruiter">Recruiter</option>
+            <option value="admin">Admin</option>
+          </select>
         </label>
         <br />
         <button type="submit" disabled={loading} className="full-width btn">

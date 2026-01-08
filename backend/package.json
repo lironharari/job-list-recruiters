@@ -10,6 +10,10 @@
     "build": "npm install --include=dev && tsc",
     "start": "node dist/server.js",
     "dev": "nodemon server.ts",
+    "add-job": "ts-node ./scripts/addJob.ts",
+    "add-jobs": "ts-node ./scripts/addJobs.ts",
+    "add-many-jobs": "ts-node ./scripts/addManyJobs.ts",
+    "clear-jobs": "ts-node ./scripts/clearJobs.ts",
     "test": "jest",
     "heroku-postbuild": "npm run build"
   },
@@ -17,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "multer": "^1.4.5-lts.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",

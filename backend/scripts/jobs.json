@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Senior Backend Engineer",
+    "company": "Acme Corp",
+    "location": "Tel Aviv",
+    "salary": 18000,
+    "level": "Senior",
+    "type": "Onsite",
+    "description": "# Senior Backend Engineer\n\n**We are looking for an experienced Backend Engineer** to join our growing engineering team.\n\n## Responsibilities\n- Design, implement, and maintain backend services and APIs using **Node.js** and **Express**.\n- Collaborate with frontend engineers to define and integrate RESTful APIs.\n- Write clean, testable, and maintainable code; perform code reviews.\n- Troubleshoot and optimize performance and scalability of services.\n- Participate in architecture discussions and drive technical decisions.\n\n## Requirements\n- 4+ years professional experience building backend services in Node.js/TypeScript.\n- Strong understanding of databases (MongoDB, PostgreSQL) and data modeling.\n- Experience with authentication, authorization, and secure API design.\n- Familiarity with testing frameworks and CI/CD pipelines.\n- Solid knowledge of HTTP, REST, and web security best practices.\n\n**What we offer:** competitive salary, flexible work environment, and growth opportunities."
+  },
+  {
+    "title": "Frontend Developer",
+    "company": "Beta Labs",
+    "location": "Jerusalem",
+    "salary": 15000,
+    "level": "Mid",
+    "type": "Hybrid",
+    "description": "# Frontend Developer\n\nJoin our product team as a **Frontend Developer** focused on building delightful user experiences.\n\n## Responsibilities\n- Build and maintain responsive web applications using **React** and **TypeScript**.\n- Implement UI designs, component libraries and ensure cross-browser compatibility.\n- Optimize performance and accessibility.\n- Collaborate with designers and backend engineers to deliver features.\n- Write unit and integration tests to ensure high quality.\n\n## Requirements\n- 3+ years experience with React and TypeScript.\n- Strong understanding of state management, hooks, and component patterns.\n- Familiarity with build tools (Vite, Webpack) and testing frameworks (Jest, React Testing Library).\n- Good eye for detail and UX sensibilities.\n\n**Benefits:** Remote-friendly, flexible hours, and a training budget."
+  },
+  {
+    "title": "DevOps Engineer",
+    "company": "CloudNine",
+    "location": "Haifa",
+    "salary": 17000,
+    "level": "Senior",
+    "type": "Onsite",
+    "description": "# DevOps Engineer\n\nWe are seeking a **DevOps Engineer** to help automate and scale our infrastructure.\n\n## Responsibilities\n- Build and maintain CI/CD pipelines, infrastructure as code (Terraform).\n- Monitor, alert, and troubleshoot production systems.\n- Work with engineering teams to enable reliable deployments and observability.\n- Harden systems for security and compliance.\n\n## Requirements\n- 3+ years experience with cloud platforms (AWS/Azure/GCP).\n- Experience with Docker, Kubernetes, Terraform, and CI tools.\n- Strong Linux skills and scripting (Bash, Python).\n- Familiarity with logging/monitoring stacks (Prometheus, Grafana, ELK).\n\n**Perks:** Equipment allowance and well-being benefits."
+  }
+]

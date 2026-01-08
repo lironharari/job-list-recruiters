@@ -5,6 +5,8 @@ export interface IJob extends Document {
   description: string;
   company: string;
   location: string;
+  level: string;
+  type: string;
   salary?: number;
   createdAt: Date;
 }
@@ -15,6 +17,8 @@ const JobSchema: Schema = new Schema(
     description: { type: String, required: true },
     company: { type: String, required: true },
     location: { type: String, required: true },
+    level: { type: String, required: true },
+    type: { type: String, required: true },
     salary: { type: Number },
   },
   { timestamps: { createdAt: 'createdAt' } }
