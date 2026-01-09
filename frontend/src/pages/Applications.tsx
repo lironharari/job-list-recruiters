@@ -44,7 +44,13 @@ export default function Applications() {
                         <td className="col-job">{typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}</td>
                       <td className="col-applicant">{app.firstName} {app.lastName}</td>
                       <td className="col-applied">{app.createdAt ? new Date(app.createdAt).toLocaleString() : ''}</td>
-                      <td className="col-resume"><a className="resume-link" href={`${import.meta.env.VITE_API_URL?.replace(/\/$/, '')}/uploads/${app.filePath}`} target="_blank" rel="noopener noreferrer">Open PDF</a></td>
+                      <td className="col-resume">
+                        {app.filePath ? (
+                          <a className="resume-link" href={`${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/uploads/${app.filePath}`} target="_blank" rel="noopener noreferrer">Open PDF</a>
+                        ) : (
+                          <span>No resume</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
