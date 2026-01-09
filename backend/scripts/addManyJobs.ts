@@ -21,6 +21,17 @@ const addManyJobs = async () => {
       process.exit(1);
     }
 
+    const extraTitles = [
+      'Full Stack Developer','Data Scientist','DevOps Engineer','Product Manager',
+      'UX/UI Designer','Mobile Developer','QA Engineer','Systems Analyst',
+      'Network Administrator','Database Administrator','IT Support Specialist',
+      'Cybersecurity Analyst','Cloud Engineer','AI Engineer','Machine Learning Engineer',
+      'Business Analyst','Scrum Master','Technical Writer','Solutions Architect',
+      'Backend Engineer','Frontend Engineer','Embedded Software Engineer','Platform Engineer',
+      'DevSecOps Engineer','Site Reliability Engineer','Data Engineer','Game Developer',
+      'Blockchain Developer','Computer Vision Engineer'
+    ];
+
     const extraCompanies = [
       'NovaTech','Greenfield','Skyline','Horizons','ByteWorks','OptiCore',
       'BlueWave','Sunrise Labs','QuantumLeap','Apex Systems','Nimbus','DeltaSoft',
@@ -37,7 +48,7 @@ const addManyJobs = async () => {
     const jobType = ['Remote','Contract','Hybrid','Onsite'];
 
     const jobsToInsert: any[] = [];
-    const total = 300;
+    const total = 3000;
 
     for (let i = 0; i < total; i++) {
       const tmpl = templates[i % templates.length];

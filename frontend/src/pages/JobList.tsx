@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import DOMPurify from 'dompurify';
 import type { Job } from '../types';
 import { fetchJobs, deleteJob, applyToJob } from '../api/api';
 import { highlightText, markdownToHtml, markdownToPlain } from '../utils/text';
 import ApplyModal from '../components/ApplyModal';
 
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ActionMenu from '../components/ActionMenu';
 import Pagination from '../components/Pagination';
 import Search from '../components/Search';

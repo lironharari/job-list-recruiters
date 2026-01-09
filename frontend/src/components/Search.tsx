@@ -1,38 +1,63 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const JOB_SUGGESTIONS: Array<{ en: string; he: string }> = [
-  { en: 'Frontend Developer', he: 'מפתח פרונטאנד' },
-  { en: 'Backend Developer', he: 'מפתח בקאנד' },
-  { en: 'Fullstack Developer', he: 'מפתח פולסטאק' },
-  { en: 'DevOps Engineer', he: 'מהנדס DevOps' },
-  { en: 'Data Scientist', he: 'מדען נתונים' },
-  { en: 'Mobile Developer', he: 'מפתח מובייל' },
-  { en: 'Software Engineer', he: 'מהנדס תוכנה' },
+const JOB_SUGGESTIONS: Array<{ en: string }> = [
+  { en: 'Full Stack Developer' },
+  { en: 'Data Scientist' },
+  { en: 'DevOps Engineer' },
+  { en: 'Product Manager' },
+  { en: 'UX/UI Designer' },
+  { en: 'Mobile Developer' },
+  { en: 'QA Engineer' },
+  { en: 'Systems Analyst' },
+  { en: 'Network Administrator' },
+  { en: 'Database Administrator' },
+  { en: 'IT Support Specialist' },
+  { en: 'Cybersecurity Analyst' },
+  { en: 'Cloud Engineer' },
+  { en: 'AI Engineer' },
+  { en: 'Machine Learning Engineer' },
+  { en: 'Business Analyst' },
+  { en: 'Scrum Master' },
+  { en: 'Technical Writer' },
+  { en: 'Solutions Architect' },
+  { en: 'Backend Engineer' },
+  { en: 'Frontend Engineer' },
+  { en: 'Embedded Software Engineer' },
+  { en: 'Platform Engineer' },
+  { en: 'DevSecOps Engineer' },
+  { en: 'Site Reliability Engineer' },
+  { en: 'Data Engineer' },
+  { en: 'Game Developer' },
+  { en: 'Blockchain Developer' },
+  { en: 'Computer Vision Engineer' },
 ];
 
-const ISRAEL_CITIES: Array<{ en: string; he: string }> = [
-  { en: 'Tel Aviv', he: 'תל אביב' },
-  { en: 'Jerusalem', he: 'ירושלים' },
-  { en: 'Haifa', he: 'חיפה' },
-  { en: 'Beersheba', he: 'באר שבע' },
-  { en: 'Rishon LeZion', he: 'ראשון לציון' },
-  { en: 'Petah Tikva', he: 'פתח תקווה' },
+const ISRAEL_CITIES: Array<{ en: string }> = [
+  { en: 'Afula' },
+  { en: 'Bat Yam' },
+  { en: 'Beersheba' },
+  { en: 'Eilat' },
+  { en: 'Haifa' },
+  { en: 'Herzliya' },
+  { en: 'Holon' },
+  { en: 'Jerusalem' },
+  { en: 'Kfar Saba' },
+  { en: 'Kiryat Ata' },
+  { en: 'Modiin' },
+  { en: 'Nazareth' },
+  { en: 'Netanya' },
+  { en: 'Petah Tikva' },
+  { en: 'Raanana' },
+  { en: 'Ramat Gan' },
+  { en: 'Rishon LeZion' },
+  { en: 'Tel Aviv' },
 ];
 
-function isHebrew(text: string) {
-  if (!text) return false;
-  const ch = text.trim().charAt(0);
-  return /[\u0590-\u05FF]/.test(ch);
-}
-
-function filterSuggestions(list: Array<{ en: string; he: string }>, value: string, langIsHeb: boolean) {
+function filterSuggestions(list: Array<{ en: string }>, value: string) {
   const q = value.trim().toLowerCase();
   if (!q) return list.slice(0, 6);
-  const matched = list.filter(item => {
-    const text = (langIsHeb ? item.he : item.en).toLowerCase();
-    return text.includes(q);
-  });
+  const matched = list.filter(item => item.en.toLowerCase().includes(q));
   // If nothing matches, fall back to showing the full list (helpful UX)
   return (matched.length ? matched : list).slice(0, 8);
 }
@@ -72,10 +97,6 @@ export default function Search(props: Props) {
 
   const [innerTitle, setInnerTitle] = useState(initialTitle || '');
   const [innerLocation, setInnerLocation] = useState(initialLocation || '');
-  const title = controlledTitle !== undefined ? controlledTitle : innerTitle;
-  const setTitle = controlledSetTitle !== undefined ? controlledSetTitle : setInnerTitle;
-  const location = controlledLocation !== undefined ? controlledLocation : innerLocation;
-  const setLocation = controlledSetLocation !== undefined ? controlledSetLocation : setInnerLocation;
   const [showTitleSuggestions, setShowTitleSuggestions] = useState(false);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const navigate = useNavigate();
@@ -84,11 +105,10 @@ export default function Search(props: Props) {
   const titleWrapperRef = useRef<HTMLDivElement | null>(null);
   const locWrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const titleLangHeb = useMemo(() => isHebrew(title), [title]);
-  const locLangHeb = useMemo(() => isHebrew(location), [location]);
-
-  const titleSuggestions = useMemo(() => filterSuggestions(JOB_SUGGESTIONS, title, titleLangHeb), [title, titleLangHeb]);
-  const locationSuggestions = useMemo(() => filterSuggestions(ISRAEL_CITIES, location, locLangHeb), [location, locLangHeb]);
+  const titleSuggestions = useMemo(() => filterSuggestions(JOB_SUGGESTIONS, innerTitle), [innerTitle]);
+  const locationSuggestions = useMemo(() => filterSuggestions(ISRAEL_CITIES, innerLocation), [innerLocation]);
+  const titleHasText = innerTitle.trim() !== '';
+  const locationHasText = innerLocation.trim() !== '';
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -110,11 +130,22 @@ export default function Search(props: Props) {
     if (initialLocation !== undefined) setInnerLocation(initialLocation);
   }, [initialLocation]);
 
+  // sync local inputs when parent-controlled values change
+  useEffect(() => {
+    if (controlledTitle !== undefined) setInnerTitle(controlledTitle);
+  }, [controlledTitle]);
+  useEffect(() => {
+    if (controlledLocation !== undefined) setInnerLocation(controlledLocation);
+  }, [controlledLocation]);
+
 
   const doSearch = () => {
+    // propagate to parent (if controlled) and navigate
+    if (controlledSetTitle) controlledSetTitle(innerTitle);
+    if (controlledSetLocation) controlledSetLocation(innerLocation);
     const params = new URLSearchParams();
-    if (title.trim()) params.set('title', title.trim());
-    if (location.trim()) params.set('location', location.trim());
+    if (innerTitle.trim()) params.set('title', innerTitle.trim());
+    if (innerLocation.trim()) params.set('location', innerLocation.trim());
     navigate(`/jobs?${params.toString()}`);
   };
 
@@ -125,37 +156,37 @@ export default function Search(props: Props) {
           <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}><MagnifierIcon /></span>
           <input
             ref={titleRef}
-            value={title}
-            onChange={e => { setTitle(e.target.value); setShowTitleSuggestions(true); }}
+            value={innerTitle}
+            onChange={e => { setInnerTitle(e.target.value); setShowTitleSuggestions(true); }}
             onFocus={() => setShowTitleSuggestions(true)}
             onBlur={() => setTimeout(() => setShowTitleSuggestions(false), 120)}
             placeholder="Search your next job"
             className="input"
             style={{paddingLeft: '40px'}}
           />
-          {title.trim() !== '' && (
+          {innerTitle.trim() !== '' && (
             <button
               type="button"
               onMouseDown={e => e.preventDefault()}
-              onClick={() => { setTitle(''); titleRef.current?.focus(); }}
+              onClick={() => { setInnerTitle(''); titleRef.current?.focus(); }}
               aria-label="Clear title"
               style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',background:'transparent',border:'none',padding:6,cursor:'pointer',color:'#64748b'}}
             >
               <ArrowIcon />
             </button>
           )}
-          {showTitleSuggestions && titleSuggestions.length > 0 && (
+          {showTitleSuggestions && titleSuggestions.length > 0 && titleHasText && (
             <ul className="suggestions">
               {titleSuggestions.map((s, i) => (
                 <li
                   key={i}
                   onMouseDown={e => {
-                    e.preventDefault();
-                    setTitle(titleLangHeb ? s.he : s.en);
-                    setShowTitleSuggestions(false);
-                  }}
+                        e.preventDefault();
+                        setInnerTitle(s.en);
+                        setShowTitleSuggestions(false);
+                      }}
                 >
-                  {titleLangHeb ? s.he : s.en}
+                  {s.en}
                 </li>
               ))}
             </ul>
@@ -174,37 +205,37 @@ export default function Search(props: Props) {
             <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}><LocationIcon /></span>
             <input
               ref={locRef}
-              value={location}
-              onChange={e => { setLocation(e.target.value); setShowLocationSuggestions(true); }}
+              value={innerLocation}
+              onChange={e => { setInnerLocation(e.target.value); setShowLocationSuggestions(true); }}
               onFocus={() => setShowLocationSuggestions(true)}
               onBlur={() => setTimeout(() => setShowLocationSuggestions(false), 120)}
               placeholder="Where is your next job?"
               className="input city-distance-input"
               style={{ width: '100%', paddingLeft: '40px' }}
             />
-            {location.trim() !== '' && (
+            {innerLocation.trim() !== '' && (
               <button
                 type="button"
                 onMouseDown={e => e.preventDefault()}
-                onClick={() => { setLocation(''); locRef.current?.focus(); }}
+                onClick={() => { setInnerLocation(''); locRef.current?.focus(); }}
                 aria-label="Clear location"
                 style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',background:'transparent',border:'none',padding:6,cursor:'pointer',color:'#64748b'}}
               >
                 <ArrowIcon />
               </button>
             )}
-            {showLocationSuggestions && locationSuggestions.length > 0 && (
+            {showLocationSuggestions && locationSuggestions.length > 0 && locationHasText && (
               <ul className="suggestions">
                 {locationSuggestions.map((s, i) => (
                   <li
                     key={i}
                     onMouseDown={e => {
-                      e.preventDefault();
-                      setLocation(locLangHeb ? s.he : s.en);
-                      setShowLocationSuggestions(false);
-                    }}
-                  >
-                    {locLangHeb ? s.he : s.en}
+                        e.preventDefault();
+                        setInnerLocation(s.en);
+                        setShowLocationSuggestions(false);
+                      }}
+                    >
+                      {s.en}
                   </li>
                 ))}
               </ul>
