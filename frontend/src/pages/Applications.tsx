@@ -40,8 +40,8 @@ export default function Applications() {
                 </thead>
                 <tbody>
                   {apps.map(app => (
-                    <tr key={(app as any)._id}>
-                      <td className="col-job">{typeof app.job === 'string' ? app.job : (app.job as any).title}</td>
+                      <tr key={(app as any)._id}>
+                        <td className="col-job">{typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}</td>
                       <td className="col-applicant">{app.firstName} {app.lastName}</td>
                       <td className="col-applied">{app.createdAt ? new Date(app.createdAt).toLocaleString() : ''}</td>
                       <td className="col-resume"><a className="resume-link" href={`${import.meta.env.VITE_API_URL?.replace(/\/$/, '')}/uploads/${app.filePath}`} target="_blank" rel="noopener noreferrer">Open PDF</a></td>

@@ -21,6 +21,8 @@ export default function App() {
           <nav>            
             {isAuthenticated ? (
               <>
+                <Link to="/jobs">Jobs</Link>
+                {'  |  '}
                 <Link to="/create">Create a job</Link>
                 {role === 'recruiter' || role === 'admin' ? (
                   <>
