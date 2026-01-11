@@ -15,5 +15,14 @@ export interface Application {
   firstName: string;
   lastName: string;
   filePath: string;
+  email?: string;
+  status?: 'new' | 'shortlisted' | 'rejected' | 'interview';
   createdAt?: string;
+}
+
+export interface Template {
+  _id?: string;
+  name: string;
+  subject: string;
+  body: string;
 }

@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 type Props = {
   jobId: string;
@@ -10,6 +12,10 @@ type Props = {
 };
 
 export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelete = false, onDelete }: Props) {
+  const auth = useContext(AuthContext);
+
+  const canViewApplications = auth.role === 'recruiter' || auth.role === 'admin';
+
   return (
     <>
       <button
@@ -23,14 +29,17 @@ export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelet
       </button>
       {isOpen && (
         <div className="action-menu" role="menu">
-          <Link to={editPath} className="action-menu-item" role="menuitem" onClick={(e) => { e.stopPropagation(); onToggle(); }}>Edit</Link>
+          {canViewApplications && (
+            <Link to={`/jobs/${jobId}/applications`} className="action-menu-item" role="menuitem" onClick={(e) => { e.stopPropagation(); onToggle(); }}>Applications</Link>
+          )}
+          <Link to={editPath} className="action-menu-item" role="menuitem" onClick={(e) => { e.stopPropagation(); onToggle(); }}>Edit Job</Link>          
           {canDelete && (
             <button
               className="action-menu-item"
               role="menuitem"
               onClick={(e) => { e.stopPropagation(); onToggle(); if (onDelete) onDelete(); }}
             >
-              Delete
+              Delete Job
             </button>
           )}
         </div>

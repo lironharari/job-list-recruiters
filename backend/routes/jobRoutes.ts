@@ -85,12 +85,13 @@ router.get('/', async (req, res) => {
 
     const filter: any = {};
     if (title) {
-      const re = new RegExp(title, 'i');
-      filter.$or = [
-        { title: re },
-        { description: re },
-        { company: re }
-      ];
+      filter.title = new RegExp(title, 'i');
+      // const re = new RegExp(title, 'i');
+      // filter.$or = [
+      //   { title: re },
+      //   // { description: re },
+      //   { company: re }
+      // ];
     }
     if (location) {
       filter.location = new RegExp(location, 'i');

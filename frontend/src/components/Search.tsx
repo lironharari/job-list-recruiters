@@ -194,11 +194,8 @@ export default function Search(props: Props) {
         </div>
 
         {/* City input only */}
-        <div className="search-field city-distance-wrapper">
-          <div
-            className={
-              "city-distance-city city-distance-city--expanded"
-            }
+        <div className="search-field">
+          <div            
             ref={locWrapperRef}
             style={{position:'relative'}}
           >
@@ -210,7 +207,7 @@ export default function Search(props: Props) {
               onFocus={() => setShowLocationSuggestions(true)}
               onBlur={() => setTimeout(() => setShowLocationSuggestions(false), 120)}
               placeholder="Where is your next job?"
-              className="input city-distance-input"
+              className="input"
               style={{ width: '100%', paddingLeft: '40px' }}
             />
             {innerLocation.trim() !== '' && (

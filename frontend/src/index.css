@@ -1,106 +1,10 @@
-.city-distance-wrapper {
-  display: flex;
-  align-items: center;
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  position: relative;
-}
-.city-distance-city--expanded .city-distance-input {
-  width: 100% !important;
-}
-.city-distance-city--expanded .city-distance-input {
-  width: 100% !important;
-}
-.distance-wrapper--hidden {
-  display: none !important;
-  visibility: hidden !important;
-}
+
+
 /* Tailwind base (inserted at top) */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Move legacy custom rules below if needed (kept for now) */
-
-/* City/Distance input and wrapper for Search */
-.city-distance {
-  display: flex;
-  align-items: center;
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  position: relative;
-}
-.city-distance-city {
-  flex: 1 1 100%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.city-distance-input {
-  width: 100%;
-  transition: width 0.2s cubic-bezier(.4,0,.2,1);
-}
-.city-distance-input--shrunk {
-  width: 60%;
-}
-.distance-wrapper {
-  width: 40%;
-  min-width: 0;
-  margin-left: 8px;
-  transition: width 0.18s cubic-bezier(.4,0,.2,1);
-  display: flex;
-  align-items: center;
-}
-.distance-wrapper--visible {
-  display: flex;
-  width: 40%;
-}
-.distance-wrapper--hidden {
-  display: none;
-  width: 0;
-}
-/* City/Distance wrapper for Search */
-.city-distance-wrapper {
-  display: flex;
-  align-items: center;
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  position: relative;
-}
-.city-distance-city {
-  flex: 1 1 100%;
-  transition: width 0.2s cubic-bezier(.4,0,.2,1);
-  min-width: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.city-distance-city--shrunk {
-  width: 60%;
-  max-width: 60%;
-}
-.city-distance-distance {
-  flex: 1 1 40%;
-  min-width: 0;
-  max-width: 40%;
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-  transition: max-width 0.2s cubic-bezier(.4,0,.2,1);
-}
-.city-distance-distance label {
-  margin-right: 4px;
-}
-/* Distance select wrapper for Search component */
-.distance-wrapper {
-  margin-left: 8px;
-  display: flex;
-  align-items: center;
-  min-width: 120px;
-}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -447,8 +351,6 @@ button:focus-visible {
 .app-table td { padding:10px 8px; border-bottom: 1px dashed rgba(0,0,0,0.04); }
 .app-table tr:last-child td { border-bottom:none; }
 .app-table .col-job { max-width: 320px; font-weight:600; }
-.resume-link { display:inline-block; padding:6px 10px; background:var(--primary); color: #fff; border-radius:8px; text-decoration:none; }
-.resume-link:hover { background:var(--primary-dark); }
 
 @media (max-width:700px) {
   .apps-card { padding:10px; }
@@ -672,16 +574,9 @@ button:focus-visible {
   }
 }
 
-/* make city suggestions constrain to the city input wrapper (not full .search-field) */
-.city-distance .suggestions {
-  left: 0;
-  right: auto;
-  width: 100%;
-}
 
 /* force uniform control heights and keep single-line layout */
 search-field .input,
-.distance-select,
 search-action .btn,
 search-action button {
   height: 40px;

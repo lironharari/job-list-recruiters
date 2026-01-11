@@ -7,7 +7,7 @@
     "salary": 18000,
     "level": "Senior",
     "type": "Onsite",
-    "description": "# Senior Backend Engineer\n\n**We are looking for an experienced Backend Engineer** to join our growing engineering team.\n\n## Responsibilities\n- Design, implement, and maintain backend services and APIs using **Node.js** and **Express**.\n- Collaborate with frontend engineers to define and integrate RESTful APIs.\n- Write clean, testable, and maintainable code; perform code reviews.\n- Troubleshoot and optimize performance and scalability of services.\n- Participate in architecture discussions and drive technical decisions.\n\n## Requirements\n- 4+ years professional experience building backend services in Node.js/TypeScript.\n- Strong understanding of databases (MongoDB, PostgreSQL) and data modeling.\n- Experience with authentication, authorization, and secure API design.\n- Familiarity with testing frameworks and CI/CD pipelines.\n- Solid knowledge of HTTP, REST, and web security best practices.\n\n**What we offer:** competitive salary, flexible work environment, and growth opportunities."
+    "description": "## Senior Backend Engineer\n\nWe are looking for an experienced **Backend Engineer** to join our growing engineering team.\n\n**Responsibilities**\n- Design, implement, and maintain backend services and APIs using Node.js and Express.\n- Collaborate with frontend engineers to define and integrate RESTful APIs.\n- Write clean, testable, and maintainable code; perform code reviews.\n- Troubleshoot and optimize performance and scalability of services.\n- Participate in architecture discussions and drive technical decisions.\n\n**Requirements**\n- 4+ years professional experience building backend services in Node.js/TypeScript.\n- Strong understanding of databases (MongoDB, PostgreSQL) and data modeling.\n- Experience with authentication, authorization, and secure API design.\n- Familiarity with testing frameworks and CI/CD pipelines.\n- Solid knowledge of HTTP, REST, and web security best practices.\n\n**What we offer:** competitive salary, flexible work environment, and growth opportunities."
   },
   {
     "title": "Frontend Developer",
@@ -16,7 +16,7 @@
     "salary": 15000,
     "level": "Mid",
     "type": "Hybrid",
-    "description": "# Frontend Developer\n\nJoin our product team as a **Frontend Developer** focused on building delightful user experiences.\n\n## Responsibilities\n- Build and maintain responsive web applications using **React** and **TypeScript**.\n- Implement UI designs, component libraries and ensure cross-browser compatibility.\n- Optimize performance and accessibility.\n- Collaborate with designers and backend engineers to deliver features.\n- Write unit and integration tests to ensure high quality.\n\n## Requirements\n- 3+ years experience with React and TypeScript.\n- Strong understanding of state management, hooks, and component patterns.\n- Familiarity with build tools (Vite, Webpack) and testing frameworks (Jest, React Testing Library).\n- Good eye for detail and UX sensibilities.\n\n**Benefits:** Remote-friendly, flexible hours, and a training budget."
+    "description": "## Frontend Developer\n\nJoin our product team as a **Frontend Developer** focused on building delightful user experiences.\n\n**Responsibilities**\n- Build and maintain responsive web applications using React and TypeScript.\n- Implement UI designs, component libraries and ensure cross-browser compatibility.\n- Optimize performance and accessibility.\n- Collaborate with designers and backend engineers to deliver features.\n- Write unit and integration tests to ensure high quality.\n\n**Requirements**\n- 3+ years experience with React and TypeScript.\n- Strong understanding of state management, hooks, and component patterns.\n- Familiarity with build tools (Vite, Webpack) and testing frameworks (Jest, React Testing Library).\n- Good eye for detail and UX sensibilities.\n\n**Benefits:** Remote-friendly, flexible hours, and a training budget."
   },
   {
     "title": "DevOps Engineer",
@@ -25,141 +25,6 @@
     "salary": 17000,
     "level": "Senior",
     "type": "Onsite",
-    "description": "# DevOps Engineer\n\nWe are seeking a **DevOps Engineer** to help automate and scale our infrastructure.\n\n## Responsibilities\n- Build and maintain CI/CD pipelines, infrastructure as code (Terraform).\n- Monitor, alert, and troubleshoot production systems.\n- Work with engineering teams to enable reliable deployments and observability.\n- Harden systems for security and compliance.\n\n## Requirements\n- 3+ years experience with cloud platforms (AWS/Azure/GCP).\n- Experience with Docker, Kubernetes, Terraform, and CI tools.\n- Strong Linux skills and scripting (Bash, Python).\n- Familiarity with logging/monitoring stacks (Prometheus, Grafana, ELK).\n\n**Perks:** Equipment allowance and well-being benefits."
-  },
-  {
-    "title": "Full Stack Developer",
-    "company": "NovaTech",
-    "location": "Ramat Gan",
-    "salary": 16000,
-    "level": "Mid",
-    "type": "Hybrid",
-    "description": "# Full Stack Developer\n\nWork across frontend and backend to deliver end-to-end features using **React**, **Node.js** and **Postgres**.\n\n## Requirements\n- 3+ years building web applications.\n- Comfortable with both client and server side development.\n\n**Why join:** cross-functional teams and career growth."
-  },
-  {
-    "title": "Data Scientist",
-    "company": "QuantumLeap",
-    "location": "Tel Aviv",
-    "salary": 19000,
-    "level": "Senior",
-    "type": "Onsite",
-    "description": "# Data Scientist\n\nUse data to drive product decisions and build ML models in Python.\n\n## Requirements\n- Strong statistics and ML background.\n- Experience with scikit-learn, pandas, and model deployment."
-  },
-  {
-    "title": "Product Manager",
-    "company": "Skyline",
-    "location": "Tel Aviv",
-    "salary": 17000,
-    "level": "Senior",
-    "type": "Hybrid",
-    "description": "# Product Manager\n\nLead product discovery and define roadmaps for customer-focused products.\n\n## Requirements\n- Experience shipping consumer or B2B products.\n- Strong communication and prioritization skills."
-  },
-  {
-    "title": "UX/UI Designer",
-    "company": "BlueWave",
-    "location": "Herzliya",
-    "salary": 13000,
-    "level": "Mid",
-    "type": "Hybrid",
-    "description": "# UX/UI Designer\n\nDesign intuitive interfaces and collaborate closely with engineers and PMs.\n\n## Requirements\n- Portfolio demonstrating UX process and visual design."
-  },
-  {
-    "title": "Mobile Developer",
-    "company": "PulseTech",
-    "location": "Netanya",
-    "salary": 14000,
-    "level": "Mid",
-    "type": "Remote",
-    "description": "# Mobile Developer\n\nBuild and maintain cross-platform mobile apps using React Native or native SDKs.\n\n## Requirements\n- Experience with mobile lifecycle and performance optimization."
-  },
-  {
-    "title": "QA Engineer",
-    "company": "DeltaSoft",
-    "location": "Holon",
-    "salary": 12000,
-    "level": "Junior",
-    "type": "Onsite",
-    "description": "# QA Engineer\n\nEnsure product quality through automated and manual testing.\n\n## Requirements\n- Familiarity with test automation frameworks and writing clear test cases."
-  },
-  {
-    "title": "Systems Analyst",
-    "company": "OptiCore",
-    "location": "Modiin",
-    "salary": 12500,
-    "level": "Mid",
-    "type": "Hybrid",
-    "description": "# Systems Analyst\n\nAnalyze business requirements and translate them into technical solutions.\n\n## Requirements\n- Strong problem solving and communication skills."
-  },
-  {
-    "title": "Network Administrator",
-    "company": "Apex Systems",
-    "location": "Haifa",
-    "salary": 11500,
-    "level": "Mid",
-    "type": "Onsite",
-    "description": "# Network Administrator\n\nManage and maintain corporate network infrastructure.\n\n## Requirements\n- Experience with routing, switching, and firewalls."
-  },
-  {
-    "title": "Database Administrator",
-    "company": "Vertex Solutions",
-    "location": "Rishon LeZion",
-    "salary": 15000,
-    "level": "Senior",
-    "type": "Hybrid",
-    "description": "# Database Administrator\n\nMaintain and optimize relational and NoSQL databases.\n\n## Requirements\n- Backup/restore strategies and performance tuning experience."
-  },
-  {
-    "title": "Cybersecurity Analyst",
-    "company": "Ironclad",
-    "location": "Tel Aviv",
-    "salary": 16000,
-    "level": "Senior",
-    "type": "Onsite",
-    "description": "# Cybersecurity Analyst\n\nMonitor security incidents and harden systems to reduce risk.\n\n## Requirements\n- Experience with SIEM, incident response and vulnerability assessments."
-  },
-  {
-    "title": "Cloud Engineer",
-    "company": "CloudEdge",
-    "location": "Jerusalem",
-    "salary": 16500,
-    "level": "Senior",
-    "type": "Hybrid",
-    "description": "# Cloud Engineer\n\nDesign and operate scalable cloud infrastructure (AWS/GCP/Azure).\n\n## Requirements\n- Experience with IaC, container orchestration and cloud networking."
-  },
-  {
-    "title": "Machine Learning Engineer",
-    "company": "Lumen",
-    "location": "Tel Aviv",
-    "salary": 19500,
-    "level": "Senior",
-    "type": "Onsite",
-    "description": "# Machine Learning Engineer\n\nProductionize ML models and build data pipelines.\n\n## Requirements\n- Experience with model deployment, feature stores and MLOps practices."
-  },
-  {
-    "title": "Site Reliability Engineer",
-    "company": "Nimbus",
-    "location": "Raanana",
-    "salary": 18000,
-    "level": "Senior",
-    "type": "Hybrid",
-    "description": "# Site Reliability Engineer\n\nImprove system reliability through automation and observability.\n\n## Requirements\n- Background in software engineering and production operations."
-  },
-  {
-    "title": "Backend Engineer",
-    "company": "NextGen",
-    "location": "Tel Aviv",
-    "salary": 17000,
-    "level": "Mid",
-    "type": "Hybrid",
-    "description": "# Backend Engineer\n\nImplement APIs and services that power our products.\n\n## Requirements\n- Experience with Node.js/TypeScript or other backend stacks."
-  },
-  {
-    "title": "Frontend Engineer",
-    "company": "BrightPath",
-    "location": "Netanya",
-    "salary": 14500,
-    "level": "Mid",
-    "type": "Remote",
-    "description": "# Frontend Engineer\n\nBuild performant and accessible user interfaces using React.\n\n## Requirements\n- Solid knowledge of modern frontend tooling and testing."
+    "description": "## DevOps Engineer\n\nWe are seeking a **DevOps Engineer** to help automate and scale our infrastructure.\n\n**Responsibilities**\n- Build and maintain CI/CD pipelines, infrastructure as code (Terraform).\n- Monitor, alert, and troubleshoot production systems.\n- Work with engineering teams to enable reliable deployments and observability.\n- Harden systems for security and compliance.\n\n**Requirements**\n- 3+ years experience with cloud platforms (AWS/Azure/GCP).\n- Experience with Docker, Kubernetes, Terraform, and CI tools.\n- Strong Linux skills and scripting (Bash, Python).\n- Familiarity with logging/monitoring stacks (Prometheus, Grafana, ELK).\n\n**Perks:** Equipment allowance and well-being benefits."
   }
 ]

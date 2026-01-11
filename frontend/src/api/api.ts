@@ -58,7 +58,47 @@ export const fetchApplications = async () => {
   return res.data;
 };
 
+export const deleteApplication = async (id: string) => {
+  const res = await api.delete(`/api/applications/${id}`);
+  return res.data;
+};
+
+export const updateApplicationStatus = async (id: string, status: string) => {
+  const res = await api.patch(`/api/applications/${id}/status`, { status });
+  return res.data;
+};
+
+export const fetchTemplates = async () => {
+  const res = await api.get('/api/templates');
+  return res.data;
+};
+
+export const createTemplate = async (payload: { name: string; subject: string; body: string }) => {
+  const res = await api.post('/api/templates', payload);
+  return res.data;
+};
+
+export const updateTemplate = async (id: string, payload: { name?: string; subject?: string; body?: string }) => {
+  const res = await api.put(`/api/templates/${id}`, payload);
+  return res.data;
+};
+
+export const deleteTemplate = async (id: string) => {
+  const res = await api.delete(`/api/templates/${id}`);
+  return res.data;
+};
+
+export const sendMessageToApplication = async (appId: string, payload: { subject?: string; body?: string; templateId?: string; email?: string }) => {
+  const res = await api.post(`/api/applications/${appId}/message`, payload);
+  return res.data;
+};
+
 export const fetchApplicationsForJob = async (jobId: string) => {
   const res = await api.get(`/api/jobs/${jobId}/applications`);
+  return res.data;
+};
+
+export const fetchJob = async (id: string) => {
+  const res = await api.get<Job>(`/api/jobs/${id}`);
   return res.data;
 };

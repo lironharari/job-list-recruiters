@@ -4,6 +4,7 @@ import path from 'path';
 import jobRoutes from './routes/jobRoutes';
 import authRoutes from './routes/authRoutes';
 import applicationRoutes from './routes/applicationRoutes';
+import templateRoutes from './routes/templateRoutes';
 import errorHandler from './middleware/errorHandler';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api', applicationRoutes);
+app.use('/api/templates', templateRoutes);
 
 app.get('/', (_req, res) => {
   res.send('API is running');

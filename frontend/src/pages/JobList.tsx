@@ -81,11 +81,12 @@ export default function JobList() {
     setApplyMessage(null);
   };
 
-  const handleModalSubmit = async (firstName: string, lastName: string, file: File) => {
+  const handleModalSubmit = async (firstName: string, lastName: string, email: string, file: File) => {
     if (!applyJobId) return { success: false, message: 'No job selected' };
     const fd = new FormData();
     fd.append('firstName', firstName);
     fd.append('lastName', lastName);
+    fd.append('email', email);
     fd.append('resume', file);
     try {
       setSubmittingApplication(true);
@@ -145,26 +146,30 @@ export default function JobList() {
                   <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(desc)) }} />
                 )}
                 <div className="job-action-links">
-                  {desc.length > 180 && (
-                    <button
-                      type="button"
-                      onClick={() => {
+                  {desc.length > 0 && (
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
                         if (!id) return;
                         setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
                       }}
                       className="see-details"
+                      role="button"
+                      aria-expanded={isExpanded}
                     >
                       {isExpanded ? 'Hide details' : 'See job details'}
-                    </button>
+                    </a>
                   )}
                   {(auth.role !== 'recruiter' && auth.role !== 'admin') && (
-                    <button
-                      type="button"
-                      onClick={() => { if (id) openApply(id); }}
+                    <a
+                      href="#"
+                      onClick={(e) => { e.preventDefault(); if (id) openApply(id); }}
                       className="see-details"
+                      role="button"
                     >
                       Apply
-                    </button>
+                    </a>
                   )}
                 </div>
               </>
