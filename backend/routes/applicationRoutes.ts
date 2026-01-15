@@ -144,6 +144,32 @@ router.post('/applications/:id/message', authenticate, authorize('recruiter', 'a
     finalBody = finalBody.replace(/\{\{name\}\}/g, candidateName).replace(/\{\{jobTitle\}\}/g, jobTitle);
     finalSubject = finalSubject.replace(/\{\{name\}\}/g, candidateName).replace(/\{\{jobTitle\}\}/g, jobTitle);
 
+    // Prefer SendGrid if configured (no SMTP password required for Gmail)
+    if (process.env.SENDGRID_API_KEY) {
+      try {
+        const sg = await import('@sendgrid/mail');
+        sg.default.setApiKey(process.env.SENDGRID_API_KEY as string);
+        const toEmail = providedEmail || (app as any).email || process.env.DEFAULT_TEST_RECIPIENT || null;
+        if (!toEmail) {
+          console.log('No recipient email available; printing message instead.');
+          console.log('Subject:', finalSubject);
+          console.log('Body:', finalBody);
+          return res.json({ message: 'No recipient email on application; message logged' });
+        }
+        const msg: any = {
+          to: toEmail,
+          from: process.env.SMTP_FROM || process.env.SENDGRID_FROM || process.env.SMTP_USER || 'no-reply@example.com',
+          subject: finalSubject,
+          html: finalBody,
+        };
+        await sg.default.send(msg);
+        return res.json({ message: 'Email sent via SendGrid' });
+      } catch (e: any) {
+        console.error('SendGrid send failed:', e && e.message ? e.message : e);
+        // continue to other fallbacks
+      }
+    }
+
     // try sending via nodemailer if SMTP env present
     if (process.env.SMTP_HOST && process.env.SMTP_USER) {
       const nodemailer = await import('nodemailer');

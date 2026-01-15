@@ -29,7 +29,7 @@ export default function App() {
                     {'  |  '}
                     <Link to="/applications">Applications</Link>
                     {'  |  '}
-                    <Link to="/templates">Templates</Link>
+                    <Link to="/templates">Email Templates</Link>
                   </>
                 ) : null}
                 {'  |  '}

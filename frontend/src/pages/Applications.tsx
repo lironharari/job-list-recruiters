@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { fetchApplications, deleteApplication, fetchJob, updateApplicationStatus, fetchTemplates, sendMessageToApplication } from '../api/api';
+import { fetchApplications, deleteApplication, fetchJob, updateApplicationStatus, fetchTemplates, sendResendEmail } from '../api/api';
 import type { Application, Job } from '../types';
 import { AuthContext } from '../context/AuthContext';
 import DOMPurify from 'dompurify';
@@ -54,12 +54,23 @@ export default function Applications() {
   const sendMessage = async () => {
     if (!messageApp) return;
     setMessageLoading(true);
-    try {
-      await sendMessageToApplication((messageApp as any)._id as string, { subject: messageSubject || undefined, body: messageBody || undefined, templateId: selectedTemplate, email: (messageApp as any).email });
+    try {      
+      const result = await sendResendEmail({
+        applicationId: (messageApp as any)._id,
+        subject: messageSubject || undefined,
+        body: messageBody || undefined,
+        templateId: selectedTemplate,
+        email: (messageApp as any).email,
+      });
+      console.log('Email sent:', result);
       setMessageLoading(false);
       setMessageApp(null);
       await load();
-    } catch (err) { console.error(err); setMessageLoading(false); }
+    } catch (err: any) {
+      console.error('Email send failed:', err?.response?.data || err);
+      alert('Failed to send email: ' + (err?.response?.data?.message || err?.message || 'Unknown error'));
+      setMessageLoading(false);
+    }
   };
 
   const closeJobModal = () => { setModalJob(null); };
@@ -106,15 +117,22 @@ export default function Applications() {
             <div className="apps-card">
               <table className="app-table">
                 <thead>
-                  <tr><th>Job Title</th><th>Applicant</th><th>Time Applied</th><th>Status</th><th>View Resume</th><th>Actions</th></tr>
+                  <tr><th>Job Title</th><th>Applicant</th><th>Time Applied</th><th>Status</th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                   {apps.map(app => (
                       <tr key={(app as any)._id}>
-                        <td className="col-job">
-                          <button className="link-button" onClick={() => openJobModal(typeof app.job === 'string' ? app.job : (app.job as any))}>
-                            {typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}
-                          </button>
+                        <td className="col-job">                          
+                          <a
+                            href="#"
+                            className=""
+                            onClick={(e) => { 
+                              e.preventDefault(); 
+                              openJobModal(typeof app.job === 'string' ? app.job : (app.job as any));
+                            }}
+                            >
+                              {typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}
+                          </a>                            
                         </td>
                       <td className="col-applicant">{app.firstName} {app.lastName}</td>
                       <td className="col-applied">{app.createdAt ? new Date(app.createdAt).toLocaleString() : ''}</td>
@@ -135,28 +153,41 @@ export default function Applications() {
                           <option value="interview">Interview</option>
                           <option value="rejected">Reject</option>
                         </select>
-                      </td>
-                      <td className="col-resume">
-                        {app.filePath ? (
-                          <button  
-                            type="button"                          
-                            className="btn"
-                            onClick={() => {
+                      </td>                      
+                      <td className="col-action">                        
+                         {app.filePath ? (
+                          <a
+                            href="#"
+                            className=""
+                            onClick={(e) => { 
+                              e.preventDefault(); 
                               const base = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
                               const url = `${base}/uploads/${app.filePath}`;
                               const newWin = window.open(url, '_blank');
                               if (newWin) newWin.opener = null;
                             }}
-                          >
-                            Open PDF
-                          </button>
+                            >
+                              View Resume
+                          </a>  
                         ) : (
                           <span>No resume</span>
                         )}
-                      </td>
-                      <td className="col-action">
-                        <button className="btn" onClick={() => openMessageModal(app)}>Message</button>
-                        <button className="btn" onClick={() => handleDelete((app as any)._id)}>Delete</button>
+                        {'  |  '}
+                        <a
+                          href="#"
+                          className=""
+                          onClick={(e) => { e.preventDefault(); openMessageModal(app); }}
+                        >
+                          Send Email
+                        </a>
+                        {'  |  '}
+                        <a
+                          href="#"
+                          className=""
+                          onClick={(e) => { e.preventDefault(); handleDelete((app as any)._id); }}
+                        >
+                          Delete
+                        </a>                        
                       </td>
                     </tr>
                   ))}

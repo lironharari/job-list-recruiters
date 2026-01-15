@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import type { Job } from '../types';
 
@@ -100,5 +99,10 @@ export const fetchApplicationsForJob = async (jobId: string) => {
 
 export const fetchJob = async (id: string) => {
   const res = await api.get<Job>(`/api/jobs/${id}`);
+  return res.data;
+};
+
+export const sendResendEmail = async (payload: { applicationId: string; subject?: string; body?: string; templateId?: string; email?: string }) => {
+  const res = await api.post('/api/send-resend-email', payload, { withCredentials: true });
   return res.data;
 };
