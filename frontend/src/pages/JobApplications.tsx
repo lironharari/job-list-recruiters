@@ -5,6 +5,7 @@ import type { Application, Job } from '../types';
 import { AuthContext } from '../context/AuthContext';
 import DOMPurify from 'dompurify';
 import { markdownToHtml, markdownToPlain } from '../utils/text';
+import { MessageModal, JobDetailModal } from '../components/Modals';
 
 export default function JobApplications() {
   const { id } = useParams();
@@ -194,75 +195,24 @@ export default function JobApplications() {
           )}
         </div>
       )}
-      {/* Message modal */}
-      {messageApp && (
-        <div className="modal-overlay" onClick={closeMessageModal}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-            <div className="modal-header">
-              <h3>Message {messageApp.firstName} {messageApp.lastName}</h3>
-            </div>
-            <div className="form-row">
-              <label>Template</label>
-              <select value={selectedTemplate || ''} onChange={(e) => {
-                const id = e.target.value || undefined; setSelectedTemplate(id);
-                const tpl = templates.find(t => t._id === id);
-                if (tpl) { setMessageSubject(tpl.subject); setMessageBody(tpl.body); }
-              }}>
-                <option value="">(none)</option>
-                {templates.map(t => <option key={t._id} value={t._id}>{t.name}</option>)}
-              </select>
-            </div>
-            <div className="form-row">
-              <label>Subject</label>
-              <input className="input" value={messageSubject} onChange={(e) => setMessageSubject(e.target.value)} />
-            </div>
-            <div className="form-row">
-              <label>Body (HTML allowed)</label>
-              <textarea className="input" value={messageBody} onChange={(e) => setMessageBody(e.target.value)} />
-            </div>
-            <div className="form-actions">
-              <button className="btn-secondary" onClick={closeMessageModal}>Cancel</button>
-              <button className="btn" onClick={sendMessage} disabled={messageLoading}>{messageLoading ? 'Sending…' : 'Send'}</button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Job detail modal triggered from page title */}
-      {showJobModal && (
-        <div className="modal-overlay" onClick={() => setShowJobModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-            <div
-              className="modal-close"
-              role="button"
-              tabIndex={0}
-              aria-label="Close"
-              onClick={() => setShowJobModal(false)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowJobModal(false); } }}
-              style={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer' }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </div>
-            <div className="modal-header">
-              <h3>{job?.title}</h3>
-            </div>
-            <div className="job-meta">
-              <span>{job?.company}</span>
-              <span className="meta-sep" aria-hidden>│</span>
-              <span>{job?.location}</span>
-              <span className="meta-sep" aria-hidden>│</span>
-              <span>{job?.level ?? 'N/A'}</span>
-              <span className="meta-sep" aria-hidden>│</span>
-              <span>{job?.type ?? 'N/A'}</span>
-            </div>
-            {job?.description && (
-              <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(job.description)) }} />
-            )}
-          </div>
-        </div>
-      )}
+      <MessageModal
+        messageApp={messageApp}
+        templates={templates}
+        selectedTemplate={selectedTemplate}
+        setSelectedTemplate={setSelectedTemplate}
+        messageSubject={messageSubject}
+        setMessageSubject={setMessageSubject}
+        messageBody={messageBody}
+        setMessageBody={setMessageBody}
+        messageLoading={messageLoading}
+        sendMessage={sendMessage}
+        closeMessageModal={closeMessageModal}
+      />
+      <JobDetailModal
+        showJobModal={showJobModal}
+        setShowJobModal={setShowJobModal}
+        job={job}
+      />
     </div>
   );
 }

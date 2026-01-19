@@ -3,7 +3,7 @@ import DOMPurify from 'dompurify';
 import type { Job } from '../types';
 import { fetchJobs, deleteJob, applyToJob } from '../api/api';
 import { highlightText, markdownToHtml, markdownToPlain } from '../utils/text';
-import ApplyModal from '../components/ApplyModal';
+import { ApplyModal } from '../components/Modals';
 
 import { useLocation } from 'react-router-dom';
 import ActionMenu from '../components/ActionMenu';
