@@ -14,6 +14,7 @@ const allowedOrigin = process.env.CLIENT_ORIGIN;
 const devOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
+  'https://drushim.onrender.com'
 ];
 app.use(cors({
   origin: (origin, callback) => {

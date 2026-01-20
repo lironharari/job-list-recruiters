@@ -5,10 +5,10 @@ import OpenAI from 'openai';
 
 dotenv.config();
 
-const apiKey: string | undefined = process.env.***REMOVED***;
+const apiKey: string | undefined = process.env.OPENAI_API_KEY;
 
 if (!apiKey) {
-  console.error('***REMOVED*** is not set in the environment variables.');
+  console.error('OPENAI_API_KEY is not set in the environment variables.');
   process.exit(1);
 }
 
