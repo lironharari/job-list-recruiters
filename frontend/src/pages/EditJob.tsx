@@ -46,10 +46,10 @@ export default function EditJob() {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom align="center">
+        Edit Job
+      </Typography>      
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h5" component="h2" gutterBottom align="center">
-          Edit Job
-        </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate>
           <TextField
             label="Title"

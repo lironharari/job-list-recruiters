@@ -65,7 +65,7 @@ export default function Templates() {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" component="h2" gutterBottom align="center" sx={{ mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom align="center">
         Email Templates
       </Typography>
       <Paper elevation={2} sx={{ p: 3 }}>

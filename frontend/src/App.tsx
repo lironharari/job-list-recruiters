@@ -77,17 +77,30 @@ export default function App() {
                 drushim
               </Typography>
             </Box>
-            <Box display="flex" alignItems="center" gap={1}>
+            <Box display="flex" alignItems="center">
               <Tooltip title={theme.palette.mode === 'dark' ? 'Light Mode' : 'Dark Mode'}>
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
                   {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Tooltip>
               {!isAuthenticated && (
-                <>
-                  <Button component={Link} to="/login" color="inherit">Login</Button>
-                  <Button component={Link} to="/register" color="inherit">Register</Button>
-                </>
+                <Box display="flex" alignItems="center">
+                  <Typography
+                    component={Link}
+                    to="/login"
+                    sx={{ color: 'primary.main', textDecoration: 'none', mx: 1, fontWeight: 500, cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  >
+                    Login
+                  </Typography>
+                  {'|'}
+                  <Typography
+                    component={Link}
+                    to="/register"
+                    sx={{ color: 'primary.main', textDecoration: 'none', mx: 1, fontWeight: 500, cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  >
+                    Register
+                  </Typography>
+                </Box>
               )}
             </Box>
           </Toolbar>
@@ -108,13 +121,13 @@ export default function App() {
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/jobs">
                   <ListItemIcon><WorkIcon /></ListItemIcon>
-                  <ListItemText primary="Jobs" />
+                  <ListItemText primary="All Jobs" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/create">
                   <ListItemIcon><AddBoxIcon /></ListItemIcon>
-                  <ListItemText primary="Create a job" />
+                  <ListItemText primary="Create New Job" />
                 </ListItemButton>
               </ListItem>
               {(role === 'recruiter' || role === 'admin') && (
