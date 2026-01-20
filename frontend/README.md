@@ -1,3 +1,4 @@
+[Live App](https://drushim.onrender.com)
 
 # Job List Recruiters Frontend
 
@@ -6,9 +7,9 @@ This is the frontend for the Job List Recruiters project, a modern job board and
 ## Technologies Used
 
 - **React** – UI library for building interactive user interfaces
+- **Material-UI (MUI)** – Modern React UI component library for fast, accessible, and themeable design
 - **TypeScript** – Type safety for React and API calls
 - **Vite** – Fast development/build tool
-- **Tailwind CSS** – Utility-first CSS framework for styling and dark mode support
 - **React Router** – Routing and navigation
 - **Context API** – Authentication and global state management
 - **Jest** – Testing framework
@@ -22,6 +23,7 @@ This is the frontend for the Job List Recruiters project, a modern job board and
 - Email template management
 - Authentication and role-based access
 - Responsive design with light/dark mode
+- Modern UI built with Material-UI (MUI)
 
 ## Getting Started
 

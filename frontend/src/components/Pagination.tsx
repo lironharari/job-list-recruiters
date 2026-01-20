@@ -1,4 +1,8 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 type Props = {
   page: number;
@@ -11,14 +15,21 @@ type Props = {
 
 export default function Pagination({ page, onPageChange, pageCount, startIndex, endIndex, totalCount }: Props) {
   return (
-    <div className="pagination-row">
-      <div className="pager-info">
+    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
         {totalCount === 0 ? 'No jobs' : `Showing ${startIndex}-${endIndex} of ${totalCount}`}
-      </div>
+      </Typography>
       <nav aria-label="Pagination">
-        <div className="pagination-controls">
-          <button className="pager-button" onClick={() => onPageChange(Math.max(1, page - 1))} disabled={page === 1} aria-label="Previous page">Prev</button>
-
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => onPageChange(Math.max(1, page - 1))}
+            disabled={page === 1}
+            aria-label="Previous page"
+          >
+            Prev
+          </Button>
           {(() => {
             const buttons: Array<React.ReactNode> = [];
             const maxVisible = 7;
@@ -39,28 +50,37 @@ export default function Pagination({ page, onPageChange, pageCount, startIndex, 
                 last = pnum;
               }
             }
-
             return buttons.map((b) => {
               if (typeof b === 'string' && b.startsWith('gap-')) {
-                return <span key={b} className="pager-gap">…</span>;
+                return <Typography key={b} variant="body2" sx={{ mx: 0.5 }}>…</Typography>;
               }
               const pnum = b as number;
               return (
-                <button
+                <Button
                   key={pnum}
                   onClick={() => onPageChange(pnum)}
                   aria-current={pnum === page ? 'page' : undefined}
-                  className="pager-button"
+                  variant={pnum === page ? 'contained' : 'outlined'}
+                  color={pnum === page ? 'primary' : 'inherit'}
+                  size="small"
+                  sx={{ minWidth: 36 }}
                 >
                   {pnum}
-                </button>
+                </Button>
               );
             });
           })()}
-
-          <button className="pager-button" onClick={() => onPageChange(Math.min(pageCount, page + 1))} disabled={page === pageCount} aria-label="Next page">Next</button>
-        </div>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => onPageChange(Math.min(pageCount, page + 1))}
+            disabled={page === pageCount}
+            aria-label="Next page"
+          >
+            Next
+          </Button>
+        </Stack>
       </nav>
-    </div>
+    </Box>
   );
 }

@@ -11,8 +11,18 @@ import resendRoutes from './routes/resendRoutes';
 const app = express();
 
 const allowedOrigin = process.env.CLIENT_ORIGIN;
+const devOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+];
 app.use(cors({
-  origin: allowedOrigin,
+  origin: (origin, callback) => {
+    if (!origin || devOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());

@@ -1,4 +1,7 @@
 
+
+[Live App](https://drushim.onrender.com)
+
 # Job List Recruiters
 
 Job List Recruiters is a full-stack web application for job boards and recruiter management. It allows recruiters and admins to post jobs, manage applications, communicate with candidates, and handle email templates. Applicants can browse jobs and apply directly with their resume.
@@ -9,7 +12,7 @@ Job List Recruiters is a full-stack web application for job boards and recruiter
 	- React
 	- TypeScript
 	- Vite
-	- Tailwind CSS
+	- Material-UI
 	- React Router
 	- Context API
 	- Jest

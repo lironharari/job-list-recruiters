@@ -1,148 +1,165 @@
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Alert from '@mui/material/Alert';
+
 export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form, setForm, modalLoading, submit }: any) {
-  if (!showCreateModal) return null;
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div
-          className="modal-close"
-          role="button"
-          tabIndex={0}
-          aria-label="Close"
+    <Dialog open={showCreateModal} onClose={() => setShowCreateModal(false)} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        Create Template
+        <IconButton
+          aria-label="close"
           onClick={() => setShowCreateModal(false)}
-          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowCreateModal(false); } }}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>                                
-        </div>
-        <h3 style={{ marginTop: 0 }}>Create Template</h3>
-        <form onSubmit={submit}>
-          <div className="form-row">
-            <label>Name</label>
-            <input value={form.name} onChange={(e) => setForm((prev: any) => ({ ...prev, name: e.target.value }))} required />
-          </div>
-          <div className="form-row">
-            <label>Subject</label>
-            <input value={form.subject} onChange={(e) => setForm((prev: any) => ({ ...prev, subject: e.target.value }))} required />
-          </div>
-          <div className="form-row">
-            <label>Body (HTML allowed, use name and jobTitle placeholders)</label>
-            <textarea value={form.body} onChange={(e) => setForm((prev: any) => ({ ...prev, body: e.target.value }))} rows={8} required />
-          </div>
-          <div className="form-actions">
-            <button type="submit" disabled={modalLoading}>{modalLoading ? 'Saving…' : 'Save Template'}</button>
-          </div>
-        </form>
-      </div>
-    </div>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <form onSubmit={submit}>
+        <DialogContent dividers>
+          <TextField
+            label="Name"
+            value={form.name}
+            onChange={e => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Subject"
+            value={form.subject}
+            onChange={e => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Body (HTML allowed, use name and jobTitle placeholders)"
+            value={form.body}
+            onChange={e => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+            multiline
+            minRows={6}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowCreateModal(false)} color="secondary">Cancel</Button>
+          <Button type="submit" variant="contained" disabled={modalLoading} color="primary">
+            {modalLoading ? 'Saving…' : 'Save Template'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 }
 
 export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selected, form, setForm, modalLoading, updateTemplate, load, setModalLoading, doDelete }: any) {
   if (!showDetailsModal || !selected) return null;
+  const [error, setError] = React.useState<string | null>(null);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setModalLoading(true);
+    setError(null);
+    try {
+      await updateTemplate(selected._id as string, form);
+      await load();
+      setShowDetailsModal(false);
+    } catch (err: any) {
+      setError(err?.message || 'Failed to update template');
+    } finally {
+      setModalLoading(false);
+    }
+  };
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div
-          className="modal-close"
-          role="button"
-          tabIndex={0}
-          aria-label="Close"
+    <Dialog open={showDetailsModal} onClose={() => setShowDetailsModal(false)} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        Edit Template
+        <IconButton
+          aria-label="close"
           onClick={() => setShowDetailsModal(false)}
-          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowDetailsModal(false); } }}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>                
-        </div>
-        <h3 style={{ marginTop: 0 }}>Edit Template</h3>
-        <form
-          onSubmit={async (e: any) => {
-            e.preventDefault();
-            setModalLoading(true);
-            try {
-              await updateTemplate(selected._id as string, form);
-              await load();
-              setShowDetailsModal(false);
-            } catch (err) {
-              // ignore
-            } finally {
-              setModalLoading(false);
-            }
-          }}
-        >
-          <div className="form-row">
-            <label>Name</label>
-            <input
-              value={form.name}
-              onChange={(e) => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label>Subject</label>
-            <input
-              value={form.subject}
-              onChange={(e) => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
-              required
-            />
-          </div>
-          <div className="form-row">
-            <label>Body (HTML allowed, use name and jobTitle placeholders)</label>
-            <textarea
-              value={form.body}
-              onChange={(e) => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
-              rows={8}
-              required
-            />
-          </div>
-          <div className="form-actions" style={{ display: 'flex', gap: 8 }}>
-            <button type="submit" disabled={modalLoading}>{modalLoading ? 'Saving…' : 'Save Template'}</button>
-            <button type="button" onClick={() => doDelete(selected._id)} style={{ background: '#e53e3e', color: '#fff' }}>Delete</button>
-          </div>
-        </form>
-      </div>
-    </div>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <form onSubmit={handleSubmit}>
+        <DialogContent dividers>
+          <TextField
+            label="Name"
+            value={form.name}
+            onChange={e => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Subject"
+            value={form.subject}
+            onChange={e => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Body (HTML allowed, use name and jobTitle placeholders)"
+            value={form.body}
+            onChange={e => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
+            required
+            fullWidth
+            margin="normal"
+            multiline
+            minRows={6}
+          />
+          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowDetailsModal(false)} color="secondary">Cancel</Button>
+          <Button type="button" color="error" onClick={() => doDelete(selected._id)}>
+            Delete
+          </Button>
+          <Button type="submit" variant="contained" disabled={modalLoading} color="primary">
+            {modalLoading ? 'Saving…' : 'Save Template'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 }
 export function JobDetailModal({ showJobModal, setShowJobModal, job }: any) {
-  if (!showJobModal) return null;
   return (
-    <div className="modal-overlay" onClick={() => setShowJobModal(false)}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-        <div
-          className="modal-close"
-          role="button"
-          tabIndex={0}
-          aria-label="Close"
+    <Dialog open={showJobModal} onClose={() => setShowJobModal(false)} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        {job?.title}
+        <IconButton
+          aria-label="close"
           onClick={() => setShowJobModal(false)}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowJobModal(false); } }}
-          style={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer' }}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </div>
-        <div className="modal-header">
-          <h3>{job?.title}</h3>
-        </div>
-        <div className="job-meta">
-          <span>{job?.company}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{job?.location}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{job?.level ?? 'N/A'}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{job?.type ?? 'N/A'}</span>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers>
+        <div style={{ marginBottom: 8 }}>
+          <strong>{job?.company}</strong> | {job?.location} | {job?.level ?? 'N/A'} | {job?.type ?? 'N/A'}
         </div>
         {job?.description && (
           <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(job.description)) }} />
         )}
-      </div>
-    </div>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setShowJobModal(false)} color="primary">Close</Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 import React, { useState } from 'react';
@@ -164,7 +181,14 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
   const [file, setFile] = useState<File | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
 
-  if (!open) return null;
+  const handleClose = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setFile(null);
+    setFormError(null);
+    onClose();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,35 +210,69 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal" role="dialog" aria-modal="true">
-        <h3>Apply for job</h3>
-        <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <label>First name</label>
-            <input value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-          </div>
-          <div className="form-row">
-            <label>Last name</label>
-            <input value={lastName} onChange={(e) => setLastName(e.target.value)} />
-          </div>
-          <div className="form-row">
-            <label>Email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
-          </div>
-          <div className="form-row">
-            <label>Resume (PDF)</label>
-            <input type="file" accept="application/pdf" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-          </div>
-          {message && <div className="form-message">{message}</div>}
-          {formError && <div className="form-error">{formError}</div>}
-          <div className="form-actions">
-            <button type="button" onClick={() => { setFirstName(''); setLastName(''); setFile(null); onClose(); }}>Cancel</button>
-            <button type="submit" disabled={submitting}>{submitting ? 'Submitting...' : 'Submit application'}</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
+      <DialogTitle>
+        Apply for job
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <form onSubmit={handleSubmit}>
+        <DialogContent dividers>
+          <TextField
+            label="First name"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            label="Last name"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            label="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            type="email"
+            fullWidth
+            margin="normal"
+            required
+          />
+          <Button
+            variant="outlined"
+            component="label"
+            fullWidth
+            sx={{ mt: 2, mb: 1 }}
+          >
+            {file ? file.name : 'Attach Resume (PDF)'}
+            <input
+              type="file"
+              accept="application/pdf"
+              hidden
+              onChange={e => setFile(e.target.files?.[0] ?? null)}
+            />
+          </Button>
+          {message && <Alert severity="success" sx={{ mt: 2 }}>{message}</Alert>}
+          {formError && <Alert severity="error" sx={{ mt: 2 }}>{formError}</Alert>}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">Cancel</Button>
+          <Button type="submit" variant="contained" color="primary" disabled={submitting}>
+            {submitting ? 'Submitting...' : 'Submit application'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 }
 
@@ -232,107 +290,119 @@ export function MessageModal({
   sendMessage,
   closeMessageModal,
 }: any) {
+  const [formError, setFormError] = React.useState<string | null>(null);
   if (!messageApp) return null;
+  const handleSend = async () => {
+    setFormError(null);
+    if (!messageSubject || !messageBody) {
+      setFormError('Subject and body are required');
+      return;
+    }
+    await sendMessage();
+  };
   return (
-    <div className="modal-overlay" onClick={closeMessageModal}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-        <div className="modal-header">
-          <h3>Message {messageApp.firstName} {messageApp.lastName}</h3>
-        </div>
-        <div className="form-row">
-          <label>Template</label>
-          <select
-            className="input bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={selectedTemplate || ''}
-            onChange={(e) => {
-              const id = e.target.value || undefined; setSelectedTemplate(id);
-              const tpl = templates.find((t: any) => t._id === id);
-              if (tpl) { setMessageSubject(tpl.subject); setMessageBody(tpl.body); }
-            }}
-          >
-            <option value="">(none)</option>
-            {templates.map((t: any) => (
-              <option key={t._id} value={t._id}>{t.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-row">
-          <label>Subject</label>
-          <input className="input" value={messageSubject} onChange={(e) => setMessageSubject(e.target.value)} />
-        </div>
-        <div className="form-row">
-          <label>Body (HTML allowed)</label>
-          <textarea className="input" value={messageBody} onChange={(e) => setMessageBody(e.target.value)} />
-        </div>
-        <div className="form-actions">
-          <button className="btn-secondary" onClick={closeMessageModal}>Cancel</button>
-          <button className="btn" onClick={sendMessage} disabled={messageLoading}>{messageLoading ? 'Sending…' : 'Send'}</button>
-        </div>
-      </div>
-    </div>
+    <Dialog open={!!messageApp} onClose={closeMessageModal} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        Message {messageApp.firstName} {messageApp.lastName}
+        <IconButton
+          aria-label="close"
+          onClick={closeMessageModal}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers>
+        <Select
+          fullWidth
+          value={selectedTemplate || ''}
+          onChange={e => {
+            const id = e.target.value || undefined; setSelectedTemplate(id);
+            const tpl = templates.find((t: any) => t._id === id);
+            if (tpl) { setMessageSubject(tpl.subject); setMessageBody(tpl.body); }
+          }}
+          displayEmpty
+          sx={{ mb: 2 }}
+        >
+          <MenuItem value="">(none)</MenuItem>
+          {templates.map((t: any) => (
+            <MenuItem key={t._id} value={t._id}>{t.name}</MenuItem>
+          ))}
+        </Select>
+        <TextField
+          label="Subject"
+          value={messageSubject}
+          onChange={e => setMessageSubject(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Body (HTML allowed)"
+          value={messageBody}
+          onChange={e => setMessageBody(e.target.value)}
+          fullWidth
+          margin="normal"
+          multiline
+          minRows={4}
+        />
+        {formError && <Alert severity="error" sx={{ mt: 2 }}>{formError}</Alert>}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeMessageModal} color="secondary">Cancel</Button>
+        <Button onClick={handleSend} variant="contained" color="primary" disabled={messageLoading}>
+          {messageLoading ? 'Sending…' : 'Send'}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
+import CircularProgress from '@mui/material/CircularProgress';
 export function JobLoadingModal({ modalLoading, closeJobModal }: any) {
-  if (!modalLoading) return null;
   return (
-    <div className="modal-overlay">
-      <div className="modal" style={{ position: 'relative' }}>
-        <div
-          className="modal-close"
-          role="button"
-          tabIndex={0}
-          aria-label="Close"
+    <Dialog open={!!modalLoading} onClose={closeJobModal} maxWidth="xs">
+      <DialogTitle>
+        Loading job…
+        <IconButton
+          aria-label="close"
           onClick={closeJobModal}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeJobModal(); } }}
-          style={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer' }}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </div>
-        <p>Loading job…</p>
-      </div>
-    </div>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 80 }}>
+        <CircularProgress />
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export function JobInfoModal({ modalJob, closeJobModal }: any) {
   if (!modalJob) return null;
   return (
-    <div className="modal-overlay" onClick={closeJobModal}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
-        <div
-          className="modal-close"
-          role="button"
-          tabIndex={0}
-          aria-label="Close"
+    <Dialog open={!!modalJob} onClose={closeJobModal} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        {modalJob.title}
+        <IconButton
+          aria-label="close"
           onClick={closeJobModal}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeJobModal(); } }}
-          style={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer' }}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </div>
-        <div className="modal-header">
-          <h3>{modalJob.title}</h3>
-        </div>
-        <div className="job-meta">
-          <span>{modalJob.company}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{modalJob.location}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{modalJob.level ?? 'N/A'}</span>
-          <span className="meta-sep" aria-hidden>│</span>
-          <span>{modalJob.type ?? 'N/A'}</span>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers>
+        <div style={{ marginBottom: 8 }}>
+          <strong>{modalJob.company}</strong> | {modalJob.location} | {modalJob.level ?? 'N/A'} | {modalJob.type ?? 'N/A'}
         </div>
         {modalJob.description && (
           <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(modalJob.description)) }} />
         )}
-      </div>
-    </div>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeJobModal} color="primary">Close</Button>
+      </DialogActions>
+    </Dialog>
   );
 }

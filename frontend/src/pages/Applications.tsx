@@ -3,6 +3,23 @@ import { fetchApplications, deleteApplication, fetchJob, updateApplicationStatus
 import type { Application, Job } from '../types';
 import { AuthContext } from '../context/AuthContext';
 import { MessageModal, JobLoadingModal, JobInfoModal } from '../components/Modals';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import DescriptionIcon from '@mui/icons-material/Description';
+import EmailIcon from '@mui/icons-material/Email';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Divider from '@mui/material/Divider';
 
 export default function Applications() {
   const [apps, setApps] = useState<Application[]>([]);
@@ -102,42 +119,49 @@ export default function Applications() {
     }
   };
 
-  if (!auth.isAuthenticated) return <p>Login required</p>;
-  if (!(auth.role === 'admin' || auth.role === 'recruiter')) return <p>Forbidden</p>;
+  if (!auth.isAuthenticated) return <Typography align="center" sx={{ mt: 6 }}>Login required</Typography>;
+  if (!(auth.role === 'admin' || auth.role === 'recruiter')) return <Typography align="center" sx={{ mt: 6 }}>Forbidden</Typography>;
 
   return (
-    <div className="applications-page">
-      <div className="page-header">
-        <h2>All Applications</h2>
-      </div>
-      {loading ? <p>Loading…</p> : (
-        <div className="applications-list">
-          {apps.length === 0 ? <p>No applications yet.</p> : (
-            <div className="apps-card">
-              <table className="app-table">
-                <thead>
-                  <tr><th>Job Title</th><th>Applicant</th><th>Time Applied</th><th>Status</th><th>Actions</th></tr>
-                </thead>
-                <tbody>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom align="center">All Applications</Typography>
+      <Paper elevation={2} sx={{ p: 2 }}>
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="120px">
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box>
+            {apps.length === 0 ? (
+              <Typography color="text.secondary">No applications yet.</Typography>
+            ) : (
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Job Title</TableCell>
+                    <TableCell>Applicant</TableCell>
+                    <TableCell>Time Applied</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
                   {apps.map(app => (
-                      <tr key={(app as any)._id}>
-                        <td className="col-job">                          
-                          <a
-                            href="#"
-                            className=""
-                            onClick={(e) => { 
-                              e.preventDefault(); 
-                              openJobModal(typeof app.job === 'string' ? app.job : (app.job as any));
-                            }}
-                            >
-                              {typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}
-                          </a>                            
-                        </td>
-                      <td className="col-applicant">{app.firstName} {app.lastName}</td>
-                      <td className="col-applied">{app.createdAt ? new Date(app.createdAt).toLocaleString() : ''}</td>
-                      <td className="col-status">
-                        <select 
-                          className="input"
+                    <TableRow key={(app as any)._id}>
+                      <TableCell>
+                        <Button
+                          variant="text"
+                          size="small"
+                          onClick={() => openJobModal(typeof app.job === 'string' ? app.job : (app.job as any))}
+                        >
+                          {typeof app.job === 'string' ? app.job : (app.job ? (app.job as any).title : '')}
+                        </Button>
+                      </TableCell>
+                      <TableCell>{app.firstName} {app.lastName}</TableCell>
+                      <TableCell>{app.createdAt ? new Date(app.createdAt).toLocaleString() : ''}</TableCell>
+                      <TableCell>
+                        <Select
+                          size="small"
                           value={app.status || 'new'}
                           onChange={async (e) => {
                             const newStatus = e.target.value;
@@ -146,56 +170,60 @@ export default function Applications() {
                               await load();
                             } catch (err) { console.error(err); }
                           }}
+                          sx={{ minWidth: 110 }}
                         >
-                          <option value="new">New</option>
-                          <option value="shortlisted">Shortlist</option>
-                          <option value="interview">Interview</option>
-                          <option value="rejected">Reject</option>
-                        </select>
-                      </td>                      
-                      <td className="col-action">                        
-                         {app.filePath ? (
-                          <a
-                            href="#"
-                            className=""
-                            onClick={(e) => { 
-                              e.preventDefault(); 
+                          <MenuItem value="new">New</MenuItem>
+                          <MenuItem value="shortlisted">Shortlist</MenuItem>
+                          <MenuItem value="interview">Interview</MenuItem>
+                          <MenuItem value="rejected">Reject</MenuItem>
+                        </Select>
+                      </TableCell>
+                      <TableCell>
+                        {app.filePath ? (
+                          <Button
+                            variant="text"
+                            size="small"
+                            onClick={() => {
                               const base = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
                               const url = `${base}/uploads/${app.filePath}`;
                               const newWin = window.open(url, '_blank');
                               if (newWin) newWin.opener = null;
                             }}
-                            >
-                              View Resume
-                          </a>  
+                            startIcon={<DescriptionIcon />}
+                          >
+                            Resume
+                          </Button>
                         ) : (
-                          <span>No resume</span>
+                          <Typography variant="body2" color="text.secondary">No resume</Typography>
                         )}
-                        {'  |  '}
-                        <a
-                          href="#"
-                          className=""
-                          onClick={(e) => { e.preventDefault(); openMessageModal(app); }}
+                        <Divider orientation="vertical" flexItem sx={{ mx: 1, display: 'inline-flex' }} />
+                        <Button
+                          variant="text"
+                          size="small"
+                          onClick={() => openMessageModal(app)}
+                          startIcon={<EmailIcon />}
                         >
-                          Send Email
-                        </a>
-                        {'  |  '}
-                        <a
-                          href="#"
-                          className=""
-                          onClick={(e) => { e.preventDefault(); handleDelete((app as any)._id); }}
+                          Email
+                        </Button>
+                        <Divider orientation="vertical" flexItem sx={{ mx: 1, display: 'inline-flex' }} />
+                        <Button
+                          variant="text"
+                          size="small"
+                          color="error"
+                          onClick={() => handleDelete((app as any)._id)}
+                          startIcon={<DeleteIcon />}
                         >
                           Delete
-                        </a>                        
-                      </td>
-                    </tr>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
+                </TableBody>
+              </Table>
+            )}
+          </Box>
+        )}
+      </Paper>
       {/* Modals extracted to external file */}
       <MessageModal
         messageApp={messageApp}
@@ -218,6 +246,6 @@ export default function Applications() {
         modalJob={modalJob}
         closeJobModal={closeJobModal}
       />
-    </div>
+    </Container>
   );
 }

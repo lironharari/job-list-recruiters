@@ -3,6 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { fetchTemplates, createTemplate, updateTemplate, deleteTemplate } from '../api/api';
 import type { Template } from '../types';
 import { CreateTemplateModal, EditTemplateModal } from '../components/Modals';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
 
 export default function Templates() {
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -55,38 +64,48 @@ export default function Templates() {
   };
 
   return (
-    <>      
-      <div className="container">
-        <h2>Email Templates</h2>
-        <div style={{ marginBottom: 12 }}>
-          <button onClick={startCreate}>New Template</button>
-        </div>
-        {loading ? <div>Loading...</div> : (
-          <div style={{ minWidth: 220 }}>
-            <h4>Available Templates</h4>
-            {templates.length === 0 ? <div>No templates yet</div> : (
-              <ul style={{ listStyle: 'none', padding: 0 }}>
+    <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom align="center" sx={{ mb: 4 }}>
+        Email Templates
+      </Typography>
+      <Paper elevation={2} sx={{ p: 3 }}>
+        {/* ...existing code... */}
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="80px">
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box minWidth={220}>
+            <Typography variant="h6" gutterBottom>
+              Available Templates
+            </Typography>
+            {templates.length === 0 ? (
+              <Typography color="text.secondary">No templates yet</Typography>
+            ) : (
+              <List disablePadding>
                 {templates.map(t => (
-                  <li key={t._id} style={{ marginBottom: 8 }}>
-                    <a
-                      href="#"
-                      className={`template-link${selected && selected._id === t._id && showDetailsModal ? ' active' : ''}`}
+                  <ListItem key={t._id} disablePadding sx={{ mb: 1 }}>
+                    <ListItemButton
+                      selected={Boolean(selected && selected._id === t._id && showDetailsModal)}
                       onClick={e => {
-                        e.preventDefault();
                         setSelected(t);
                         setForm({ name: t.name, subject: t.subject, body: t.body });
                         setShowDetailsModal(true);
                       }}
                     >
-                      {t.name}
-                    </a>
-                  </li>
+                      <Typography variant="body1">{t.name}</Typography>
+                    </ListItemButton>
+                  </ListItem>
                 ))}
-              </ul>
+              </List>
             )}
-          </div>
+          </Box>
         )}
-
+        <Box display="flex" justifyContent="flex-end" mt={3}>
+          <Button variant="contained" onClick={startCreate}>
+            Add Template
+          </Button>
+        </Box>
         <CreateTemplateModal
           showCreateModal={showCreateModal}
           setShowCreateModal={setShowCreateModal}
@@ -107,7 +126,7 @@ export default function Templates() {
           setModalLoading={setModalLoading}
           doDelete={doDelete}
         />
-      </div>
-    </>
+      </Paper>
+    </Container>
   );
 }

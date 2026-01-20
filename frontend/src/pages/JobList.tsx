@@ -1,15 +1,21 @@
+
 import { useEffect, useState, useContext } from 'react';
 import DOMPurify from 'dompurify';
 import type { Job } from '../types';
 import { fetchJobs, deleteJob, applyToJob } from '../api/api';
 import { highlightText, markdownToHtml, markdownToPlain } from '../utils/text';
 import { ApplyModal } from '../components/Modals';
-
 import { useLocation } from 'react-router-dom';
 import ActionMenu from '../components/ActionMenu';
 import Pagination from '../components/Pagination';
 import Search from '../components/Search';
 import { AuthContext } from '../context/AuthContext';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function JobList() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -103,83 +109,81 @@ export default function JobList() {
   
 
   const renderJobList = (list: Job[], titleTerm: string, locTerm: string) => (
-    <ul className="job-list">
-      {list.map(job => (
-        <li key={job._id} className="job-item">
-          <div className="job-header">
-            <h3 className="job-title">{highlightText(job.title, titleTerm)}</h3>
-            {auth.isAuthenticated && (
-              <div className="action-root" data-menu-id={job._id}>
-                <ActionMenu
-                  jobId={job._id as string}
-                  isOpen={openMenu === (job._id as string)}
-                  onToggle={() => setOpenMenu(prev => prev === (job._id as string) ? null : (job._id as string))}
-                  editPath={`/edit/${job._id}`}
-                  canDelete={auth.role === 'admin'}
-                  onDelete={() => handleDelete(job._id)}
-                />
-              </div>
-            )}
-          </div>
-          <div className="job-meta">
-            <span className="company">{highlightText(job.company, titleTerm)}</span>
-            <span className="meta-sep" aria-hidden>│</span>
-            <span className="location">{highlightText(job.location, locTerm)}</span>
-            <span className="meta-sep" aria-hidden>│</span>
-            <span className="level">{job.level ?? 'N/A'}</span>
-            <span className="meta-sep" aria-hidden>│</span>
-            <span className="type">{job.type ?? 'N/A'}</span>
-            <span className="meta-sep" aria-hidden>│</span>
-            <span className="salary">{job.salary ?? 'N/A'}</span>
-          </div>
-          {(() => {
-            const desc = job.description || '';
-            const id = job._id as string | undefined;
-            const isExpanded = id ? expanded.includes(id) : false;
-            const plain = markdownToPlain(desc);
-            const short = plain.length > 180 ? plain.slice(0, 180) + '...' : plain;
-            return (
-              <>
-                {!isExpanded ? (
-                  <p>{highlightText(short, titleTerm)}</p>
-                ) : (
-                  <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(desc)) }} />
+    <Stack spacing={3} mt={2}>
+      {list.map(job => {
+        const desc = job.description || '';
+        const id = job._id as string | undefined;
+        const isExpanded = id ? expanded.includes(id) : false;
+        const plain = markdownToPlain(desc);
+        const short = plain.length > 180 ? plain.slice(0, 180) + '...' : plain;
+        return (
+          <Card key={job._id} variant="outlined" sx={{ position: 'relative' }}>
+            <CardContent>
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Typography variant="h6" component="div">
+                  {highlightText(job.title, titleTerm)}
+                </Typography>
+                {auth.isAuthenticated && (
+                  <Box data-menu-id={job._id}>
+                    <ActionMenu
+                      jobId={job._id as string}
+                      isOpen={openMenu === (job._id as string)}
+                      onToggle={() => setOpenMenu(prev => prev === (job._id as string) ? null : (job._id as string))}
+                      editPath={`/edit/${job._id}`}
+                      canDelete={auth.role === 'admin'}
+                      onDelete={() => handleDelete(job._id)}
+                    />
+                  </Box>
                 )}
-                <div className="job-action-links">
-                  {desc.length > 0 && (
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (!id) return;
-                        setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-                      }}
-                      className="see-details"
-                      role="button"
-                      aria-expanded={isExpanded}
-                    >
-                      {isExpanded ? 'Hide details' : 'See job details'}
-                    </a>
-                  )}
-                  {(auth.role !== 'recruiter' && auth.role !== 'admin') && (
-                    <a
-                      href="#"
-                      onClick={(e) => { e.preventDefault(); if (id) openApply(id); }}
-                      className="see-details"
-                      role="button"
-                    >
-                      Apply
-                    </a>
-                  )}
-                </div>
-              </>
-            );
-          })()}
-          
-            
-        </li>
-      ))}
-    </ul>
+              </Box>
+              <Box display="flex" flexWrap="wrap" gap={1} mt={1} mb={1}>
+                <Typography variant="body2" color="text.secondary">{highlightText(job.company, titleTerm)}</Typography>
+                <Typography variant="body2" color="text.disabled">|</Typography>
+                <Typography variant="body2" color="text.secondary">{highlightText(job.location, locTerm)}</Typography>
+                <Typography variant="body2" color="text.disabled">|</Typography>
+                <Typography variant="body2" color="text.secondary">{job.level ?? 'N/A'}</Typography>
+                <Typography variant="body2" color="text.disabled">|</Typography>
+                <Typography variant="body2" color="text.secondary">{job.type ?? 'N/A'}</Typography>
+                <Typography variant="body2" color="text.disabled">|</Typography>
+                <Typography variant="body2" color="text.secondary">{job.salary ?? 'N/A'}</Typography>
+              </Box>
+              {!isExpanded ? (
+                <Typography variant="body2" sx={{ mb: 1 }}>{highlightText(short, titleTerm)}</Typography>
+              ) : (
+                <Box className="job-desc" sx={{ mb: 1 }} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(desc)) }} />
+              )}
+              <Box display="flex" gap={2}>
+                {desc.length > 0 && (
+                  <Typography
+                    component="a"
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (!id) return;
+                      setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+                    }}
+                    sx={{ cursor: 'pointer', color: 'primary.main', textDecoration: 'underline' }}
+                    aria-expanded={isExpanded}
+                  >
+                    {isExpanded ? 'Hide details' : 'See job details'}
+                  </Typography>
+                )}
+                {(auth.role !== 'recruiter' && auth.role !== 'admin') && (
+                  <Typography
+                    component="a"
+                    href="#"
+                    onClick={(e) => { e.preventDefault(); if (id) openApply(id); }}
+                    sx={{ cursor: 'pointer', color: 'primary.main', textDecoration: 'underline' }}
+                  >
+                    Apply
+                  </Typography>
+                )}
+              </Box>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </Stack>
   );
 
   const searchComponent = (
@@ -208,13 +212,17 @@ export default function JobList() {
   // don't early-return on loading — keep the search visible
 
   const renderLoading = () => (
-    <div className="loading-center">
-      <div className="spinner" role="status" aria-label="Loading" />
-    </div>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="30vh">
+      <CircularProgress />
+    </Box>
   );
 
   const showNoMatch = jobs.length === 0 && (qTitle || qLocation);
-  const noMatchMessage = showNoMatch ? <p>No jobs match the search.</p> : null;
+  const noMatchMessage = showNoMatch ? (
+    <Typography variant="body1" color="text.secondary" align="center" mt={4}>
+      No jobs match the search.
+    </Typography>
+  ) : null;
 
   // close open action menu when clicking outside or pressing Escape
   useEffect(() => {
@@ -240,7 +248,7 @@ export default function JobList() {
   }, [openMenu]);
 
   return (
-    <div>
+    <Box>
       {searchComponent}
 
       {loading ? (
@@ -250,14 +258,16 @@ export default function JobList() {
           {noMatchMessage}
           {renderJobList(paginatedList, qTitle, qLocation)}
           {pageCount > 1 && (
-            <Pagination
-              page={page}
-              onPageChange={(n) => setPage(n)}
-              pageCount={pageCount}
-              startIndex={startIndex}
-              endIndex={endIndex}
-              totalCount={totalCount}
-            />
+            <Box mt={3}>
+              <Pagination
+                page={page}
+                onPageChange={(n) => setPage(n)}
+                pageCount={pageCount}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                totalCount={totalCount}
+              />
+            </Box>
           )}
         </>
       )}
@@ -268,6 +278,6 @@ export default function JobList() {
         submitting={submittingApplication}
         message={applyMessage}
       />
-    </div>
+    </Box>
   );
 }

@@ -22,14 +22,35 @@ const addManyJobs = async () => {
     }
 
     const extraTitles = [
-      'Full Stack Developer','Data Scientist','DevOps Engineer','Product Manager',
-      'UX/UI Designer','Mobile Developer','QA Engineer','Systems Analyst',
-      'Network Administrator','Database Administrator','IT Support Specialist',
-      'Cybersecurity Analyst','Cloud Engineer','AI Engineer','Machine Learning Engineer',
-      'Business Analyst','Scrum Master','Technical Writer','Solutions Architect',
-      'Backend Engineer','Frontend Engineer','Embedded Software Engineer','Platform Engineer',
-      'DevSecOps Engineer','Site Reliability Engineer','Data Engineer','Game Developer',
-      'Blockchain Developer','Computer Vision Engineer'
+      'Full Stack Developer',
+      'Data Scientist',
+      'DevOps Engineer',
+      'Product Manager',
+      'UX/UI Designer',
+      'Mobile Developer',
+      'QA Engineer',
+      'Systems Analyst',
+      'Network Administrator',
+      'Database Administrator',
+      'IT Support Specialist',
+      'Cybersecurity Analyst',
+      'Cloud Engineer',
+      'AI Engineer',
+      'Machine Learning Engineer',
+      'Business Analyst',
+      'Scrum Master',
+      'Technical Writer',
+      'Solutions Architect',
+      'Backend Engineer',
+      'Frontend Developer',
+      'Embedded Software Engineer',
+      'Platform Engineer',
+      'DevSecOps Engineer',
+      'Site Reliability Engineer',
+      'Data Engineer',
+      'Game Developer',
+      'Blockchain Developer',
+      'Computer Vision Engineer'
     ];
 
     const extraCompanies = [
@@ -48,7 +69,7 @@ const addManyJobs = async () => {
     const jobType = ['Remote','Contract','Hybrid','Onsite'];
 
     const jobsToInsert: any[] = [];
-    const total = 3000;
+    const total = 700;
 
     for (let i = 0; i < total; i++) {
       const tmpl = templates[i % templates.length];

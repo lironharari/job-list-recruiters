@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -33,49 +41,59 @@ export default function Register() {
   };
 
   return (
-    <div className="form-container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+      <Paper elevation={3} sx={{ p: 4, minWidth: 340, width: '100%', maxWidth: 400 }}>
+        <Typography variant="h5" component="h2" gutterBottom align="center">
+          Register
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            label="Email"
             type="email"
-            required
             value={email}
             onChange={e => setEmail(e.target.value)}
-            autoComplete="email"
-            className="input"
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
             required
+            autoComplete="email"
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            label="Password"
+            type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
             autoComplete="new-password"
-            minLength={6}
-            className="input"
+            inputProps={{ minLength: 6 }}
           />
-        </label>
-        <br />
-        <label>
-          Role:
-          <select value={role} onChange={e => setRole(e.target.value as any)} className="input">
-            <option value="recruiter">Recruiter</option>
-            <option value="admin">Admin</option>
-          </select>
-        </label>
-        <br />
-        <button type="submit" disabled={loading} className="full-width btn">
-          {loading ? 'Registering...' : 'Register'}
-        </button>
-      </form>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
-    </div>
+          <Select
+            fullWidth
+            value={role}
+            onChange={e => setRole(e.target.value as any)}
+            sx={{ mt: 2, mb: 1 }}
+          >
+            <MenuItem value="recruiter">Recruiter</MenuItem>
+            <MenuItem value="admin">Admin</MenuItem>
+          </Select>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, mb: 1 }}
+            disabled={loading}
+          >
+            {loading ? 'Registering...' : 'Register'}
+          </Button>
+          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+          {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
+        </Box>
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Already have an account?{' '}
+          <Link to="/login">Login here</Link>
+        </Typography>
+      </Paper>
+    </Box>
   );
 }

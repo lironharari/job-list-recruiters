@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 type Props = {
   jobId: string;
@@ -13,37 +23,53 @@ type Props = {
 
 export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelete = false, onDelete }: Props) {
   const auth = useContext(AuthContext);
-
+  const anchorRef = useRef<HTMLButtonElement | null>(null);
   const canViewApplications = auth.role === 'recruiter' || auth.role === 'admin';
 
   return (
     <>
-      <button
-        className="action-menu-button"
+      <IconButton
+        ref={anchorRef}
+        aria-label="actions"
+        aria-controls={isOpen ? `action-menu-${jobId}` : undefined}
         aria-haspopup="true"
-        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-expanded={isOpen ? 'true' : undefined}
         onClick={(e) => { e.stopPropagation(); onToggle(); }}
-        title="Actions"
+        size="small"
       >
-        ☰
-      </button>
-      {isOpen && (
-        <div className="action-menu" role="menu">
-          {canViewApplications && (
-            <Link to={`/jobs/${jobId}/applications`} className="action-menu-item" role="menuitem" onClick={(e) => { e.stopPropagation(); onToggle(); }}>Applications</Link>
-          )}
-          <Link to={editPath} className="action-menu-item" role="menuitem" onClick={(e) => { e.stopPropagation(); onToggle(); }}>Edit Job</Link>          
-          {canDelete && (
-            <button
-              className="action-menu-item"
-              role="menuitem"
-              onClick={(e) => { e.stopPropagation(); onToggle(); if (onDelete) onDelete(); }}
-            >
-              Delete Job
-            </button>
-          )}
-        </div>
-      )}
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id={`action-menu-${jobId}`}
+        anchorEl={anchorRef.current}
+        open={isOpen}
+        onClose={onToggle}
+        onClick={onToggle}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{ '& .MuiPaper-root': { minWidth: 180 } }}
+      >
+        {canViewApplications && (
+          <MenuItem component={Link} to={`/jobs/${jobId}/applications`}>
+            <ListItemIcon><AssignmentIndIcon fontSize="small" /></ListItemIcon>
+            <ListItemText>Applications</ListItemText>
+          </MenuItem>
+        )}
+        <MenuItem component={Link} to={editPath}>
+          <ListItemIcon><EditIcon fontSize="small" /></ListItemIcon>
+          <ListItemText>Edit Job</ListItemText>
+        </MenuItem>
+        {canDelete && <Divider />}
+        {canDelete && (
+          <MenuItem
+            onClick={(e) => { e.stopPropagation(); if (onDelete) onDelete(); }}
+            sx={{ color: 'error.main' }}
+          >
+            <ListItemIcon><DeleteIcon fontSize="small" color="error" /></ListItemIcon>
+            <ListItemText>Delete Job</ListItemText>
+          </MenuItem>
+        )}
+      </Menu>
     </>
   );
 }
