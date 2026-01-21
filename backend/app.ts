@@ -7,10 +7,10 @@ import applicationRoutes from './routes/applicationRoutes';
 import templateRoutes from './routes/templateRoutes';
 import errorHandler from './middleware/errorHandler';
 import resendRoutes from './routes/resendRoutes';
+import aiRoutes from './routes/aiRoutes';
 
 const app = express();
 
-const allowedOrigin = process.env.CLIENT_ORIGIN;
 const devOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
@@ -37,6 +37,7 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/templates', templateRoutes);
 app.use('/api', resendRoutes);
 app.use('/api', applicationRoutes);
+app.use('/api/ai', aiRoutes);
 
 
 

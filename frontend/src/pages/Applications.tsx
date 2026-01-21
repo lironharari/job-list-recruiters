@@ -1,4 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import { AiAssistantModal } from '../components/Modals';
 import { fetchApplications, deleteApplication, fetchJob, updateApplicationStatus, fetchTemplates, sendResendEmail } from '../api/api';
 import type { Application, Job } from '../types';
 import { AuthContext } from '../context/AuthContext';
@@ -19,9 +21,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DescriptionIcon from '@mui/icons-material/Description';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Divider from '@mui/material/Divider';
 
 export default function Applications() {
+    const [aiModalApp, setAiModalApp] = useState<Application | null>(null);
   const [apps, setApps] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const auth = useContext(AuthContext);
@@ -194,9 +196,16 @@ export default function Applications() {
                             Resume
                           </Button>
                         ) : (
-                          <Typography variant="body2" color="text.secondary">No resume</Typography>
+                          <Typography variant="body2" color="text.secondary">No Resume</Typography>
                         )}
-                        <Divider orientation="vertical" flexItem sx={{ mx: 1, display: 'inline-flex' }} />
+                        <Button
+                          variant="text"
+                          size="small"
+                          onClick={() => setAiModalApp(app)}
+                          startIcon={<SmartToyIcon />}
+                        >
+                          AI
+                        </Button>
                         <Button
                           variant="text"
                           size="small"
@@ -204,8 +213,7 @@ export default function Applications() {
                           startIcon={<EmailIcon />}
                         >
                           Email
-                        </Button>
-                        <Divider orientation="vertical" flexItem sx={{ mx: 1, display: 'inline-flex' }} />
+                        </Button>                        
                         <Button
                           variant="text"
                           size="small"
@@ -224,7 +232,13 @@ export default function Applications() {
           </Box>
         )}
       </Paper>
-      {/* Modals extracted to external file */}
+      
+      <AiAssistantModal 
+        open={!!aiModalApp} 
+        onClose={() => setAiModalApp(null)} 
+        app={aiModalApp} 
+        pdfUrl={aiModalApp && aiModalApp.filePath ? `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/uploads/${aiModalApp.filePath}` : undefined}
+      />
       <MessageModal
         messageApp={messageApp}
         templates={templates}

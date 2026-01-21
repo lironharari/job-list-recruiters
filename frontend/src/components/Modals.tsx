@@ -1,3 +1,4 @@
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,7 +10,69 @@ import CloseIcon from '@mui/icons-material/Close';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
+import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
+import { markdownToHtml } from '../utils/text';
+import { summarizePdf } from '../api/api';
 
+export function AiAssistantModal({ open, onClose, app, pdfUrl }: { open: boolean, onClose: () => void, app: any, pdfUrl?: string }) {
+  const [summary, setSummary] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!open || !app || !pdfUrl) return;
+    setSummary(null);
+    setError(null);
+    setLoading(true);
+    fetch(pdfUrl)
+      .then(res => res.blob())
+      .then(async (blob) => {
+        try {
+          const summaryText = await summarizePdf(blob);
+          setSummary(summaryText);
+        } catch (e: any) {
+          setError(e.message || 'Failed to summarize PDF.');
+        }
+      })
+      .catch(e => setError(e.message || 'Failed to fetch PDF.'))
+      .finally(() => setLoading(false));
+  }, [open, app, pdfUrl]);
+
+  if (!open || !app) return null;
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs">
+      <DialogTitle>
+        <SmartToyIcon sx={{ mr: 1, verticalAlign: 'middle' }} /> AI Assistant
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{ position: 'absolute', right: 8, top: 8 }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <Typography variant="body1" gutterBottom>
+          <b>{app.firstName} {app.lastName}</b>
+        </Typography>
+        {pdfUrl && (
+          <>
+            <Typography variant="subtitle2" sx={{ mt: 1 }}>PDF Analysis:</Typography>
+            {loading && <Typography>Analyzing PDF...</Typography>}
+            {error && <Typography color="error">{error}</Typography>}
+            {summary && <Typography sx={{ whiteSpace: 'pre-line' }}>{summary}</Typography>}
+          </>
+        )}
+        {!pdfUrl && <Typography color="text.secondary">No PDF attached to this application.</Typography>}
+      </DialogContent>
+      <DialogActions>
+        <Button variant="contained" onClick={onClose}>Close</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form, setForm, modalLoading, submit }: any) {
   return (
     <Dialog open={showCreateModal} onClose={() => setShowCreateModal(false)} maxWidth="sm" fullWidth>
@@ -162,9 +225,6 @@ export function JobDetailModal({ showJobModal, setShowJobModal, job }: any) {
     </Dialog>
   );
 }
-import React, { useState } from 'react';
-import DOMPurify from 'dompurify';
-import { markdownToHtml } from '../utils/text';
 
 type ApplyModalProps = {
   open: boolean;

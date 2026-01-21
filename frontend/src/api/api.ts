@@ -1,7 +1,11 @@
 import axios from 'axios';
 import type { Job } from '../types';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+// Vite-compatible worker import using CDN, version must match pdfjs-dist
+GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.worker.mjs";
 
 const api = axios.create({
   baseURL: API_URL,
@@ -106,3 +110,22 @@ export const sendResendEmail = async (payload: { applicationId: string; subject?
   const res = await api.post('/api/send-resend-email', payload, { withCredentials: true });
   return res.data;
 };
+
+export async function extractTextFromPdf(file: Blob): Promise<string> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await getDocument({ data: arrayBuffer }).promise;
+  let text = '';
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map((item: any) => item.str).join(' ') + '\n';
+    if (text.length > 8000) break;
+  }
+  return text.slice(0, 8000);
+}
+
+export async function summarizePdf(file: Blob): Promise<string> {  
+  const text = await extractTextFromPdf(file);
+  const res = await api.post('/api/ai/summarize-pdf', { text });
+  return res.data.summary || 'No summary available.';
+}

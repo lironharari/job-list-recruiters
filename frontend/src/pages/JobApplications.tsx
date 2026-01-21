@@ -27,8 +27,6 @@ export default function JobApplications() {
   const [apps, setApps] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [job, setJob] = useState<Job | null>(null);
-  const [jobLoading, setJobLoading] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const [showJobModal, setShowJobModal] = useState(false);
   const [templates, setTemplates] = useState<import('../types').Template[]>([]);
   const [messageApp, setMessageApp] = useState<Application | null>(null);
@@ -52,14 +50,12 @@ export default function JobApplications() {
 
   const loadJob = async () => {
     if (!id) return;
-    setJobLoading(true);
     try {
       const j = await fetchJob(id);
       setJob(j || null);
     } catch (e) {
       setJob(null);
     }
-    setJobLoading(false);
   };
 
   useEffect(() => {
@@ -120,17 +116,24 @@ export default function JobApplications() {
   if (!(auth.role === 'admin' || auth.role === 'recruiter')) return <Typography align="center" sx={{ mt: 6 }}>Forbidden</Typography>;
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" component="h2" gutterBottom>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom align="center">
         Applications for{' '}
         {job ? (
-          <Button
-            variant="text"
+          <Typography
+            component="span"
+            sx={{
+              fontWeight: 100,
+              fontSize: '1.5rem',
+              color: 'primary.main',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              '&:hover': { color: 'primary.dark' }
+            }}
             onClick={() => setShowJobModal(true)}
-            sx={{ fontWeight: 100,fontSize: '1.7rem' }}
           >
             {`${job.title} @ ${job.company}`}
-          </Button>
+          </Typography>
         ) : ''}
       </Typography>
       <Paper elevation={2} sx={{ p: 2 }}>

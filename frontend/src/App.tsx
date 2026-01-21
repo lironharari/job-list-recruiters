@@ -5,13 +5,12 @@ import { AuthContext } from './context/AuthContext';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Tooltip from '@mui/material/Tooltip';
 import Drawer from '@mui/material/Drawer';
@@ -20,7 +19,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
 import WorkIcon from '@mui/icons-material/Work';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import EmailIcon from '@mui/icons-material/Email';
@@ -127,7 +125,7 @@ export default function App() {
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/create">
                   <ListItemIcon><AddBoxIcon /></ListItemIcon>
-                  <ListItemText primary="Create New Job" />
+                  <ListItemText primary="Create Job" />
                 </ListItemButton>
               </ListItem>
               {(role === 'recruiter' || role === 'admin') && (
@@ -155,7 +153,7 @@ export default function App() {
             </List>
           </Drawer>
         )}
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+        <Container sx={{ mt: 4, mb: 4 }}>
           <Outlet />
         </Container>
       </Box>

@@ -248,7 +248,7 @@ export default function JobList() {
   }, [openMenu]);
 
   return (
-    <Box>
+    <Box sx={{ width: '100%', maxWidth: 900, mx: 'auto', mt: 4, mb: 4, px: 2 }}>
       {searchComponent}
 
       {loading ? (
