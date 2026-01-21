@@ -2,7 +2,6 @@ import express from 'express';
 import multer, { File as MulterFile } from 'multer';
 import { Request, Response } from 'express';
 import { getOpenAISummary } from '../utils/ai';
-import pdfParse from 'pdf-parse';
 
 const router = express.Router();
 const upload = multer();
@@ -17,7 +16,7 @@ router.post('/summarize-pdf', upload.single('file'), async (req: MulterRequest, 
     if (!req.body) return res.status(400).json({ error: 'No req body' });        
     const text = req.body.text?.slice(0, 8000) || '';
     if (!text) return res.status(400).json({ error: 'Could not extract text from PDF' });
-    // Summarize using AI (implement getOpenAISummary)
+    
     const summary = await getOpenAISummary(text);
     res.json({ summary });
   } catch (err: any) {

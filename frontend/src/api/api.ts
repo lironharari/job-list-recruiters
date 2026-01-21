@@ -4,7 +4,7 @@ import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-//GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.worker.mjs";
+//GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.worker.min.mjs";
 GlobalWorkerOptions.workerSrc = 'pdf.worker.min.mjs';
 
 const api = axios.create({
