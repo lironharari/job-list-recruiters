@@ -1,5 +1,3 @@
-
-
 [Live App](https://drushim.onrender.com)
 
 # Job List Recruiters
@@ -17,6 +15,7 @@ Job List Recruiters is a full-stack web application for job boards and recruiter
 	- Context API
 	- Jest
 	- ESLint
+	- OpenAI (AI features via backend)
 
 - **Backend:**
 	- Node.js
@@ -24,6 +23,7 @@ Job List Recruiters is a full-stack web application for job boards and recruiter
 	- TypeScript
 	- MongoDB
 	- Resend (email service)
+	- OpenAI (AI-powered PDF summary & relevance)
 	- Jest
 	- Dotenv
 
@@ -35,6 +35,7 @@ Job List Recruiters is a full-stack web application for job boards and recruiter
 - Authentication and role-based access
 - RESTful API endpoints
 - Responsive design with light/dark mode
+- AI-powered PDF summarization and job relevance insights
 
 ## Structure
 

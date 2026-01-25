@@ -18,13 +18,13 @@ describe('Job Authorization', () => {
     const recruiter = await User.create({
       email: 'recruiter@test.com',
       password: await hashPassword('password123'),
-      role: 'recruiter'
+      role: 'recruiter',
     });
 
     const admin = await User.create({
       email: 'admin@test.com',
       password: await hashPassword('password123'),
-      role: 'admin'
+      role: 'admin',
     });
 
     const recruiterLogin = await request(app)
@@ -44,9 +44,7 @@ describe('Job Authorization', () => {
   });
 
   it('should block job creation without token', async () => {
-    const res = await request(app)
-      .post('/api/jobs')
-      .send({ title: 'Test Job' });
+    const res = await request(app).post('/api/jobs').send({ title: 'Test Job' });
 
     expect(res.status).toBe(401);
   });
@@ -59,9 +57,9 @@ describe('Job Authorization', () => {
         title: 'Developer',
         company: 'Test Co',
         description: 'Job description',
-        location: 'Test Location'
-        , level: 'Mid',
-        type: 'Onsite'
+        location: 'Test Location',
+        level: 'Mid',
+        type: 'Onsite',
       });
 
     expect(res.status).toBe(201);
@@ -75,7 +73,7 @@ describe('Job Authorization', () => {
       description: 'Delete allowed',
       location: 'Test Location',
       level: 'Mid',
-      type: 'Onsite'
+      type: 'Onsite',
     });
 
     const res = await request(app)
@@ -92,7 +90,7 @@ describe('Job Authorization', () => {
       description: 'Delete allowed',
       location: 'Test Location',
       level: 'Senior',
-      type: 'Onsite'
+      type: 'Onsite',
     });
 
     const res = await request(app)

@@ -1,4 +1,3 @@
-
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useContext, useMemo, useState } from 'react';
 import { AuthContext } from './context/AuthContext';
@@ -29,7 +28,9 @@ export default function App() {
   const { isAuthenticated, logout, role } = useContext(AuthContext);
   const navigate = useNavigate();
   const [mode, setMode] = useState<'light' | 'dark'>(
-    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
   );
 
   const colorMode = {
@@ -45,7 +46,7 @@ export default function App() {
           mode,
         },
       }),
-    [mode]
+    [mode],
   );
 
   const handleLogout = () => {
@@ -86,7 +87,14 @@ export default function App() {
                   <Typography
                     component={Link}
                     to="/login"
-                    sx={{ color: 'primary.main', textDecoration: 'none', mx: 1, fontWeight: 500, cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                    sx={{
+                      color: 'primary.main',
+                      textDecoration: 'none',
+                      mx: 1,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      '&:hover': { textDecoration: 'underline' },
+                    }}
                   >
                     Login
                   </Typography>
@@ -94,7 +102,14 @@ export default function App() {
                   <Typography
                     component={Link}
                     to="/register"
-                    sx={{ color: 'primary.main', textDecoration: 'none', mx: 1, fontWeight: 500, cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                    sx={{
+                      color: 'primary.main',
+                      textDecoration: 'none',
+                      mx: 1,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      '&:hover': { textDecoration: 'underline' },
+                    }}
                   >
                     Register
                   </Typography>
@@ -111,20 +126,29 @@ export default function App() {
             sx={{
               width: 220,
               flexShrink: 0,
-              [`& .MuiDrawer-paper`]: { width: 220, boxSizing: 'border-box', top: 64, elevation: 2 },
+              [`& .MuiDrawer-paper`]: {
+                width: 220,
+                boxSizing: 'border-box',
+                top: 65,
+                elevation: 2,
+              },
             }}
           >
             <Toolbar />
             <List>
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/jobs">
-                  <ListItemIcon><WorkIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <WorkIcon />
+                  </ListItemIcon>
                   <ListItemText primary="All Jobs" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton component={Link} to="/create">
-                  <ListItemIcon><AddBoxIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <AddBoxIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Create Job" />
                 </ListItemButton>
               </ListItem>
@@ -132,13 +156,17 @@ export default function App() {
                 <>
                   <ListItem disablePadding>
                     <ListItemButton component={Link} to="/applications">
-                      <ListItemIcon><DescriptionIcon /></ListItemIcon>
+                      <ListItemIcon>
+                        <DescriptionIcon />
+                      </ListItemIcon>
                       <ListItemText primary="Applications" />
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
                     <ListItemButton component={Link} to="/templates">
-                      <ListItemIcon><EmailIcon /></ListItemIcon>
+                      <ListItemIcon>
+                        <EmailIcon />
+                      </ListItemIcon>
                       <ListItemText primary="Email Templates" />
                     </ListItemButton>
                   </ListItem>
@@ -146,7 +174,9 @@ export default function App() {
               )}
               <ListItem disablePadding>
                 <ListItemButton onClick={handleLogout}>
-                  <ListItemIcon><LogoutIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItemButton>
               </ListItem>

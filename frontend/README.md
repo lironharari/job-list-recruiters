@@ -12,6 +12,7 @@ This is the frontend for the Job List Recruiters project, a modern job board and
 - **Vite** – Fast development/build tool
 - **React Router** – Routing and navigation
 - **Context API** – Authentication and global state management
+- **OpenAI** – AI-powered PDF summarization and job relevance (via backend)
 - **Jest** – Testing framework
 - **ESLint** – Linting and code quality
 
@@ -24,6 +25,7 @@ This is the frontend for the Job List Recruiters project, a modern job board and
 - Authentication and role-based access
 - Responsive design with light/dark mode
 - Modern UI built with Material-UI (MUI)
+- AI-powered resume summary and job relevance insights
 
 ## Getting Started
 

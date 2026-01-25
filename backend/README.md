@@ -11,6 +11,7 @@ This is the backend for the Job List Recruiters project, a job board and recruit
 - **TypeScript** – Type safety for backend logic
 - **MongoDB** – Database for jobs, users, and applications
 - **Resend** – Transactional email service
+- **OpenAI** – AI-powered PDF summarization and job relevance
 - **Jest** – Testing framework
 - **Dotenv** – Environment variable management
 
@@ -22,6 +23,7 @@ This is the backend for the Job List Recruiters project, a job board and recruit
 - Email notifications and templates
 - RESTful API endpoints
 - Secure file upload for resumes
+- AI-powered PDF summarization and job relevance analysis
 
 ## Setup
 
@@ -67,5 +69,6 @@ See `scripts/sendTestResendEmail.ts` for a usage example.
 - `scripts/` – Data seeding and email testing scripts
 
 ## Notes
+
 - Update the `from` address in `utils/resend.ts` to your verified sender.
 - For more info, see [Resend docs](https://resend.com/docs).

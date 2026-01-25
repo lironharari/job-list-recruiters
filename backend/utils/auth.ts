@@ -12,14 +12,10 @@ export const comparePassword = async (password: string, hash: string) => {
 
 export const generateToken = (user: IUser) => {
   const JWT_SECRET = process.env.JWT_SECRET;
-  
+
   if (!JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined in environment variables');
   }
-  
-  return jwt.sign(
-    { userId: user._id, role: user.role },
-    JWT_SECRET,
-    { expiresIn: '15m' }
-  );
+
+  return jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '15m' });
 };

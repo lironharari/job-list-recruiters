@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext, useRef } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useRef } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,7 +9,6 @@ import Divider from '@mui/material/Divider';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 type Props = {
   jobId: string;
@@ -21,10 +19,15 @@ type Props = {
   onDelete?: () => void;
 };
 
-export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelete = false, onDelete }: Props) {
-  const auth = useContext(AuthContext);
+export default function ActionMenu({
+  jobId,
+  isOpen,
+  onToggle,
+  editPath,
+  canDelete = false,
+  onDelete,
+}: Props) {
   const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const canViewApplications = auth.role === 'recruiter' || auth.role === 'admin';
 
   return (
     <>
@@ -34,7 +37,10 @@ export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelet
         aria-controls={isOpen ? `action-menu-${jobId}` : undefined}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : undefined}
-        onClick={(e) => { e.stopPropagation(); onToggle(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
         size="small"
       >
         <MoreVertIcon />
@@ -49,23 +55,24 @@ export default function ActionMenu({ jobId, isOpen, onToggle, editPath, canDelet
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{ '& .MuiPaper-root': { minWidth: 180 } }}
       >
-        {canViewApplications && (
-          <MenuItem component={Link} to={`/jobs/${jobId}/applications`}>
-            <ListItemIcon><AssignmentIndIcon fontSize="small" /></ListItemIcon>
-            <ListItemText>Applications</ListItemText>
-          </MenuItem>
-        )}
         <MenuItem component={Link} to={editPath}>
-          <ListItemIcon><EditIcon fontSize="small" /></ListItemIcon>
+          <ListItemIcon>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
           <ListItemText>Edit Job</ListItemText>
         </MenuItem>
         {canDelete && <Divider />}
         {canDelete && (
           <MenuItem
-            onClick={(e) => { e.stopPropagation(); if (onDelete) onDelete(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onDelete) onDelete();
+            }}
             sx={{ color: 'error.main' }}
           >
-            <ListItemIcon><DeleteIcon fontSize="small" color="error" /></ListItemIcon>
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" color="error" />
+            </ListItemIcon>
             <ListItemText>Delete Job</ListItemText>
           </MenuItem>
         )}

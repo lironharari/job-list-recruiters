@@ -9,6 +9,9 @@ export interface Job {
   salary?: number;
 }
 
+
+export type Status = 'new' | 'shortlisted' | 'rejected' | 'interview' | 'accepted';
+
 export interface Application {
   _id?: string;
   job: Job | string;
@@ -16,7 +19,7 @@ export interface Application {
   lastName: string;
   filePath: string;
   email?: string;
-  status?: 'new' | 'shortlisted' | 'rejected' | 'interview';
+  status?: Status;
   createdAt?: string;
 }
 

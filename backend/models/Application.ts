@@ -6,7 +6,7 @@ export interface IApplication extends Document {
   lastName: string;
   email: string;
   filePath: string;
-  status: 'new' | 'shortlisted' | 'rejected' | 'interview';
+  status: 'new' | 'shortlisted' | 'rejected' | 'interview' | 'accepted';
   createdAt: Date;
 }
 
@@ -16,7 +16,7 @@ const ApplicationSchema: Schema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   filePath: { type: String, required: true },
-  status: { type: String, enum: ['new', 'shortlisted', 'rejected', 'interview'], default: 'new' },
+  status: { type: String, enum: ['new', 'shortlisted', 'rejected', 'interview', 'accepted'], default: 'new' },
   createdAt: { type: Date, default: Date.now },
 });
 

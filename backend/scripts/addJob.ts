@@ -37,7 +37,7 @@ _Apply at:_ [https://example.com/careers](https://example.com/careers)
     location: 'Tel Aviv',
     salary: 18000,
     level: 'Senior',
-    type: 'Onsite'
+    type: 'Onsite',
   });
 
   try {

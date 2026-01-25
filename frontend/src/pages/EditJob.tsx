@@ -22,7 +22,7 @@ export default function EditJob() {
     const loadJob = async () => {
       if (!id) return;
       const res = await fetchJobs();
-      const jobs = Array.isArray(res) ? res : (res && (res as any).jobs) ? (res as any).jobs : [];
+      const jobs = Array.isArray(res) ? res : res && (res as any).jobs ? (res as any).jobs : [];
       const found = jobs.find((j: Job) => j._id === id) || null;
       setJob(found);
     };
@@ -42,13 +42,18 @@ export default function EditJob() {
     navigate('/jobs');
   };
 
-  if (!job) return <Typography align="center" sx={{ mt: 6 }}>Loading job...</Typography>;
+  if (!job)
+    return (
+      <Typography align="center" sx={{ mt: 6 }}>
+        Loading job...
+      </Typography>
+    );
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" component="h2" gutterBottom align="center">
         Edit Job
-      </Typography>      
+      </Typography>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Box component="form" onSubmit={handleSubmit} noValidate>
           <TextField
@@ -96,15 +101,15 @@ export default function EditJob() {
               id="level-select"
               value={job.level}
               label="Level"
-              fullWidth                            
-              onChange={e => setJob({ ...job, level: e.target.value })}
+              fullWidth
+              onChange={(e) => setJob({ ...job, level: e.target.value })}
             >
-                <MenuItem value="Junior">Junior</MenuItem>
-                <MenuItem value="Mid">Mid</MenuItem>
-                <MenuItem value="Senior">Senior</MenuItem>
-                <MenuItem value="Lead">Lead</MenuItem>
+              <MenuItem value="Junior">Junior</MenuItem>
+              <MenuItem value="Mid">Mid</MenuItem>
+              <MenuItem value="Senior">Senior</MenuItem>
+              <MenuItem value="Lead">Lead</MenuItem>
             </Select>
-          </FormControl>         
+          </FormControl>
           <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
             <InputLabel id="type-select-label">Type</InputLabel>
             <Select
@@ -112,8 +117,8 @@ export default function EditJob() {
               id="type-select"
               value={job.type}
               label="Type"
-              fullWidth                            
-              onChange={e => setJob({ ...job, type: e.target.value })}
+              fullWidth
+              onChange={(e) => setJob({ ...job, type: e.target.value })}
             >
               <MenuItem value="Onsite">Onsite</MenuItem>
               <MenuItem value="Hybrid">Hybrid</MenuItem>
@@ -131,8 +136,12 @@ export default function EditJob() {
             margin="normal"
           />
           <Box display="flex" justifyContent="flex-end" gap={2} mt={3}>
-            <Button variant="outlined" color="secondary" onClick={() => navigate('/jobs')}>Cancel</Button>
-            <Button variant="contained" color="primary" type="submit">Update</Button>
+            <Button variant="outlined" color="secondary" onClick={() => navigate('/jobs')}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              Update
+            </Button>
           </Box>
         </Box>
       </Paper>

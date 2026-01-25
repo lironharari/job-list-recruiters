@@ -12,7 +12,7 @@ describe('Auth JWT', () => {
     await User.create({
       email: 'recruiter@test.com',
       password: await hashPassword('password123'),
-      role: 'recruiter'
+      role: 'recruiter',
     });
   });
 
@@ -21,12 +21,10 @@ describe('Auth JWT', () => {
   });
 
   it('should login and return JWT token', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({
-        email: 'recruiter@test.com',
-        password: 'password123'
-      });
+    const res = await request(app).post('/api/auth/login').send({
+      email: 'recruiter@test.com',
+      password: 'password123',
+    });
 
     expect(res.status).toBe(200);
     expect(res.body.token).toBeDefined();

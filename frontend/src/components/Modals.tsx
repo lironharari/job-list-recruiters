@@ -1,4 +1,3 @@
-import SmartToyIcon from '@mui/icons-material/SmartToy';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,72 +9,25 @@ import CloseIcon from '@mui/icons-material/Close';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DOMPurify from 'dompurify';
 import { markdownToHtml } from '../utils/text';
-import { summarizePdf } from '../api/api';
 
-export function AiAssistantModal({ open, onClose, app, pdfUrl }: { open: boolean, onClose: () => void, app: any, pdfUrl?: string }) {
-  const [summary, setSummary] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!open || !app || !pdfUrl) return;
-    setSummary(null);
-    setError(null);
-    setLoading(true);
-    fetch(pdfUrl)
-      .then(res => res.blob())
-      .then(async (blob) => {
-        try {
-          const summaryText = await summarizePdf(blob);
-          setSummary(summaryText);
-        } catch (e: any) {
-          setError(e.message || 'Failed to summarize PDF.');
-        }
-      })
-      .catch(e => setError(e.message || 'Failed to fetch PDF.'))
-      .finally(() => setLoading(false));
-  }, [open, app, pdfUrl]);
-
-  if (!open || !app) return null;
+export function CreateTemplateModal({
+  showCreateModal,
+  setShowCreateModal,
+  form,
+  setForm,
+  modalLoading,
+  submit,
+}: any) {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs">
-      <DialogTitle>
-        <SmartToyIcon sx={{ mr: 1, verticalAlign: 'middle' }} /> AI Assistant
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{ position: 'absolute', right: 8, top: 8 }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <Typography variant="body1" gutterBottom>
-          <b>{app.firstName} {app.lastName}</b>
-        </Typography>
-        {pdfUrl && (
-          <>
-            <Typography variant="subtitle2" sx={{ mt: 1 }}>PDF Analysis:</Typography>
-            {loading && <Typography>Analyzing PDF...</Typography>}
-            {error && <Typography color="error">{error}</Typography>}
-            {summary && <Typography sx={{ whiteSpace: 'pre-line' }}>{summary}</Typography>}
-          </>
-        )}
-        {!pdfUrl && <Typography color="text.secondary">No PDF attached to this application.</Typography>}
-      </DialogContent>
-      <DialogActions>
-        <Button variant="contained" onClick={onClose}>Close</Button>
-      </DialogActions>
-    </Dialog>
-  );
-}
-export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form, setForm, modalLoading, submit }: any) {
-  return (
-    <Dialog open={showCreateModal} onClose={() => setShowCreateModal(false)} maxWidth="sm" fullWidth>
+    <Dialog
+      open={showCreateModal}
+      onClose={() => setShowCreateModal(false)}
+      maxWidth="sm"
+      fullWidth
+    >
       <DialogTitle>
         Create Template
         <IconButton
@@ -91,7 +43,7 @@ export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form,
           <TextField
             label="Name"
             value={form.name}
-            onChange={e => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
             required
             fullWidth
             margin="normal"
@@ -99,7 +51,7 @@ export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form,
           <TextField
             label="Subject"
             value={form.subject}
-            onChange={e => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
             required
             fullWidth
             margin="normal"
@@ -107,7 +59,7 @@ export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form,
           <TextField
             label="Body (HTML allowed, use name and jobTitle placeholders)"
             value={form.body}
-            onChange={e => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
             required
             fullWidth
             margin="normal"
@@ -116,7 +68,9 @@ export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form,
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowCreateModal(false)} color="secondary">Cancel</Button>
+          <Button onClick={() => setShowCreateModal(false)} color="secondary">
+            Cancel
+          </Button>
           <Button type="submit" variant="contained" disabled={modalLoading} color="primary">
             {modalLoading ? 'Saving…' : 'Save Template'}
           </Button>
@@ -126,7 +80,18 @@ export function CreateTemplateModal({ showCreateModal, setShowCreateModal, form,
   );
 }
 
-export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selected, form, setForm, modalLoading, updateTemplate, load, setModalLoading, doDelete }: any) {
+export function EditTemplateModal({
+  showDetailsModal,
+  setShowDetailsModal,
+  selected,
+  form,
+  setForm,
+  modalLoading,
+  updateTemplate,
+  load,
+  setModalLoading,
+  doDelete,
+}: any) {
   if (!showDetailsModal || !selected) return null;
   const [error, setError] = React.useState<string | null>(null);
   const handleSubmit = async (e: any) => {
@@ -144,7 +109,12 @@ export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selec
     }
   };
   return (
-    <Dialog open={showDetailsModal} onClose={() => setShowDetailsModal(false)} maxWidth="sm" fullWidth>
+    <Dialog
+      open={showDetailsModal}
+      onClose={() => setShowDetailsModal(false)}
+      maxWidth="sm"
+      fullWidth
+    >
       <DialogTitle>
         Edit Template
         <IconButton
@@ -160,7 +130,7 @@ export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selec
           <TextField
             label="Name"
             value={form.name}
-            onChange={e => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, name: e.target.value }))}
             required
             fullWidth
             margin="normal"
@@ -168,7 +138,7 @@ export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selec
           <TextField
             label="Subject"
             value={form.subject}
-            onChange={e => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, subject: e.target.value }))}
             required
             fullWidth
             margin="normal"
@@ -176,17 +146,23 @@ export function EditTemplateModal({ showDetailsModal, setShowDetailsModal, selec
           <TextField
             label="Body (HTML allowed, use name and jobTitle placeholders)"
             value={form.body}
-            onChange={e => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
+            onChange={(e) => setForm((prev: any) => ({ ...prev, body: e.target.value }))}
             required
             fullWidth
             margin="normal"
             multiline
             minRows={6}
           />
-          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowDetailsModal(false)} color="secondary">Cancel</Button>
+          <Button onClick={() => setShowDetailsModal(false)} color="secondary">
+            Cancel
+          </Button>
           <Button type="button" color="error" onClick={() => doDelete(selected._id)}>
             Delete
           </Button>
@@ -213,14 +189,22 @@ export function JobDetailModal({ showJobModal, setShowJobModal, job }: any) {
       </DialogTitle>
       <DialogContent dividers>
         <div style={{ marginBottom: 8 }}>
-          <strong>{job?.company}</strong> | {job?.location} | {job?.level ?? 'N/A'} | {job?.type ?? 'N/A'}
+          <strong>{job?.company}</strong> | {job?.location} | {job?.level ?? 'N/A'} |{' '}
+          {job?.type ?? 'N/A'}
         </div>
         {job?.description && (
-          <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(job.description)) }} />
+          <div
+            className="job-desc"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(markdownToHtml(job.description)),
+            }}
+          />
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setShowJobModal(false)} color="primary">Close</Button>
+        <Button onClick={() => setShowJobModal(false)} color="primary">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );
@@ -229,12 +213,23 @@ export function JobDetailModal({ showJobModal, setShowJobModal, job }: any) {
 type ApplyModalProps = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (firstName: string, lastName: string, email: string, file: File) => Promise<{ success: boolean; message?: string }>;
+  onSubmit: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    file: File,
+  ) => Promise<{ success: boolean; message?: string }>;
   submitting?: boolean;
   message?: string | null;
 };
 
-export function ApplyModal({ open, onClose, onSubmit, submitting = false, message }: ApplyModalProps) {
+export function ApplyModal({
+  open,
+  onClose,
+  onSubmit,
+  submitting = false,
+  message,
+}: ApplyModalProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -286,7 +281,7 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
           <TextField
             label="First name"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             fullWidth
             margin="normal"
             required
@@ -294,7 +289,7 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
           <TextField
             label="Last name"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             fullWidth
             margin="normal"
             required
@@ -302,31 +297,36 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
           <TextField
             label="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             fullWidth
             margin="normal"
             required
           />
-          <Button
-            variant="outlined"
-            component="label"
-            fullWidth
-            sx={{ mt: 2, mb: 1 }}
-          >
+          <Button variant="outlined" component="label" fullWidth sx={{ mt: 2, mb: 1 }}>
             {file ? file.name : 'Attach Resume (PDF)'}
             <input
               type="file"
               accept="application/pdf"
               hidden
-              onChange={e => setFile(e.target.files?.[0] ?? null)}
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             />
           </Button>
-          {message && <Alert severity="success" sx={{ mt: 2 }}>{message}</Alert>}
-          {formError && <Alert severity="error" sx={{ mt: 2 }}>{formError}</Alert>}
+          {message && (
+            <Alert severity="success" sx={{ mt: 2 }}>
+              {message}
+            </Alert>
+          )}
+          {formError && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {formError}
+            </Alert>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">Cancel</Button>
+          <Button onClick={handleClose} color="secondary">
+            Cancel
+          </Button>
           <Button type="submit" variant="contained" color="primary" disabled={submitting}>
             {submitting ? 'Submitting...' : 'Submit application'}
           </Button>
@@ -335,7 +335,6 @@ export function ApplyModal({ open, onClose, onSubmit, submitting = false, messag
     </Dialog>
   );
 }
-
 
 export function MessageModal({
   messageApp,
@@ -373,42 +372,57 @@ export function MessageModal({
         </IconButton>
       </DialogTitle>
       <DialogContent dividers>
+        <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>        
+        <InputLabel id="template-select-label">Template</InputLabel>
         <Select
+          labelId="template-select-label"
+          label="Template"
+          id="template-select"
           fullWidth
           value={selectedTemplate || ''}
-          onChange={e => {
-            const id = e.target.value || undefined; setSelectedTemplate(id);
+          onChange={(e) => {
+            const id = e.target.value || undefined;
+            setSelectedTemplate(id);
             const tpl = templates.find((t: any) => t._id === id);
-            if (tpl) { setMessageSubject(tpl.subject); setMessageBody(tpl.body); }
+            if (tpl) {
+              setMessageSubject(tpl.subject);
+              setMessageBody(tpl.body);
+            }
           }}
-          displayEmpty
-          sx={{ mb: 2 }}
         >
-          <MenuItem value="">(none)</MenuItem>
           {templates.map((t: any) => (
-            <MenuItem key={t._id} value={t._id}>{t.name}</MenuItem>
+            <MenuItem key={t._id} value={t._id}>
+              {t.name}
+            </MenuItem>
           ))}
         </Select>
+        </FormControl>
         <TextField
           label="Subject"
           value={messageSubject}
-          onChange={e => setMessageSubject(e.target.value)}
+          onChange={(e) => setMessageSubject(e.target.value)}
           fullWidth
           margin="normal"
         />
         <TextField
           label="Body (HTML allowed)"
           value={messageBody}
-          onChange={e => setMessageBody(e.target.value)}
+          onChange={(e) => setMessageBody(e.target.value)}
           fullWidth
           margin="normal"
           multiline
           minRows={4}
         />
-        {formError && <Alert severity="error" sx={{ mt: 2 }}>{formError}</Alert>}
+        {formError && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {formError}
+          </Alert>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeMessageModal} color="secondary">Cancel</Button>
+        <Button onClick={closeMessageModal} color="secondary">
+          Cancel
+        </Button>
         <Button onClick={handleSend} variant="contained" color="primary" disabled={messageLoading}>
           {messageLoading ? 'Sending…' : 'Send'}
         </Button>
@@ -418,6 +432,8 @@ export function MessageModal({
 }
 
 import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 export function JobLoadingModal({ modalLoading, closeJobModal }: any) {
   return (
     <Dialog open={!!modalLoading} onClose={closeJobModal} maxWidth="xs">
@@ -431,7 +447,9 @@ export function JobLoadingModal({ modalLoading, closeJobModal }: any) {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 80 }}>
+      <DialogContent
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 80 }}
+      >
         <CircularProgress />
       </DialogContent>
     </Dialog>
@@ -454,14 +472,22 @@ export function JobInfoModal({ modalJob, closeJobModal }: any) {
       </DialogTitle>
       <DialogContent dividers>
         <div style={{ marginBottom: 8 }}>
-          <strong>{modalJob.company}</strong> | {modalJob.location} | {modalJob.level ?? 'N/A'} | {modalJob.type ?? 'N/A'}
+          <strong>{modalJob.company}</strong> | {modalJob.location} | {modalJob.level ?? 'N/A'} |{' '}
+          {modalJob.type ?? 'N/A'}
         </div>
         {modalJob.description && (
-          <div className="job-desc" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(modalJob.description)) }} />
+          <div
+            className="job-desc"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(markdownToHtml(modalJob.description)),
+            }}
+          />
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeJobModal} color="primary">Close</Button>
+        <Button onClick={closeJobModal} color="primary">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

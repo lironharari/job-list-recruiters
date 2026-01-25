@@ -53,7 +53,7 @@ export default function Register() {
             label="Email"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="email"
           />
@@ -63,7 +63,7 @@ export default function Register() {
             label="Password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="new-password"
             inputProps={{ minLength: 6 }}
@@ -71,7 +71,7 @@ export default function Register() {
           <Select
             fullWidth
             value={role}
-            onChange={e => setRole(e.target.value as any)}
+            onChange={(e) => setRole(e.target.value as any)}
             sx={{ mt: 2, mb: 1 }}
           >
             <MenuItem value="recruiter">Recruiter</MenuItem>
@@ -86,12 +86,19 @@ export default function Register() {
           >
             {loading ? 'Registering...' : 'Register'}
           </Button>
-          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-          {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+          {success && (
+            <Alert severity="success" sx={{ mt: 2 }}>
+              {success}
+            </Alert>
+          )}
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Already have an account?{' '}
-          <Link to="/login">Login here</Link>
+          Already have an account? <Link to="/login">Login here</Link>
         </Typography>
       </Paper>
     </Box>

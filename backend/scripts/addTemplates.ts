@@ -13,15 +13,15 @@ const addTemplates = async () => {
       subject: 'Interview for {{jobTitle}}',
       body: `<p>Hi {{name}},</p>
 <p>Thanks for applying to <strong>{{jobTitle}}</strong>. We reviewed your application and would like to invite you to an interview. Please reply to this email to schedule a time.</p>
-<p>Best regards,<br/>Recruiting Team</p>`
+<p>Best regards,<br/>Recruiting Team</p>`,
     },
     {
       name: 'Application Update - Not moving forward',
       subject: 'Update on your application for {{jobTitle}}',
       body: `<p>Hi {{name}},</p>
 <p>Thank you for applying to <strong>{{jobTitle}}</strong>. We appreciate your interest, but we will not be moving forward with your application at this time. We wish you the best in your job search.</p>
-<p>Regards,<br/>Recruiting Team</p>`
-    }
+<p>Regards,<br/>Recruiting Team</p>`,
+    },
   ];
 
   try {

@@ -19,7 +19,14 @@ describe('Application email and messaging', () => {
 
   it('saves applicant email on apply and can send message (via Ethereal) to applicant', async () => {
     // create a job
-    const job = await Job.create({ title: 'Test Job', description: 'desc', company: 'Acme', location: 'Remote', level: 'Mid', type: 'Onsite' });
+    const job = await Job.create({
+      title: 'Test Job',
+      description: 'desc',
+      company: 'Acme',
+      location: 'Remote',
+      level: 'Mid',
+      type: 'Onsite',
+    });
 
     // apply with a fake PDF buffer
     const resApply = await request(app)

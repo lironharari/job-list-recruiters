@@ -24,14 +24,49 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="jobs" element={<JobList />} />
-            <Route path="create" element={<PrivateRoute><CreateJob /></PrivateRoute>} />
-            <Route path="edit/:id" element={<PrivateRoute><EditJob /></PrivateRoute>} />
-            <Route path="applications" element={<PrivateRoute><Applications /></PrivateRoute>} />
-            <Route path="jobs/:id/applications" element={<PrivateRoute><JobApplications /></PrivateRoute>} />
-            <Route path="templates" element={<PrivateRoute><Templates /></PrivateRoute>} />
+            <Route
+              path="create"
+              element={
+                <PrivateRoute>
+                  <CreateJob />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="edit/:id"
+              element={
+                <PrivateRoute>
+                  <EditJob />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="applications"
+              element={
+                <PrivateRoute>
+                  <Applications />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="jobs/:id/applications"
+              element={
+                <PrivateRoute>
+                  <JobApplications />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="templates"
+              element={
+                <PrivateRoute>
+                  <Templates />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

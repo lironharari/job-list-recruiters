@@ -1,4 +1,3 @@
-
 import { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -62,7 +61,7 @@ const ISRAEL_CITIES: Array<{ en: string }> = [
 function filterSuggestions(list: Array<{ en: string }>, value: string) {
   const q = value.trim().toLowerCase();
   if (!q) return list.slice(0, 6);
-  const matched = list.filter(item => item.en.toLowerCase().includes(q));
+  const matched = list.filter((item) => item.en.toLowerCase().includes(q));
   // If nothing matches, fall back to showing the full list (helpful UX)
   return (matched.length ? matched : list).slice(0, 8);
 }
@@ -78,15 +77,20 @@ type Props = {
   initialLocation?: string;
 };
 
-
-
 export default function Search(props: Props) {
-  const { title: controlledTitle, setTitle: controlledSetTitle, location: controlledLocation, setLocation: controlledSetLocation, initialTitle, initialLocation } = props;
+  const {
+    title: controlledTitle,
+    setTitle: controlledSetTitle,
+    location: controlledLocation,
+    setLocation: controlledSetLocation,
+    initialTitle,
+    initialLocation,
+  } = props;
   const [innerTitle, setInnerTitle] = useState(initialTitle || '');
   const [innerLocation, setInnerLocation] = useState(initialLocation || '');
   const navigate = useNavigate();
-  const titleOptions = useMemo(() => JOB_SUGGESTIONS.map(j => j.en), []);
-  const locationOptions = useMemo(() => ISRAEL_CITIES.map(c => c.en), []);
+  const titleOptions = useMemo(() => JOB_SUGGESTIONS.map((j) => j.en), []);
+  const locationOptions = useMemo(() => ISRAEL_CITIES.map((c) => c.en), []);
 
   // keep uncontrolled initial values in sync if props change
   useEffect(() => {
@@ -104,8 +108,6 @@ export default function Search(props: Props) {
     if (controlledLocation !== undefined) setInnerLocation(controlledLocation);
   }, [controlledLocation]);
 
-
-
   const doSearch = () => {
     if (controlledSetTitle) controlledSetTitle(innerTitle);
     if (controlledSetLocation) controlledSetLocation(innerLocation);
@@ -116,7 +118,13 @@ export default function Search(props: Props) {
   };
 
   return (
-    <Box display="flex" flexDirection={{ xs: 'column', sm: 'row' }} alignItems="center" gap={2} width="100%">
+    <Box
+      display="flex"
+      flexDirection={{ xs: 'column', sm: 'row' }}
+      alignItems="center"
+      gap={2}
+      width="100%"
+    >
       <Autocomplete
         freeSolo
         options={titleOptions}
@@ -137,7 +145,12 @@ export default function Search(props: Props) {
         )}
         sx={{ flex: 2, minWidth: 200 }}
       />
-      <Button variant="contained" color="primary" onClick={doSearch} sx={{ height: 56, minWidth: 120 }}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={doSearch}
+        sx={{ height: 56, minWidth: 120 }}
+      >
         Search
       </Button>
     </Box>

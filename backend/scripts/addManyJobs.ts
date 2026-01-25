@@ -50,23 +50,54 @@ const addManyJobs = async () => {
       'Data Engineer',
       'Game Developer',
       'Blockchain Developer',
-      'Computer Vision Engineer'
+      'Computer Vision Engineer',
     ];
 
     const extraCompanies = [
-      'NovaTech','Greenfield','Skyline','Horizons','ByteWorks','OptiCore',
-      'BlueWave','Sunrise Labs','QuantumLeap','Apex Systems','Nimbus','DeltaSoft',
-      'Vertex Solutions','PulseTech','Ironclad','BrightPath','Lumen','CloudEdge',
-      'NextGen','Elemental'
+      'NovaTech',
+      'Greenfield',
+      'Skyline',
+      'Horizons',
+      'ByteWorks',
+      'OptiCore',
+      'BlueWave',
+      'Sunrise Labs',
+      'QuantumLeap',
+      'Apex Systems',
+      'Nimbus',
+      'DeltaSoft',
+      'Vertex Solutions',
+      'PulseTech',
+      'Ironclad',
+      'BrightPath',
+      'Lumen',
+      'CloudEdge',
+      'NextGen',
+      'Elemental',
     ];
     const extraLocations = [
-      'Tel Aviv','Jerusalem','Haifa','Beersheba','Ramat Gan','Netanya',
-      'Raanana','Kfar Saba','Modiin','Eilat','Afula','Petah Tikva',
-      'Kiryat Ata','Holon','Rishon LeZion','Bat Yam','Herzliya','Nazareth'
+      'Tel Aviv',
+      'Jerusalem',
+      'Haifa',
+      'Beersheba',
+      'Ramat Gan',
+      'Netanya',
+      'Raanana',
+      'Kfar Saba',
+      'Modiin',
+      'Eilat',
+      'Afula',
+      'Petah Tikva',
+      'Kiryat Ata',
+      'Holon',
+      'Rishon LeZion',
+      'Bat Yam',
+      'Herzliya',
+      'Nazareth',
     ];
 
-    const jobLevel = ['Lead','Senior','Junior','Mid'];
-    const jobType = ['Remote','Contract','Hybrid','Onsite'];
+    const jobLevel = ['Lead', 'Senior', 'Junior', 'Mid'];
+    const jobType = ['Remote', 'Contract', 'Hybrid', 'Onsite'];
 
     const jobsToInsert: any[] = [];
     const total = 700;
@@ -83,7 +114,15 @@ const addManyJobs = async () => {
 
       const levelVal = randomFrom(jobLevel);
       const typeVal = randomFrom(jobType);
-      jobsToInsert.push({ title, company, location, salary, description, level: levelVal, type: typeVal });
+      jobsToInsert.push({
+        title,
+        company,
+        location,
+        salary,
+        description,
+        level: levelVal,
+        type: typeVal,
+      });
     }
 
     const result = await Job.insertMany(jobsToInsert, { ordered: false });

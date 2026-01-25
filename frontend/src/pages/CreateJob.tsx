@@ -13,7 +13,6 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-
 export default function CreateJob() {
   const [job, setJob] = useState<Job>({
     title: '',
@@ -29,7 +28,7 @@ export default function CreateJob() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setJob(prev => ({ ...prev, [name]: name === 'salary' ? Number(value) : value }));
+    setJob((prev) => ({ ...prev, [name]: name === 'salary' ? Number(value) : value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,15 +89,15 @@ export default function CreateJob() {
               id="level-select"
               value={job.level}
               label="Level"
-              fullWidth                            
-              onChange={e => setJob(prev => ({ ...prev, level: e.target.value }))}
+              fullWidth
+              onChange={(e) => setJob((prev) => ({ ...prev, level: e.target.value }))}
             >
-                <MenuItem value="Junior">Junior</MenuItem>
-                <MenuItem value="Mid">Mid</MenuItem>
-                <MenuItem value="Senior">Senior</MenuItem>
-                <MenuItem value="Lead">Lead</MenuItem>
+              <MenuItem value="Junior">Junior</MenuItem>
+              <MenuItem value="Mid">Mid</MenuItem>
+              <MenuItem value="Senior">Senior</MenuItem>
+              <MenuItem value="Lead">Lead</MenuItem>
             </Select>
-          </FormControl>         
+          </FormControl>
           <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
             <InputLabel id="type-select-label">Type</InputLabel>
             <Select
@@ -106,8 +105,8 @@ export default function CreateJob() {
               id="type-select"
               value={job.type}
               label="Type"
-              fullWidth                            
-              onChange={e => setJob(prev => ({ ...prev, type: e.target.value }))}
+              fullWidth
+              onChange={(e) => setJob((prev) => ({ ...prev, type: e.target.value }))}
             >
               <MenuItem value="Onsite">Onsite</MenuItem>
               <MenuItem value="Hybrid">Hybrid</MenuItem>
@@ -125,8 +124,12 @@ export default function CreateJob() {
             margin="normal"
           />
           <Box display="flex" justifyContent="flex-end" gap={2} mt={3}>
-            <Button variant="outlined" color="secondary" onClick={() => navigate('/jobs')}>Cancel</Button>
-            <Button variant="contained" color="primary" type="submit">Create</Button>
+            <Button variant="outlined" color="secondary" onClick={() => navigate('/jobs')}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              Create
+            </Button>
           </Box>
         </Box>
       </Paper>

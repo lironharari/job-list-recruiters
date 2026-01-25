@@ -70,74 +70,55 @@ router.get('/:id', async (req, res) => {
  */
 
 // Create a new job (Recruiter / Admin)
-router.post(
-  '/',
-  authenticate,
-  authorize('recruiter', 'admin'),
-  async (req, res) => {
-    try {
-      const { title, description, company, location, salary, level, type } = req.body;
+router.post('/', authenticate, authorize('recruiter', 'admin'), async (req, res) => {
+  try {
+    const { title, description, company, location, salary, level, type } = req.body;
 
-      const newJob = new Job({
-        title,
-        description,
-        company,
-        location,
-        salary,
-        level,
-        type
-      });
+    const newJob = new Job({
+      title,
+      description,
+      company,
+      location,
+      salary,
+      level,
+      type,
+    });
 
-      const savedJob = await newJob.save();
-      res.status(201).json(savedJob);
-    } catch {
-      res.status(400).json({ message: 'Invalid data' });
-    }
+    const savedJob = await newJob.save();
+    res.status(201).json(savedJob);
+  } catch {
+    res.status(400).json({ message: 'Invalid data' });
   }
-);
+});
 
 // Update a job by ID (Recruiter / Admin)
-router.put(
-  '/:id',
-  authenticate,
-  authorize('recruiter', 'admin'),
-  async (req, res) => {
-    try {
-      const updatedJob = await Job.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-      );
+router.put('/:id', authenticate, authorize('recruiter', 'admin'), async (req, res) => {
+  try {
+    const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-      if (!updatedJob) {
-        return res.status(404).json({ message: 'Job not found' });
-      }
-
-      res.json(updatedJob);
-    } catch {
-      res.status(400).json({ message: 'Invalid data' });
+    if (!updatedJob) {
+      return res.status(404).json({ message: 'Job not found' });
     }
+
+    res.json(updatedJob);
+  } catch {
+    res.status(400).json({ message: 'Invalid data' });
   }
-);
+});
 
 // Delete a job by ID (Recruiter / Admin)
-router.delete(
-  '/:id',
-  authenticate,
-  authorize('admin'),
-  async (req, res) => {
-    try {
-      const deletedJob = await Job.findByIdAndDelete(req.params.id);
+router.delete('/:id', authenticate, authorize('admin'), async (req, res) => {
+  try {
+    const deletedJob = await Job.findByIdAndDelete(req.params.id);
 
-      if (!deletedJob) {
-        return res.status(404).json({ message: 'Job not found' });
-      }
-
-      res.json({ message: 'Job deleted' });
-    } catch {
-      res.status(500).json({ message: 'Server error' });
+    if (!deletedJob) {
+      return res.status(404).json({ message: 'Job not found' });
     }
+
+    res.json({ message: 'Job deleted' });
+  } catch {
+    res.status(500).json({ message: 'Server error' });
   }
-);
+});
 
 export default router;

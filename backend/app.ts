@@ -14,32 +14,31 @@ const app = express();
 const devOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://drushim.onrender.com'
+  'https://drushim.onrender.com',
 ];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || devOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || devOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // serve uploaded resumes
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/templates', templateRoutes);
-app.use('/api', resendRoutes);
+app.use('/api/resend', resendRoutes);
 app.use('/api', applicationRoutes);
 app.use('/api/ai', aiRoutes);
-
-
 
 app.get('/', (_req, res) => {
   res.send('API is running');

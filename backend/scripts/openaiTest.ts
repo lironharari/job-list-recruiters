@@ -21,7 +21,7 @@ async function testOpenAI(): Promise<void> {
       messages: [
         { role: 'system', content: 'You are a helpful assistant.' },
         { role: 'user', content: 'Say hello!' },
-      ]
+      ],
     });
     console.log('OpenAI API response:', response.choices[0].message?.content);
   } catch (error: any) {

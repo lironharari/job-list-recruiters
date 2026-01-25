@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { Job } from '../types';
-import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
+import { GlobalWorkerOptions } from 'pdfjs-dist';
+import { extractTextFromPdf } from '../utils/text';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -23,7 +24,12 @@ api.interceptors.request.use((config) => {
 
 export type JobsResponse = { jobs: Job[]; total: number };
 
-export const fetchJobs = async (opts?: { page?: number; limit?: number; title?: string; location?: string; }) => {
+export const fetchJobs = async (opts?: {
+  page?: number;
+  limit?: number;
+  title?: string;
+  location?: string;
+}) => {
   const params: any = {};
   if (opts?.page) params.page = opts.page;
   if (opts?.limit) params.limit = opts.limit;
@@ -81,7 +87,10 @@ export const createTemplate = async (payload: { name: string; subject: string; b
   return res.data;
 };
 
-export const updateTemplate = async (id: string, payload: { name?: string; subject?: string; body?: string }) => {
+export const updateTemplate = async (
+  id: string,
+  payload: { name?: string; subject?: string; body?: string },
+) => {
   const res = await api.put(`/api/templates/${id}`, payload);
   return res.data;
 };
@@ -91,7 +100,10 @@ export const deleteTemplate = async (id: string) => {
   return res.data;
 };
 
-export const sendMessageToApplication = async (appId: string, payload: { subject?: string; body?: string; templateId?: string; email?: string }) => {
+export const sendMessageToApplication = async (
+  appId: string,
+  payload: { subject?: string; body?: string; templateId?: string; email?: string },
+) => {
   const res = await api.post(`/api/applications/${appId}/message`, payload);
   return res.data;
 };
@@ -106,26 +118,28 @@ export const fetchJob = async (id: string) => {
   return res.data;
 };
 
-export const sendResendEmail = async (payload: { applicationId: string; subject?: string; body?: string; templateId?: string; email?: string }) => {
-  const res = await api.post('/api/send-resend-email', payload, { withCredentials: true });
+export const sendResendEmail = async (payload: {
+  applicationId: string;
+  subject?: string;
+  body?: string;
+  templateId?: string;
+  email?: string;
+}) => {
+  const res = await api.post('/api/resend/send-resend-email', payload, { withCredentials: true });
   return res.data;
 };
 
-export async function extractTextFromPdf(file: Blob): Promise<string> {
-  const arrayBuffer = await file.arrayBuffer();
-  const pdf = await getDocument({ data: arrayBuffer }).promise;
-  let text = '';
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    text += content.items.map((item: any) => item.str).join(' ') + '\n';
-    if (text.length > 8000) break;
-  }
-  return text.slice(0, 8000);
+export async function extractText(file: Blob): Promise<string> {
+  const text = await extractTextFromPdf(file);
+  return text || 'No text available.';
 }
 
-export async function summarizePdf(file: Blob): Promise<string> {  
-  const text = await extractTextFromPdf(file);
+export async function summarizePdf(text: string): Promise<string> {
   const res = await api.post('/api/ai/summarize-pdf', { text });
   return res.data.summary || 'No summary available.';
+}
+
+export async function checkJobRelevance(pdfText: string, jobDescription: string): Promise<string> {
+  const res = await api.post('/api/ai/check-job-relevance', { pdfText, jobDescription });
+  return res.data.relevance || 'No relevance information available.';
 }

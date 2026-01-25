@@ -13,7 +13,14 @@ type Props = {
   totalCount: number;
 };
 
-export default function Pagination({ page, onPageChange, pageCount, startIndex, endIndex, totalCount }: Props) {
+export default function Pagination({
+  page,
+  onPageChange,
+  pageCount,
+  startIndex,
+  endIndex,
+  totalCount,
+}: Props) {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
@@ -42,7 +49,7 @@ export default function Pagination({ page, onPageChange, pageCount, startIndex, 
               const start = Math.max(2, page - 2);
               const end = Math.min(pageCount - 1, page + 2);
               for (let i = start; i <= end; i++) pages.add(i);
-              const sorted = Array.from(pages).sort((a,b)=>a-b);
+              const sorted = Array.from(pages).sort((a, b) => a - b);
               let last = 0;
               for (const pnum of sorted) {
                 if (last && pnum - last > 1) buttons.push('gap-' + last + '-' + pnum);
@@ -52,7 +59,11 @@ export default function Pagination({ page, onPageChange, pageCount, startIndex, 
             }
             return buttons.map((b) => {
               if (typeof b === 'string' && b.startsWith('gap-')) {
-                return <Typography key={b} variant="body2" sx={{ mx: 0.5 }}>…</Typography>;
+                return (
+                  <Typography key={b} variant="body2" sx={{ mx: 0.5 }}>
+                    …
+                  </Typography>
+                );
               }
               const pnum = b as number;
               return (

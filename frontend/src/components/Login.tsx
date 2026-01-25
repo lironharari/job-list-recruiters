@@ -44,7 +44,7 @@ const Login = () => {
             label="Email"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="email"
           />
@@ -54,23 +54,21 @@ const Login = () => {
             label="Password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="current-password"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 2, mb: 1 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 1 }}>
             Login
           </Button>
-          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Don't have an account?{' '}
-          <Link to="/register">Register here</Link>
+          Don't have an account? <Link to="/register">Register here</Link>
         </Typography>
       </Paper>
     </Box>

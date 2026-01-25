@@ -7,7 +7,16 @@ import Search from '../components/Search';
 export default function Home() {
   const theme = useTheme();
   return (
-    <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+    <Container
+      maxWidth="md"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '60vh',
+      }}
+    >
       <Box textAlign="center" mb={4}>
         <Typography variant="h3" component="h1" fontWeight={700} gutterBottom color="primary">
           Israel’s leading companies are looking for you!

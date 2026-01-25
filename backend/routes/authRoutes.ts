@@ -49,11 +49,11 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    console.log('User found:', email, 'Stored password hash exists:', !!user.password);
-    
+    //console.log('User found:', email, 'Stored password hash exists:', !!user.password);
+
     const valid = await comparePassword(password, user.password);
-    console.log('Password comparison result:', valid);
-    
+    //console.log('Password comparison result:', valid);
+
     if (!valid) {
       console.log('Invalid password for:', email);
       return res.status(401).json({ message: 'Invalid credentials' });

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { fetchTemplates, createTemplate, updateTemplate, deleteTemplate } from '../api/api';
 import type { Template } from '../types';
@@ -29,10 +28,14 @@ export default function Templates() {
       setTemplates(data || []);
     } catch (e) {
       // ignore for now
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+  }, []);
 
   const startCreate = () => {
     setForm({ name: '', subject: '', body: '' });
@@ -83,11 +86,11 @@ export default function Templates() {
               <Typography color="text.secondary">No templates yet</Typography>
             ) : (
               <List disablePadding>
-                {templates.map(t => (
+                {templates.map((t) => (
                   <ListItem key={t._id} disablePadding sx={{ mb: 1 }}>
                     <ListItemButton
                       selected={Boolean(selected && selected._id === t._id && showDetailsModal)}
-                      onClick={e => {
+                      onClick={(e) => {
                         setSelected(t);
                         setForm({ name: t.name, subject: t.subject, body: t.body });
                         setShowDetailsModal(true);

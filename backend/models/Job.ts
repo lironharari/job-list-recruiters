@@ -21,7 +21,7 @@ const JobSchema: Schema = new Schema(
     type: { type: String, required: true },
     salary: { type: Number },
   },
-  { timestamps: { createdAt: 'createdAt' } }
+  { timestamps: { createdAt: 'createdAt' } },
 );
 
 const Job = mongoose.model<IJob>('Job', JobSchema);

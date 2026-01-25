@@ -17,6 +17,15 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": ["app.ts", "server.ts", "config/**/*.ts", "models/**/*.ts", "routes/**/*.ts", "middleware/**/*.ts", "utils/**/*.ts", "__tests__/**/*.ts"],
+  "include": [
+    "app.ts",
+    "server.ts",
+    "config/**/*.ts",
+    "models/**/*.ts",
+    "routes/**/*.ts",
+    "middleware/**/*.ts",
+    "utils/**/*.ts",
+    "__tests__/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

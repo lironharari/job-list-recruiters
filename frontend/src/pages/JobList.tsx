@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useContext } from 'react';
 import DOMPurify from 'dompurify';
 import type { Job } from '../types';
@@ -36,7 +35,12 @@ export default function JobList() {
 
   const loadJobs = async (p = 1) => {
     setLoading(true);
-    const data = await fetchJobs({ page: p, limit: pageSize, title: title || undefined, location: locationState || undefined });
+    const data = await fetchJobs({
+      page: p,
+      limit: pageSize,
+      title: title || undefined,
+      location: locationState || undefined,
+    });
     setJobs(data.jobs || []);
     setTotalCount(data.total || 0);
     setLoading(false);
@@ -49,7 +53,9 @@ export default function JobList() {
       if (!mounted) return;
       await loadJobs(page);
     })();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, [page, title, locationState]);
 
   // Update URL params when search form changes
@@ -87,7 +93,12 @@ export default function JobList() {
     setApplyMessage(null);
   };
 
-  const handleModalSubmit = async (firstName: string, lastName: string, email: string, file: File) => {
+  const handleModalSubmit = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    file: File,
+  ) => {
     if (!applyJobId) return { success: false, message: 'No job selected' };
     const fd = new FormData();
     fd.append('firstName', firstName);
@@ -98,19 +109,23 @@ export default function JobList() {
       setSubmittingApplication(true);
       await applyToJob(applyJobId, fd);
       setApplyMessage('Application submitted');
-      setTimeout(() => { setApplyJobId(null); setApplyMessage(null); }, 1200);
+      setTimeout(() => {
+        setApplyJobId(null);
+        setApplyMessage(null);
+      }, 1200);
       return { success: true };
     } catch (err: any) {
       const msg = err?.response?.data?.message || 'Submission failed';
       setApplyMessage(msg);
       return { success: false, message: msg };
-    } finally { setSubmittingApplication(false); }
+    } finally {
+      setSubmittingApplication(false);
+    }
   };
-  
 
   const renderJobList = (list: Job[], titleTerm: string, locTerm: string) => (
     <Stack spacing={3} mt={2}>
-      {list.map(job => {
+      {list.map((job) => {
         const desc = job.description || '';
         const id = job._id as string | undefined;
         const isExpanded = id ? expanded.includes(id) : false;
@@ -128,7 +143,11 @@ export default function JobList() {
                     <ActionMenu
                       jobId={job._id as string}
                       isOpen={openMenu === (job._id as string)}
-                      onToggle={() => setOpenMenu(prev => prev === (job._id as string) ? null : (job._id as string))}
+                      onToggle={() =>
+                        setOpenMenu((prev) =>
+                          prev === (job._id as string) ? null : (job._id as string),
+                        )
+                      }
                       editPath={`/edit/${job._id}`}
                       canDelete={auth.role === 'admin'}
                       onDelete={() => handleDelete(job._id)}
@@ -137,20 +156,44 @@ export default function JobList() {
                 )}
               </Box>
               <Box display="flex" flexWrap="wrap" gap={1} mt={1} mb={1}>
-                <Typography variant="body2" color="text.secondary">{highlightText(job.company, titleTerm)}</Typography>
-                <Typography variant="body2" color="text.disabled">|</Typography>
-                <Typography variant="body2" color="text.secondary">{highlightText(job.location, locTerm)}</Typography>
-                <Typography variant="body2" color="text.disabled">|</Typography>
-                <Typography variant="body2" color="text.secondary">{job.level ?? 'N/A'}</Typography>
-                <Typography variant="body2" color="text.disabled">|</Typography>
-                <Typography variant="body2" color="text.secondary">{job.type ?? 'N/A'}</Typography>
-                <Typography variant="body2" color="text.disabled">|</Typography>
-                <Typography variant="body2" color="text.secondary">{job.salary ?? 'N/A'}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {highlightText(job.company, titleTerm)}
+                </Typography>
+                <Typography variant="body2" color="text.disabled">
+                  |
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {highlightText(job.location, locTerm)}
+                </Typography>
+                <Typography variant="body2" color="text.disabled">
+                  |
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {job.level ?? 'N/A'}
+                </Typography>
+                <Typography variant="body2" color="text.disabled">
+                  |
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {job.type ?? 'N/A'}
+                </Typography>
+                <Typography variant="body2" color="text.disabled">
+                  |
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {job.salary ?? 'N/A'}
+                </Typography>
               </Box>
               {!isExpanded ? (
-                <Typography variant="body2" sx={{ mb: 1 }}>{highlightText(short, titleTerm)}</Typography>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  {highlightText(short, titleTerm)}
+                </Typography>
               ) : (
-                <Box className="job-desc" sx={{ mb: 1 }} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(desc)) }} />
+                <Box
+                  className="job-desc"
+                  sx={{ mb: 1 }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdownToHtml(desc)) }}
+                />
               )}
               <Box display="flex" gap={2}>
                 {desc.length > 0 && (
@@ -160,7 +203,9 @@ export default function JobList() {
                     onClick={(e) => {
                       e.preventDefault();
                       if (!id) return;
-                      setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+                      setExpanded((prev) =>
+                        prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+                      );
                     }}
                     sx={{ cursor: 'pointer', color: 'primary.main', textDecoration: 'underline' }}
                     aria-expanded={isExpanded}
@@ -168,11 +213,14 @@ export default function JobList() {
                     {isExpanded ? 'Hide details' : 'See job details'}
                   </Typography>
                 )}
-                {(auth.role !== 'recruiter' && auth.role !== 'admin') && (
+                {auth.role !== 'recruiter' && auth.role !== 'admin' && (
                   <Typography
                     component="a"
                     href="#"
-                    onClick={(e) => { e.preventDefault(); if (id) openApply(id); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (id) openApply(id);
+                    }}
                     sx={{ cursor: 'pointer', color: 'primary.main', textDecoration: 'underline' }}
                   >
                     Apply
@@ -194,7 +242,6 @@ export default function JobList() {
       setLocation={setLocationState}
     />
   );
-
 
   // jobs is returned paginated from server
   const listToRender = jobs;
@@ -238,7 +285,9 @@ export default function JobList() {
         setOpenMenu(null);
       }
     };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpenMenu(null); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenMenu(null);
+    };
     document.addEventListener('click', onDocClick);
     document.addEventListener('keydown', onKey);
     return () => {
