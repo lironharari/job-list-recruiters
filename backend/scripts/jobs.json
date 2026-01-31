@@ -25,5 +25,339 @@
     "level": "Senior",
     "type": "Onsite",
     "description": "## DevOps Engineer\n\nWe are seeking a **DevOps Engineer** to help automate and scale our infrastructure.\n\n**Responsibilities**\n- Build and maintain CI/CD pipelines, infrastructure as code (Terraform).\n- Monitor, alert, and troubleshoot production systems.\n- Work with engineering teams to enable reliable deployments and observability.\n- Harden systems for security and compliance.\n\n**Requirements**\n- 3+ years experience with cloud platforms (AWS/Azure/GCP).\n- Experience with Docker, Kubernetes, Terraform, and CI tools.\n- Strong Linux skills and scripting (Bash, Python).\n- Familiarity with logging/monitoring stacks (Prometheus, Grafana, ELK).\n\n**Perks:** Equipment allowance and well-being benefits."
-  }
+  },
+  {
+    "title": "QA Engineer",
+    "company": "NovaTech",
+    "location": "Raanana",
+    "salary": 14000,
+    "level": "Mid",
+    "type": "Remote",
+    "description": "## QA Engineer\n\nWe are seeking a detail-oriented **QA Engineer** to join our QA team and ensure product quality and reliability.\n\n**Responsibilities**\n- Develop and execute test plans.\n- Automate regression tests.\n- Collaborate with developers and product managers.\n\n**Requirements**\n- 2+ years experience in QA.\n- Familiarity with automation tools.\n- Strong analytical skills.\n\n**Benefits:** Flexible hours, remote work."
+  },
+  {
+    "title": "Product Manager",
+    "company": "Greenfield",
+    "location": "Herzliya",
+    "salary": 20000,
+    "level": "Senior",
+    "type": "Hybrid",
+    "description": "## Product Manager\n\nWe are looking for an experienced **Product Manager** to lead product development and strategy.\n\n**Responsibilities**\n- Define product vision.\n- Work with cross-functional teams.\n- Prioritize features and roadmap.\n\n**Requirements**\n- 4+ years experience in product management.\n- Excellent communication skills.\n- Experience with agile methodologies.\n\n**Perks:** Stock options, flexible PTO."
+  },
+  {
+    "title": "Cloud Engineer",
+    "company": "Skyline",
+    "location": "Netanya",
+    "salary": 17500,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## Cloud Engineer\n\nWe are seeking a skilled **Cloud Engineer** to design and manage scalable cloud infrastructure.\n\n**Responsibilities**\n- Architect cloud solutions.\n- Automate deployments.\n- Monitor and optimize resources.\n\n**Requirements**\n- 3+ years with AWS/Azure/GCP.\n- Scripting and automation experience.\n- Security best practices.\n\n**Benefits:** Training budget, wellness programs."
+  },
+  {
+    "title": "AI Engineer",
+    "company": "QuantumLeap",
+    "location": "Modiin",
+    "salary": 22000,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## AI Engineer\n\nDevelop and deploy AI models for real-world applications.\n\n**Responsibilities**\n- Build machine learning pipelines.\n- Collaborate with data scientists.\n- Optimize model performance.\n\n**Requirements**\n- 2+ years in AI/ML.\n- Python, TensorFlow/PyTorch.\n- Data engineering skills.\n\n**Perks:** Research budget, remote work."
+  },
+  {
+    "title": "Technical Writer",
+    "company": "PulseTech",
+    "location": "Petah Tikva",
+    "salary": 12000,
+    "level": "Junior",
+    "type": "Hybrid",
+    "description": "## Technical Writer\n\nCreate clear and concise documentation for products.\n\n**Responsibilities**\n- Write user guides and API docs.\n- Work with engineers and designers.\n- Edit and proofread content.\n\n**Requirements**\n- 1+ year in technical writing.\n- Excellent English skills.\n- Attention to detail.\n\n**Benefits:** Mentorship, flexible schedule."
+  },
+  {
+    "title": "Business Analyst",
+    "company": "Horizons",
+    "location": "Afula",
+    "salary": 16000,
+    "level": "Mid",
+    "type": "Onsite",
+    "description": "## Business Analyst\n\nAnalyze business processes and recommend improvements.\n\n**Responsibilities**\n- Gather requirements.\n- Create reports and dashboards.\n- Support project management.\n\n**Requirements**\n- 2+ years in business analysis.\n- Strong Excel/SQL skills.\n- Communication skills.\n\n**Perks:** Career growth, team events."
+  },
+  {
+    "title": "Site Reliability Engineer",
+    "company": "Ironclad",
+    "location": "Holon",
+    "salary": 18500,
+    "level": "Senior",
+    "type": "Contract",
+    "description": "## Site Reliability Engineer\n\nEnsure system reliability and uptime.\n\n**Responsibilities**\n- Monitor production systems.\n- Automate incident response.\n- Improve deployment pipelines.\n\n**Requirements**\n- 3+ years in SRE/DevOps.\n- Experience with monitoring tools.\n- Coding/scripting skills.\n\n**Benefits:** On-call bonus, remote option."
+  },
+  {
+    "title": "Embedded Software Engineer",
+    "company": "Elemental",
+    "location": "Nazareth",
+    "salary": 17000,
+    "level": "Mid",
+    "type": "Onsite",
+    "description": "## Embedded Software Engineer\n\nDevelop firmware for embedded devices.\n\n**Responsibilities**\n- Write and debug C/C++ code.\n- Integrate with hardware.\n- Test and validate systems.\n\n**Requirements**\n- 2+ years in embedded development.\n- C/C++ proficiency.\n- Electronics knowledge.\n\n**Perks:** Lab access, hardware discounts."
+  },
+  {
+    "title": "Platform Engineer",
+    "company": "BlueWave",
+    "location": "Bat Yam",
+    "salary": 18000,
+    "level": "Lead",
+    "type": "Hybrid",
+    "description": "## Platform Engineer\n\nBuild and maintain scalable platform infrastructure.\n\n**Responsibilities**\n- Develop platform services.\n- Ensure high availability.\n- Collaborate with product teams.\n\n**Requirements**\n- 3+ years in platform engineering.\n- Cloud and automation experience.\n- Problem-solving skills.\n\n**Benefits:** Stock options, flexible PTO."
+  },
+  {
+    "title": "Game Developer",
+    "company": "NextGen",
+    "location": "Eilat",
+    "salary": 15000,
+    "level": "Junior",
+    "type": "Remote",
+    "description": "## Game Developer\n\nDesign and develop engaging games.\n\n**Responsibilities**\n- Implement game mechanics.\n- Collaborate with artists and designers.\n- Optimize performance.\n\n**Requirements**\n- 1+ year in game development.\n- Unity/Unreal experience.\n- Creativity and teamwork.\n\n**Perks:** Game jams, equipment budget."
+  },
+  {
+    "title": "Machine Learning Engineer",
+    "company": "Vertex Solutions",
+    "location": "Kiryat Ata",
+    "salary": 21000,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## Machine Learning Engineer\n\nDevelop and deploy ML models for business solutions.\n\n**Responsibilities**\n- Build scalable ML pipelines.\n- Collaborate with data teams.\n- Optimize model performance.\n\n**Requirements**\n- 2+ years in ML.\n- Python, TensorFlow, scikit-learn.\n- Data engineering skills.\n\n**Perks:** Research budget, remote work."
+  },
+  {
+    "title": "Business Analyst",
+    "company": "PulseTech",
+    "location": "Holon",
+    "salary": 15500,
+    "level": "Mid",
+    "type": "Hybrid",
+    "description": "## Business Analyst\n\nAnalyze business processes and recommend improvements.\n\n**Responsibilities**\n- Gather requirements.\n- Create reports and dashboards.\n- Support project management.\n\n**Requirements**\n- 2+ years in business analysis.\n- Strong Excel/SQL skills.\n- Communication skills.\n\n**Perks:** Career growth, team events."
+  },
+  {
+    "title": "Scrum Master",
+    "company": "Ironclad",
+    "location": "Rishon LeZion",
+    "salary": 17000,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## Scrum Master\n\nFacilitate agile ceremonies and remove blockers.\n\n**Responsibilities**\n- Lead daily standups.\n- Coach agile teams.\n- Track sprint progress.\n\n**Requirements**\n- 2+ years as Scrum Master.\n- Agile certification.\n- Communication skills.\n\n**Perks:** Training budget, flexible PTO."
+  },
+  {
+    "title": "Technical Writer",
+    "company": "BrightPath",
+    "location": "Herzliya",
+    "salary": 13000,
+    "level": "Junior",
+    "type": "Remote",
+    "description": "## Technical Writer\n\nCreate clear and concise documentation for products.\n\n**Responsibilities**\n- Write user guides and API docs.\n- Work with engineers and designers.\n- Edit and proofread content.\n\n**Requirements**\n- 1+ year in technical writing.\n- Excellent English skills.\n- Attention to detail.\n\n**Benefits:** Mentorship, flexible schedule."
+  },
+  {
+    "title": "Cloud Engineer",
+    "company": "CloudEdge",
+    "location": "Beersheba",
+    "salary": 18500,
+    "level": "Lead",
+    "type": "Hybrid",
+    "description": "## Cloud Engineer\n\nDesign and manage scalable cloud infrastructure.\n\n**Responsibilities**\n- Architect cloud solutions.\n- Automate deployments.\n- Monitor and optimize resources.\n\n**Requirements**\n- 3+ years with AWS/Azure/GCP.\n- Scripting and automation experience.\n- Security best practices.\n\n**Benefits:** Training budget, wellness programs."
+  },
+  {
+    "title": "Frontend Developer",
+    "company": "DeltaSoft",
+    "location": "Bat Yam",
+    "salary": 15000,
+    "level": "Mid",
+    "type": "Remote",
+    "description": "## Frontend Developer\n\nBuild and maintain responsive web applications using React and TypeScript.\n\n**Responsibilities**\n- Implement UI designs.\n- Optimize performance and accessibility.\n- Collaborate with designers and backend engineers.\n\n**Requirements**\n- 3+ years experience with React and TypeScript.\n- Familiarity with build tools.\n- Good eye for detail.\n\n**Benefits:** Remote-friendly, flexible hours."
+  },
+  {
+    "title": "QA Engineer",
+    "company": "Sunrise Labs",
+    "location": "Petah Tikva",
+    "salary": 14000,
+    "level": "Mid",
+    "type": "Onsite",
+    "description": "## QA Engineer\n\nEnsure product quality and reliability.\n\n**Responsibilities**\n- Develop and execute test plans.\n- Automate regression tests.\n- Collaborate with developers.\n\n**Requirements**\n- 2+ years in QA.\n- Automation tools experience.\n- Analytical skills.\n\n**Benefits:** Flexible hours, remote work."
+  },
+  {
+    "title": "Platform Engineer",
+    "company": "Apex Systems",
+    "location": "Kfar Saba",
+    "salary": 18000,
+    "level": "Lead",
+    "type": "Hybrid",
+    "description": "## Platform Engineer\n\nBuild and maintain scalable platform infrastructure.\n\n**Responsibilities**\n- Develop platform services.\n- Ensure high availability.\n- Collaborate with product teams.\n\n**Requirements**\n- 3+ years in platform engineering.\n- Cloud and automation experience.\n- Problem-solving skills.\n\n**Benefits:** Stock options, flexible PTO."
+  },
+  {
+    "title": "Game Developer",
+    "company": "NextGen",
+    "location": "Nazareth",
+    "salary": 15000,
+    "level": "Junior",
+    "type": "Remote",
+    "description": "## Game Developer\n\nDesign and develop engaging games.\n\n**Responsibilities**\n- Implement game mechanics.\n- Collaborate with artists and designers.\n- Optimize performance.\n\n**Requirements**\n- 1+ year in game development.\n- Unity/Unreal experience.\n- Creativity and teamwork.\n\n**Perks:** Game jams, equipment budget."
+  },
+  {
+    "title": "AI Engineer",
+    "company": "Lumen",
+    "location": "Tel Aviv",
+    "salary": 22000,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## AI Engineer\n\nDevelop and deploy AI models for real-world applications.\n\n**Responsibilities**\n- Build machine learning pipelines.\n- Collaborate with data scientists.\n- Optimize model performance.\n\n**Requirements**\n- 2+ years in AI/ML.\n- Python, TensorFlow/PyTorch.\n- Data engineering skills.\n\n**Perks:** Research budget, remote work."
+  },
+  {
+    "title": "DevOps Engineer",
+    "company": "PulseTech",
+    "location": "Holon",
+    "salary": 17500,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## DevOps Engineer\n\nAutomate and optimize infrastructure.\n\n**Responsibilities**\n- Build CI/CD pipelines.\n- Manage cloud deployments.\n- Monitor system health.\n\n**Requirements**\n- 3+ years in DevOps.\n- Experience with AWS/Azure.\n- Scripting skills.\n\n**Benefits:** Equipment allowance, team events."
+  },
+  {
+    "title": "Business Analyst",
+    "company": "Horizons",
+    "location": "Raanana",
+    "salary": 16000,
+    "level": "Mid",
+    "type": "Onsite",
+    "description": "## Business Analyst\n\nAnalyze business processes and recommend improvements.\n\n**Responsibilities**\n- Gather requirements.\n- Create reports and dashboards.\n- Support project management.\n\n**Requirements**\n- 2+ years in business analysis.\n- Strong Excel/SQL skills.\n- Communication skills.\n\n**Perks:** Career growth, team events."
+  },
+  {
+    "title": "Site Reliability Engineer",
+    "company": "Ironclad",
+    "location": "Herzliya",
+    "salary": 18500,
+    "level": "Senior",
+    "type": "Contract",
+    "description": "## Site Reliability Engineer\n\nEnsure system reliability and uptime.\n\n**Responsibilities**\n- Monitor production systems.\n- Automate incident response.\n- Improve deployment pipelines.\n\n**Requirements**\n- 3+ years in SRE/DevOps.\n- Experience with monitoring tools.\n- Coding/scripting skills.\n\n**Benefits:** On-call bonus, remote option."
+  },
+  {
+    "title": "Embedded Software Engineer",
+    "company": "Elemental",
+    "location": "Modiin",
+    "salary": 17000,
+    "level": "Mid",
+    "type": "Onsite",
+    "description": "## Embedded Software Engineer\n\nDevelop firmware for embedded devices.\n\n**Responsibilities**\n- Write and debug C/C++ code.\n- Integrate with hardware.\n- Test and validate systems.\n\n**Requirements**\n- 2+ years in embedded development.\n- C/C++ proficiency.\n- Electronics knowledge.\n\n**Perks:** Lab access, hardware discounts."
+  },
+  {
+    "title": "Network Administrator",
+    "company": "CloudNine",
+    "location": "Eilat",
+    "salary": 15500,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## Network Administrator\n\nManage and secure network infrastructure.\n\n**Responsibilities**\n- Configure routers and switches.\n- Monitor network performance.\n- Troubleshoot connectivity issues.\n\n**Requirements**\n- 2+ years in network admin.\n- Cisco/Juniper experience.\n- Security best practices.\n\n**Benefits:** Certification support, wellness programs."
+  },
+  {
+    "title": "Database Administrator",
+    "company": "Greenfield",
+    "location": "Afula",
+    "salary": 16500,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## Database Administrator\n\nMaintain and optimize databases.\n\n**Responsibilities**\n- Backup and restore data.\n- Tune database performance.\n- Ensure data security.\n\n**Requirements**\n- 3+ years in DBA role.\n- SQL Server/MySQL/Postgres.\n- Scripting skills.\n\n**Perks:** Conference budget, remote work."
+  },
+  {
+    "title": "Full Stack Developer",
+    "company": "NovaTech",
+    "location": "Jerusalem",
+    "salary": 16000,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## Full Stack Developer\n\nJoin our dynamic team to build scalable web applications.\n\n**Responsibilities**\n- Develop both frontend and backend features.\n- Collaborate with cross-functional teams.\n- Write clean, maintainable code.\n\n**Requirements**\n- 3+ years experience in full stack development.\n- Proficiency in JavaScript/TypeScript.\n- Experience with Node.js and React.\n\n**Benefits:** Flexible work, tech conferences."
+  },
+  {
+    "title": "Data Scientist",
+    "company": "Greenfield",
+    "location": "Haifa",
+    "salary": 18000,
+    "level": "Mid",
+    "type": "Hybrid",
+    "description": "## Data Scientist\n\nAnalyze data and build predictive models.\n\n**Responsibilities**\n- Collect and process large datasets.\n- Develop machine learning models.\n- Communicate insights to stakeholders.\n\n**Requirements**\n- 2+ years in data science.\n- Python, pandas, scikit-learn.\n- Strong statistics background.\n\n**Perks:** Research budget, remote work."
+  },
+  {
+    "title": "DevOps Engineer",
+    "company": "Skyline",
+    "location": "Ramat Gan",
+    "salary": 17500,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## DevOps Engineer\n\nAutomate and optimize infrastructure.\n\n**Responsibilities**\n- Build CI/CD pipelines.\n- Manage cloud deployments.\n- Monitor system health.\n\n**Requirements**\n- 3+ years in DevOps.\n- Experience with AWS/Azure.\n- Scripting skills.\n\n**Benefits:** Equipment allowance, team events."
+  },
+  {
+    "title": "Product Manager",
+    "company": "ByteWorks",
+    "location": "Netanya",
+    "salary": 20000,
+    "level": "Senior",
+    "type": "Hybrid",
+    "description": "## Product Manager\n\nDrive product vision and execution.\n\n**Responsibilities**\n- Define product strategy.\n- Lead agile teams.\n- Gather user feedback.\n\n**Requirements**\n- 4+ years in product management.\n- Strong leadership skills.\n- Experience with SaaS products.\n\n**Perks:** Stock options, flexible PTO."
+  },
+  {
+    "title": "UX/UI Designer",
+    "company": "OptiCore",
+    "location": "Raanana",
+    "salary": 15000,
+    "level": "Mid",
+    "type": "Remote",
+    "description": "## UX/UI Designer\n\nDesign intuitive user interfaces.\n\n**Responsibilities**\n- Create wireframes and prototypes.\n- Conduct user research.\n- Collaborate with developers.\n\n**Requirements**\n- 2+ years in UX/UI design.\n- Figma, Sketch, Adobe XD.\n- Portfolio of design projects.\n\n**Benefits:** Design workshops, remote work."
+  },
+  {
+    "title": "Mobile Developer",
+    "company": "BlueWave",
+    "location": "Modiin",
+    "salary": 17000,
+    "level": "Junior",
+    "type": "Onsite",
+    "description": "## Mobile Developer\n\nDevelop mobile applications for iOS and Android.\n\n**Responsibilities**\n- Build and maintain mobile apps.\n- Work with designers and backend engineers.\n- Optimize app performance.\n\n**Requirements**\n- 1+ year in mobile development.\n- React Native/Flutter.\n- Published apps in app stores.\n\n**Perks:** Device budget, flexible hours."
+  },
+  {
+    "title": "QA Engineer",
+    "company": "Sunrise Labs",
+    "location": "Eilat",
+    "salary": 14000,
+    "level": "Mid",
+    "type": "Remote",
+    "description": "## QA Engineer\n\nEnsure product quality and reliability.\n\n**Responsibilities**\n- Develop and execute test plans.\n- Automate regression tests.\n- Collaborate with developers.\n\n**Requirements**\n- 2+ years in QA.\n- Automation tools experience.\n- Analytical skills.\n\n**Benefits:** Flexible hours, remote work."
+  },
+  {
+    "title": "Systems Analyst",
+    "company": "QuantumLeap",
+    "location": "Afula",
+    "salary": 16000,
+    "level": "Senior",
+    "type": "Hybrid",
+    "description": "## Systems Analyst\n\nAnalyze and improve IT systems.\n\n**Responsibilities**\n- Gather requirements.\n- Design system solutions.\n- Support implementation.\n\n**Requirements**\n- 3+ years in systems analysis.\n- SQL, UML, BPMN.\n- Communication skills.\n\n**Perks:** Training budget, team events."
+  },
+  {
+    "title": "Network Administrator",
+    "company": "Apex Systems",
+    "location": "Holon",
+    "salary": 15500,
+    "level": "Lead",
+    "type": "Onsite",
+    "description": "## Network Administrator\n\nManage and secure network infrastructure.\n\n**Responsibilities**\n- Configure routers and switches.\n- Monitor network performance.\n- Troubleshoot connectivity issues.\n\n**Requirements**\n- 2+ years in network admin.\n- Cisco/Juniper experience.\n- Security best practices.\n\n**Benefits:** Certification support, wellness programs."
+  },
+  {
+    "title": "Database Administrator",
+    "company": "Greenfield",
+    "location": "Afula",
+    "salary": 16500,
+    "level": "Senior",
+    "type": "Remote",
+    "description": "## Database Administrator\n\nMaintain and optimize databases.\n\n**Responsibilities**\n- Backup and restore data.\n- Tune database performance.\n- Ensure data security.\n\n**Requirements**\n- 3+ years in DBA role.\n- SQL Server/MySQL/Postgres.\n- Scripting skills.\n\n**Perks:** Conference budget, remote work."
+  },
+  {"title":"Full Stack Developer","company":"NovaTech","location":"Tel Aviv","salary":16000,"level":"Senior","type":"Remote","description":"## Full Stack Developer\n\nJoin our dynamic team to build scalable web applications.\n\n**Responsibilities**\n- Develop both frontend and backend features.\n- Collaborate with cross-functional teams.\n- Write clean, maintainable code.\n\n**Requirements**\n- 3+ years experience in full stack development.\n- Proficiency in JavaScript/TypeScript.\n- Experience with Node.js and React.\n\n**Benefits:** Flexible work, tech conferences."},
+  {"title":"Data Scientist","company":"Greenfield","location":"Jerusalem","salary":18000,"level":"Mid","type":"Hybrid","description":"## Data Scientist\n\nAnalyze data and build predictive models.\n\n**Responsibilities**\n- Collect and process large datasets.\n- Develop machine learning models.\n- Communicate insights to stakeholders.\n\n**Requirements**\n- 2+ years in data science.\n- Python, pandas, scikit-learn.\n- Strong statistics background.\n\n**Perks:** Research budget, remote work."},
+  {"title":"DevOps Engineer","company":"Skyline","location":"Haifa","salary":17500,"level":"Lead","type":"Onsite","description":"## DevOps Engineer\n\nAutomate and optimize infrastructure.\n\n**Responsibilities**\n- Build CI/CD pipelines.\n- Manage cloud deployments.\n- Monitor system health.\n\n**Requirements**\n- 3+ years in DevOps.\n- Experience with AWS/Azure.\n- Scripting skills.\n\n**Benefits:** Equipment allowance, team events."},
+  {"title":"Product Manager","company":"ByteWorks","location":"Ramat Gan","salary":20000,"level":"Senior","type":"Hybrid","description":"## Product Manager\n\nDrive product vision and execution.\n\n**Responsibilities**\n- Define product strategy.\n- Lead agile teams.\n- Gather user feedback.\n\n**Requirements**\n- 4+ years in product management.\n- Strong leadership skills.\n- Experience with SaaS products.\n\n**Perks:** Stock options, flexible PTO."},
+  {"title":"UX/UI Designer","company":"OptiCore","location":"Netanya","salary":15000,"level":"Mid","type":"Remote","description":"## UX/UI Designer\n\nDesign intuitive user interfaces.\n\n**Responsibilities**\n- Create wireframes and prototypes.\n- Conduct user research.\n- Collaborate with developers.\n\n**Requirements**\n- 2+ years in UX/UI design.\n- Figma, Sketch, Adobe XD.\n- Portfolio of design projects.\n\n**Benefits:** Design workshops, remote work."},
+  {"title":"Mobile Developer","company":"BlueWave","location":"Raanana","salary":17000,"level":"Junior","type":"Onsite","description":"## Mobile Developer\n\nDevelop mobile applications for iOS and Android.\n\n**Responsibilities**\n- Build and maintain mobile apps.\n- Work with designers and backend engineers.\n- Optimize app performance.\n\n**Requirements**\n- 1+ year in mobile development.\n- React Native/Flutter.\n- Published apps in app stores.\n\n**Perks:** Device budget, flexible hours."},
+  {"title":"QA Engineer","company":"Sunrise Labs","location":"Kfar Saba","salary":14000,"level":"Mid","type":"Remote","description":"## QA Engineer\n\nEnsure product quality and reliability.\n\n**Responsibilities**\n- Develop and execute test plans.\n- Automate regression tests.\n- Collaborate with developers.\n\n**Requirements**\n- 2+ years in QA.\n- Automation tools experience.\n- Analytical skills.\n\n**Benefits:** Flexible hours, remote work."},
+  {"title":"Systems Analyst","company":"QuantumLeap","location":"Modiin","salary":16000,"level":"Senior","type":"Hybrid","description":"## Systems Analyst\n\nAnalyze and improve IT systems.\n\n**Responsibilities**\n- Gather requirements.\n- Design system solutions.\n- Support implementation.\n\n**Requirements**\n- 3+ years in systems analysis.\n- SQL, UML, BPMN.\n- Communication skills.\n\n**Perks:** Training budget, team events."},
+  {"title":"Network Administrator","company":"Apex Systems","location":"Eilat","salary":15500,"level":"Lead","type":"Onsite","description":"## Network Administrator\n\nManage and secure network infrastructure.\n\n**Responsibilities**\n- Configure routers and switches.\n- Monitor network performance.\n- Troubleshoot connectivity issues.\n\n**Requirements**\n- 2+ years in network admin.\n- Cisco/Juniper experience.\n- Security best practices.\n\n**Benefits:** Certification support, wellness programs."},
+  {"title":"Database Administrator","company":"Nimbus","location":"Afula","salary":16500,"level":"Senior","type":"Remote","description":"## Database Administrator\n\nMaintain and optimize databases.\n\n**Responsibilities**\n- Backup and restore data.\n- Tune database performance.\n- Ensure data security.\n\n**Requirements**\n- 3+ years in DBA role.\n- SQL Server/MySQL/Postgres.\n- Scripting skills.\n\n**Perks:** Conference budget, remote work."}
 ]

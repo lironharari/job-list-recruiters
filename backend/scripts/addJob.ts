@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { connectDB } from '../config/db';
 import Job from '../models/Job';
+import { Client } from '@elastic/elasticsearch';
 
 dotenv.config();
 
@@ -39,10 +40,40 @@ _Apply at:_ [https://example.com/careers](https://example.com/careers)
     level: 'Senior',
     type: 'Onsite',
   });
+  
+  const elasticApiKey = process.env.ELASTICSEARCH_API_KEY;
+  if (!elasticApiKey) {
+    throw new Error('ELASTICSEARCH_API_KEY is not defined');
+  }
+  const elasticClient = new Client({
+    node: process.env.ELASTICSEARCH_URL,
+    auth: { apiKey: elasticApiKey },
+    serverMode: 'serverless',
+  });
 
   try {
     const saved = await job.save();
     console.log('Job created with id:', saved._id);
+    // Sync to ElasticSearch
+    try {
+      await elasticClient.index({
+        index: 'jobs',
+        id: saved._id.toString(),
+        document: {
+          title: saved.title,
+          description: saved.description,
+          company: saved.company,
+          location: saved.location,
+          salary: saved.salary,
+          level: saved.level,
+          type: saved.type,
+          createdAt: saved.createdAt,
+        },
+      });
+      console.log('Job indexed in ElasticSearch:', saved._id);
+    } catch (esErr) {
+      console.error('Failed to index job in ElasticSearch:', esErr);
+    }
   } catch (err) {
     console.error('Failed to create job:', err);
   } finally {

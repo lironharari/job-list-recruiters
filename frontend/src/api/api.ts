@@ -143,3 +143,17 @@ export async function checkJobRelevance(pdfText: string, jobDescription: string)
   const res = await api.post('/api/ai/check-job-relevance', { pdfText, jobDescription });
   return res.data.relevance || 'No relevance information available.';
 }
+
+export async function checkJobKeywords(
+  pdfText: string,
+  jobDescription: string
+): Promise<{
+  pdfTextKeywords: string[];
+  jobDescriptionKeywords: string[];
+}> {
+  const res = await api.post('/api/ai/check-job-keywords', { pdfText, jobDescription });
+  return {
+    pdfTextKeywords: res.data.pdfTextKeywords || [],
+    jobDescriptionKeywords: res.data.jobDescriptionKeywords || [],
+  };
+}

@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import { getSummary, getRelevance } from '../utils/ai';
+import { getSummary, getRelevance, getKeywords } from '../utils/ai';
 
 const router = express.Router();
 
@@ -16,6 +16,21 @@ router.post('/check-job-relevance', async (req: Request, res: Response) => {
     res.json({ relevance });
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to check job relevance' });
+  }
+});
+
+router.post('/check-job-keywords', async (req: Request, res: Response) => {
+  try {
+    if (!req.body) return res.status(400).json({ error: 'No req body' });
+    const pdfText = req.body.pdfText?.slice(0, 8000) || '';
+    const jobDescription = req.body.jobDescription?.slice(0, 8000) || '';
+    if (!pdfText || !jobDescription) {
+      return res.status(400).json({ error: 'Missing pdfText or jobDescription' });
+    }
+    const { pdfTextKeywords, jobDescriptionKeywords } = await getKeywords(pdfText, jobDescription);
+    res.json({ pdfTextKeywords, jobDescriptionKeywords });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to check job keywords' });
   }
 });
 

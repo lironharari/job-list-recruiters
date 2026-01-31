@@ -108,9 +108,10 @@ export default function Search(props: Props) {
     if (controlledLocation !== undefined) setInnerLocation(controlledLocation);
   }, [controlledLocation]);
 
-  const doSearch = () => {
+  const doSearch = async () => {
     if (controlledSetTitle) controlledSetTitle(innerTitle);
     if (controlledSetLocation) controlledSetLocation(innerLocation);
+
     const params = new URLSearchParams();
     if (innerTitle.trim()) params.set('title', innerTitle.trim());
     if (innerLocation.trim()) params.set('location', innerLocation.trim());

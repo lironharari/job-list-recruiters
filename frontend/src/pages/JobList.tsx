@@ -40,7 +40,7 @@ export default function JobList() {
       limit: pageSize,
       title: title || undefined,
       location: locationState || undefined,
-    });
+    });    
     setJobs(data.jobs || []);
     setTotalCount(data.total || 0);
     setLoading(false);
@@ -77,8 +77,8 @@ export default function JobList() {
 
   const handleDelete = async (id: string | undefined) => {
     if (!id) return;
-    if (window.confirm('Delete this job?')) {
-      await deleteJob(id);
+    if (window.confirm('Delete this job?')) {      
+      await deleteJob(id);      
       loadJobs(page);
     }
   };

@@ -27,7 +27,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { summarizePdf, extractText, checkJobRelevance } from '../api/api';
+import { summarizePdf, extractText, checkJobRelevance, checkJobKeywords } from '../api/api';
 
 export default function Applications() {
   const [expandedAppId, setExpandedAppId] = useState<string | null>(null);
@@ -43,6 +43,14 @@ export default function Applications() {
   const [selectedTemplate, setSelectedTemplate] = useState<string | undefined>(undefined);
   const [summaryText, setSummaryText] = useState<string | null>(null);
   const [jobRelevance, setJobRelevance] = useState<string | null>(null);
+  const [jobKeywords, setJobKeywords] = useState<
+    | {
+        pdfTextKeywords: string[];
+        jobDescriptionKeywords: string[];
+      }
+    | string
+    | null
+  >(null);
   const auth = useContext(AuthContext);
 
   const openJobModal = async (jobRef: string | Job | undefined) => {
@@ -116,6 +124,12 @@ export default function Applications() {
         setJobRelevance(relevance);
       } else {
         setJobRelevance('Not enough data for relevance check.');
+      }
+      if (pdfText && jobDescription && checkJobKeywords) {
+        const keywords = await checkJobKeywords(pdfText, jobDescription);
+        setJobKeywords(keywords);
+      } else {
+        setJobKeywords('Not enough data for keywords check.');
       }
     } catch (e: any) {
       setJobRelevance('Job relevance check failed.');
@@ -355,6 +369,30 @@ export default function Applications() {
                               ) : (
                                 <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                                   No relevance check yet.
+                                </Typography>
+                              )}
+                              {jobKeywords && typeof jobKeywords === 'object' ? (
+                                <Box sx={{ mt: 1 }}>
+                                  <Typography variant="subtitle2">Resume Keywords:</Typography>
+                                  <Typography variant="body2" sx={{ mb: 1 }}>
+                                    {jobKeywords.pdfTextKeywords.join(', ') || 'None'}
+                                  </Typography>
+                                  <Typography variant="subtitle2">Job Description Keywords:</Typography>
+                                  <Typography variant="body2" sx={{ mb: 1 }}>
+                                    {jobKeywords.jobDescriptionKeywords.join(', ') || 'None'}
+                                  </Typography>
+                                  <Typography variant="subtitle2">Matching Keywords:</Typography>
+                                  <Typography variant="body2">
+                                    {/* {jobKeywords.matchingKeywords.join(', ') || 'None'} */}
+                                  </Typography>
+                                </Box>
+                              ) : jobKeywords && typeof jobKeywords === 'string' ? (
+                                <Typography variant="body1" sx={{ mt: 1 }}>
+                                  {jobKeywords}
+                                </Typography>
+                              ) : (
+                                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                  No keywords check yet.
                                 </Typography>
                               )}
                             </Box>
